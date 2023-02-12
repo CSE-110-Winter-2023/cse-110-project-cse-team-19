@@ -11,6 +11,7 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private LocationService locationService;
+    private OrientationService orientationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +34,10 @@ public class MainActivity extends AppCompatActivity {
                         Double.toString(loc.second));
         });
 
+        orientationService = new OrientationService(this);
+        TextView orientationView = (TextView) findViewById(R.id.orientationView);
+        orientationService.getOrientation().observe(this, orientation->{
+            orientationView.setText(Float.toString(orientation));
+        });
     }
 }
