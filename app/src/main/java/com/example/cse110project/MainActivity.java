@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                         Double.toString(loc.second));
         });
 
-        orientationService = new OrientationService(this);
+        orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientationView);
         orientationService.getOrientation().observe(this, orientation->{
             orientationView.setText(Float.toString(orientation));

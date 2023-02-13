@@ -62,8 +62,8 @@ public class OrientationService implements SensorEventListener {
             throw new IllegalStateException("Both sensors must be available to compute orientation.");
         }
 
-        float[] r = new float[9];
-        float[] i = new float[9];
+        var r = new float[9];
+        var i = new float[9];
         boolean success = SensorManager.getRotationMatrix(r,i,accelerometerReading,magnetometerReading);
         if(success) {
             float[] orientation = new float[3];
