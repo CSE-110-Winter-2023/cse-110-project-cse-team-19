@@ -39,11 +39,12 @@ public class OrientationServiceTest {
 
             var orientationService = OrientationService.singleton(activity);
             orientationService.setMockOrientationSource(mockDataSource);
+            orientationService.getOrientation().observe(activity, orientation->{
+                assertEquals(orientation,expected,0);
+            });
 
-            TextView textView = activity.findViewById(R.id.orientationView);
-            var observed = Float.parseFloat(textView.getText().toString());
-
-            //assertEquals(observed,expected,0);
+            //TextView textView = activity.findViewById(R.id.orientationView);
+            //var observed = Float.parseFloat(textView.getText().toString());
         });
     }
 }
