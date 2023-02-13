@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/red_icon"
         android:layout_width="39dp"
         android:layout_height="38dp"
         app:srcCompat="@drawable/icon_red"
@@ -26,7 +26,7 @@
         tools:layout_editor_absoluteY="506dp" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/blue_icon"
         android:layout_width="39dp"
         android:layout_height="38dp"
         app:srcCompat="@drawable/icons_blue"
@@ -34,7 +34,7 @@
         tools:layout_editor_absoluteY="166dp" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/purple_icon"
         android:layout_width="39dp"
         android:layout_height="38dp"
         app:srcCompat="@drawable/icons_purple"
