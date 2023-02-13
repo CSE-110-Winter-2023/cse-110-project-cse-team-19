@@ -16,7 +16,6 @@ import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
 public class CompassTest {
-    @Config(sdk = 31)
     @Test
     public void test_UI_exists(){
         var scenario = ActivityScenario.launch(CompassActivity.class);
