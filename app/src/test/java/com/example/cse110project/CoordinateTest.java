@@ -1,8 +1,5 @@
 package com.example.cse110project;
 
-import android.content.Context;
-
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Test;
@@ -17,7 +14,7 @@ import static org.junit.Assert.*;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class ExampleUnitTest {
+public class CoordinateTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
