@@ -18,8 +18,7 @@
         <activity
             android:name=".LocAndOrientActivity"
             android:exported="false" />
-        </activity>
-        <activity>
+        <activity
             android:name=".CoordinateActivity"
             android:exported="false">
             <meta-data
