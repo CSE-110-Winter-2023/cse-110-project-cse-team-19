@@ -16,6 +16,9 @@
         android:theme="@style/Theme.CSE110Project"
         tools:targetApi="31">
         <activity
+            android:name=".LocAndOrientActivity"
+            android:exported="false" />
+        <activity
             android:name=".CoordinateActivity"
             android:exported="false">
             <meta-data
