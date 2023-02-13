@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CSE110Project</string>
+    <string name="inputLocationText">Please Input the Latitudes/Longitudes of each Home</string>
+    <string name="inputLabelText">Please Input the Label of each Home</string>
+    <string name="pHome">Personal Home</string>
+    <string name="fHome">Family Home</string>
+    <string name="frHome">Friends Home</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    <string name="enterLatLon">Enter Latitude/Longitude</string>
+    <string name="enterLabel">Enter Label</string>
 </resources>
