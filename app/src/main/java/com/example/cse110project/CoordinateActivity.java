@@ -50,8 +50,8 @@ public class CoordinateActivity extends AppCompatActivity {
             //Does nothing
         }
 
-        else if (mineList.length != 2 || !Utilities.isValidLongitude(mineList[0]) ||
-                !Utilities.isValidLatitude(mineList[1])) {
+        else if (mineList.length != 2 || !Utilities.isValidLatitude(mineList[0]) ||
+                !Utilities.isValidLongitude(mineList[1])) {
             canSwitch = false;
             Utilities.showAlert(this, "Personal home coordinates not formatted properly. " +
                     "Must be two numbers separated by a single space.");
@@ -62,8 +62,8 @@ public class CoordinateActivity extends AppCompatActivity {
             //Does nothing
         }
 
-        else if (familyList.length != 2 || !Utilities.isValidLongitude(familyList[0]) ||
-                !Utilities.isValidLatitude(familyList[1])){
+        else if (familyList.length != 2 || !Utilities.isValidLatitude(familyList[0]) ||
+                !Utilities.isValidLongitude(familyList[1])){
             canSwitch = false;
             Utilities.showAlert(this, "Family home coordinates not formatted properly. " +
                     "Must be two numbers separated by a single space.");
@@ -73,8 +73,8 @@ public class CoordinateActivity extends AppCompatActivity {
         if (friend.length() == 0){
             //Does nothing
         }
-        else if (friendList.length != 2 || !Utilities.isValidLongitude(friendList[0]) ||
-                !Utilities.isValidLatitude(friendList[1])){
+        else if (friendList.length != 2 || !Utilities.isValidLatitude(friendList[0]) ||
+                !Utilities.isValidLongitude(friendList[1])){
             canSwitch = false;
             Utilities.showAlert(this, "Friend home coordinates not formatted properly. " +
                     "Must be two numbers separated by a single space.");
