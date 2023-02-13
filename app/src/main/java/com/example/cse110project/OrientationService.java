@@ -81,8 +81,8 @@ public class OrientationService implements SensorEventListener {
     }
 
     public void setMockOrientationSource(MutableLiveData<Float> mockDataSource) {
-        unregisterSensorListeners();
-        this.azimuth = mockDataSource;
+        instance.unregisterSensorListeners();
+        instance.azimuth = mockDataSource;
     }
 
     /*
