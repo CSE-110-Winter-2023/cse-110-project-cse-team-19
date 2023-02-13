@@ -30,7 +30,7 @@ public class OrientationServiceTest {
         app.grantPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        var scenario = ActivityScenario.launch(MainActivity.class);
+        var scenario = ActivityScenario.launch(LocAndOrientActivity.class);
         scenario.moveToState(Lifecycle.State.CREATED);
         scenario.onActivity(activity -> {
             var mockDataSource = new MutableLiveData<Float>();
