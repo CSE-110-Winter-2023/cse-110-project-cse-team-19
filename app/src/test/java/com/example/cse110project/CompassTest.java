@@ -2,6 +2,8 @@ package com.example.cse110project;
 
 import static org.junit.Assert.assertEquals;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,15 +37,23 @@ public class CompassTest {
 
     @Test
     public void test_MyHomeDisplay(){
-        LabelActivity activity = Robolectric.buildActivity(LabelActivity.class).create().start().resume().get();
 
-        EditText myLabel = activity.findViewById(R.id.personalHomeTextBox);
+        CoordinateActivity activity = Robolectric.buildActivity(CoordinateActivity.class).create().start().resume().get();
+        LabelActivity labelActivity = Robolectric.buildActivity(LabelActivity.class).create().start().resume().get();
+        CompassActivity compassActivity = Robolectric.buildActivity(CompassActivity.class).create().start().resume().get();
+
+        EditText myLabel = activity.findViewById(R.id.personalHomeCoords);
         myLabel.setText("12.82 -05.12");
 
-        Button submitButton = activity.findViewById(R.id.submit_btn);
+        Button nextButton = activity.findViewById(R.id.next_btn);
+        nextButton.performClick();
+
+        Button submitButton = labelActivity.findViewById(R.id.submit_btn);
         submitButton.performClick();
 
-        ImageView homeIcon = activity.findViewById(R.id.red_icon);
+        ImageView homeIcon = compassActivity.findViewById(R.id.red_icon);
+
         assertEquals(View.VISIBLE, homeIcon.getVisibility());
+
     }
 }

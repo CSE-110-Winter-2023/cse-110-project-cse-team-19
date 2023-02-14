@@ -17,7 +17,7 @@ public class CompassActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_compass);setContentView(R.layout.activity_compass);
 
         ImageView homeIcon = findViewById(R.id.red_icon);
         ImageView familyIcon = findViewById(R.id.blue_icon);
@@ -28,24 +28,22 @@ public class CompassActivity extends AppCompatActivity {
         friendIcon.setVisibility(View.INVISIBLE);
 
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        String homeLatLong = preferences.getString("myLabel", "default_value");
-        String friendLatLong = preferences.getString("friendLabel", "default_value");
-        String familyLatLong = preferences.getString("familyLabel", "default_value");
+        String homeLatLong = preferences.getString("mine", "");
+        String friendLatLong = preferences.getString("family", "");
+        String familyLatLong = preferences.getString("friend", "");
 
-        if(!homeLatLong.equals("default_value")){
+        System.out.println(homeLatLong);
+
+        if(!homeLatLong.equals("")){
             homeIcon.setVisibility(View.VISIBLE);
         }
 
-        if(!friendLatLong.equals("default_value")){
+        if(!friendLatLong.equals("")){
             friendIcon.setVisibility(View.VISIBLE);
         }
 
-        if(!familyLatLong.equals("default_value")){
+        if(!familyLatLong.equals("")){
             familyIcon.setVisibility(View.VISIBLE);
         }
-
-        setContentView(R.layout.activity_compass);setContentView(R.layout.activity_compass);
-
     }
-
 }
