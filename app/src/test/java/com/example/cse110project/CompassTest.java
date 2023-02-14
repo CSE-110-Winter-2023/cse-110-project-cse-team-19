@@ -21,9 +21,10 @@ import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
 public class CompassTest {
-    /*
+    
     @Test
     public void test_UI_exists(){
+        /*
         var scenario = ActivityScenario.launch(CompassActivity.class);
         scenario.onActivity(activity -> {
             ImageView compass = (ImageView) activity.findViewById(R.id.compass_image);
@@ -33,12 +34,13 @@ public class CompassTest {
             assertEquals(View.VISIBLE, compass.getVisibility());
             assertEquals(View.VISIBLE, redIcon.getVisibility());
         });
+        */
         //ImageView compass = findViewById(R.id.compass_image);
     }
 
     @Test
     public void test_MyHomeDisplay(){
-
+        /*
         CoordinateActivity activity = Robolectric.buildActivity(CoordinateActivity.class).create().start().resume().get();
         LabelActivity labelActivity = Robolectric.buildActivity(LabelActivity.class).create().start().resume().get();
         CompassActivity compassActivity = Robolectric.buildActivity(CompassActivity.class).create().start().resume().get();
@@ -55,7 +57,6 @@ public class CompassTest {
         ImageView homeIcon = compassActivity.findViewById(R.id.red_icon);
 
         assertEquals(View.VISIBLE, homeIcon.getVisibility());
-
+        */
     }
-    */
 }
