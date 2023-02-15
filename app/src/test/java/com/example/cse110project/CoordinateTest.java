@@ -32,8 +32,8 @@ public class CoordinateTest {
 
     @Test
     public void parseStringTest() {
-        String s1 = "Not a coordinate";
-        String s2 = "12.82 -05.12";
+        String s1 = "Not, a, coordinate";
+        String s2 = "12.82, -05.12";
 
         String[] s1List = Utilities.parseCoords(s1);
         String[] s2List = Utilities.parseCoords(s2);

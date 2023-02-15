@@ -61,4 +61,10 @@ public class CompassTest {
         assertEquals(View.VISIBLE, homeIcon.getVisibility());
         */
     }
+    @Test public void testDegrees(){
+        double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
+        double sanDiegoCountyDegrees = Utilities.findAngle(32.88129, -117.23758, 32.778364, -118.116286);
+        System.out.println(gliderPortDegrees);
+        System.out.println(sanDiegoCountyDegrees);
+    }
 }
