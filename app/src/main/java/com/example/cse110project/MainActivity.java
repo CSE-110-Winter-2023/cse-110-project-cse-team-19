@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.locationView);
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
-        ImageView redBox = (ImageView) findViewById(R.id.red_icon);
-        ImageView blueBox = (ImageView) findViewById(R.id.blue_icon);
 
         locationService.getLocation().observe(this, loc->{
             textView.setText(Double.toString(loc.first) + " , " +
@@ -70,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
             double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
             double sanDiegoCountyDegrees = Utilities.findAngle(32.88129, -117.23758, 32.778364, -116.116286);
 
-            ConstraintLayout.LayoutParams redLayoutParams = (ConstraintLayout.LayoutParams) redBox.getLayoutParams();
-            ConstraintLayout.LayoutParams blueLayoutParams = (ConstraintLayout.LayoutParams) blueBox.getLayoutParams();
+            ConstraintLayout.LayoutParams redLayoutParams = (ConstraintLayout.LayoutParams) homeIcon.getLayoutParams();
+            ConstraintLayout.LayoutParams blueLayoutParams = (ConstraintLayout.LayoutParams) familyIcon.getLayoutParams();
 
             redLayoutParams.circleAngle = (float) gliderPortDegrees;
             blueLayoutParams.circleAngle = (float) sanDiegoCountyDegrees;
-            redBox.setLayoutParams(redLayoutParams);
-            blueBox.setLayoutParams(blueLayoutParams);
+            homeIcon.setLayoutParams(redLayoutParams);
+            familyIcon.setLayoutParams(blueLayoutParams);
         });
 
         orientationService = OrientationService.singleton(this);
