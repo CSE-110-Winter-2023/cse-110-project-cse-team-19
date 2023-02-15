@@ -7,6 +7,16 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+import android.content.SharedPreferences;
+
+import android.content.SharedPreferences;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static android.content.Context.MODE_PRIVATE;
+import static org.junit.Assert.assertEquals;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -56,6 +66,19 @@ public class CoordinateTest {
 
     @Test
     public void checkLongitudeTest() {
+
+    }
+
+    @Test
+    public void savePreferenceTest(){
+        SharedPreferences preferences = InstrumentationRegistry.getInstrumentation().getTargetContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("mine", "12.82 -05.12");
+        editor.apply();
+
+        String value = preferences.getString("mine", null);
+
+        assertEquals("12.82 -05.12", value);
 
     }
 }
