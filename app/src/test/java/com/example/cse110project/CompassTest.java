@@ -1,23 +1,34 @@
 package com.example.cse110project;
 
+import static android.content.Context.MODE_PRIVATE;
 import static org.junit.Assert.assertEquals;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.Application;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.TextView;
 import android.widget.ImageView;
-import androidx.lifecycle.Lifecycle;
 
+import androidx.lifecycle.Lifecycle;
+import androidx.test.core.app.ApplicationProvider;
+import android.content.Context;
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
+
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowApplication;
+import org.mockito.Mockito;
+import android.content.pm.PackageManager;
+
 
 @RunWith(RobolectricTestRunner.class)
 public class CompassTest {
@@ -40,26 +51,27 @@ public class CompassTest {
 
     @Test
     public void test_MyHomeDisplay(){
-        /*
-        MainActivity mainActivity = Robolectric.buildActivity(CoordinateActivity.class).create().start().resume().get();
 
-        CoordinateActivity activity = Robolectric.buildActivity(CoordinateActivity.class).create().start().resume().get();
-        LabelActivity labelActivity = Robolectric.buildActivity(LabelActivity.class).create().start().resume().get();
-        CompassActivity compassActivity = Robolectric.buildActivity(CompassActivity.class).create().start().resume().get();
+        SharedPreferences preferences = InstrumentationRegistry.getInstrumentation().getTargetContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("mine", "12.82 -05.12");
+        editor.apply();
 
-        EditText myLabel = activity.findViewById(R.id.personalHomeCoords);
-        myLabel.setText("12.82 -05.12");
+        Application application = ApplicationProvider.getApplicationContext();
 
-        Button nextButton = activity.findViewById(R.id.next_btn);
-        nextButton.performClick();
+        ShadowApplication app = Shadows.shadowOf(application);
+        app.grantPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        Button submitButton = labelActivity.findViewById(R.id.submit_btn);
-        submitButton.performClick();
+        var scenario = ActivityScenario.launch(MainActivity.class);
+        scenario.moveToState(Lifecycle.State.CREATED);
+        scenario.onActivity(activity -> {
+            ImageView homeIcon = activity.findViewById(R.id.red_icon);
+            TextView homeText = activity.findViewById(R.id.homeLabelDisplay);
+            assertEquals(View.VISIBLE, homeIcon.getVisibility());
+            assertEquals(View.VISIBLE, homeText.getVisibility());
+        });
 
-        ImageView homeIcon = compassActivity.findViewById(R.id.red_icon);
-
-        assertEquals(View.VISIBLE, homeIcon.getVisibility());
-        */
     }
     @Test public void testDegrees(){
         double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
