@@ -14,11 +14,13 @@ import java.util.ArrayList;
 
 public class CoordinateActivity extends AppCompatActivity {
 
+    private SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        applyCoordinates();
+        preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
 
     }
 
@@ -89,26 +91,22 @@ public class CoordinateActivity extends AppCompatActivity {
     }
 
     public void saveCoordinates() {
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
-        EditText myCoords = findViewById(R.id.personalHomeCoords);
-        EditText familyCoords = findViewById(R.id.familyHomeCoords);
-        EditText friendCoords = findViewById(R.id.friendsHomeCoords);
+        String testMyCoords = findViewById(R.id.personalHomeCoords).toString();
+        String testFamilyCoords = findViewById(R.id.familyHomeCoords).toString();
+        String testFriendCoords = findViewById(R.id.friendsHomeCoords).toString();
 
-        String mine = myCoords.getText().toString();
-        String family = familyCoords.getText().toString();
-        String friend = friendCoords.getText().toString();
-
-        editor.putString("mine", mine);
-        editor.putString("family", family);
-        editor.putString("friend", friend);
+        editor.putString("mine", testMyCoords);
+        editor.putString("family", testFamilyCoords);
+        editor.putString("friend", testFriendCoords);
 
         editor.apply();
     }
 
+    //Possibly Delete?
     public void applyCoordinates() {
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+
         EditText myCoords = findViewById(R.id.personalHomeCoords);
         EditText familyCoords = findViewById(R.id.familyHomeCoords);
         EditText friendCoords = findViewById(R.id.friendsHomeCoords);
