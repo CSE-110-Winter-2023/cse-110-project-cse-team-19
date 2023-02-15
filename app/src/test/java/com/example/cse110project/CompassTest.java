@@ -41,6 +41,8 @@ public class CompassTest {
     @Test
     public void test_MyHomeDisplay(){
         /*
+        MainActivity mainActivity = Robolectric.buildActivity(CoordinateActivity.class).create().start().resume().get();
+
         CoordinateActivity activity = Robolectric.buildActivity(CoordinateActivity.class).create().start().resume().get();
         LabelActivity labelActivity = Robolectric.buildActivity(LabelActivity.class).create().start().resume().get();
         CompassActivity compassActivity = Robolectric.buildActivity(CompassActivity.class).create().start().resume().get();
