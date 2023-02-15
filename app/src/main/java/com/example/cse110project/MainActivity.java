@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         ImageView familyIcon = findViewById(R.id.blue_icon);
         ImageView friendIcon = findViewById(R.id.purple_icon);
 
-        homeIcon.setVisibility(View.VISIBLE);
-        familyIcon.setVisibility(View.VISIBLE);
+        homeIcon.setVisibility(View.INVISIBLE);
+        familyIcon.setVisibility(View.INVISIBLE);
         friendIcon.setVisibility(View.INVISIBLE);
 
         SharedPreferences preferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
