@@ -3,8 +3,8 @@ package com.example.cse110project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
-
 import android.content.SharedPreferences;
+
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
         ImageView familyIcon = findViewById(R.id.blue_icon);
         ImageView friendIcon = findViewById(R.id.purple_icon);
 
-        homeIcon.setVisibility(View.INVISIBLE);
-        familyIcon.setVisibility(View.INVISIBLE);
+        homeIcon.setVisibility(View.VISIBLE);
+        familyIcon.setVisibility(View.VISIBLE);
         friendIcon.setVisibility(View.INVISIBLE);
 
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
         String homeLatLong = preferences.getString("mine", "");
         String friendLatLong = preferences.getString("family", "");
         String familyLatLong = preferences.getString("friend", "");
@@ -57,13 +57,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         TextView textView = (TextView) findViewById(R.id.locationView);
+        ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
+        ImageView redBox = (ImageView) findViewById(R.id.red_icon);
+        ImageView blueBox = (ImageView) findViewById(R.id.blue_icon);
 
         locationService.getLocation().observe(this, loc->{
             textView.setText(Double.toString(loc.first) + " , " +
                     Double.toString(loc.second));
-        });
+            String gilderPort = "32.89075438019187, -117.25108298507078";
+            String ourLocation = "32.88129, -117.23758";
 
-        ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
+            double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
+            double sanDiegoCountyDegrees = Utilities.findAngle(32.88129, -117.23758, 32.778364, -116.116286);
+
+            ConstraintLayout.LayoutParams redLayoutParams = (ConstraintLayout.LayoutParams) redBox.getLayoutParams();
+            ConstraintLayout.LayoutParams blueLayoutParams = (ConstraintLayout.LayoutParams) blueBox.getLayoutParams();
+
+            redLayoutParams.circleAngle = (float) gliderPortDegrees;
+            blueLayoutParams.circleAngle = (float) sanDiegoCountyDegrees;
+            redBox.setLayoutParams(redLayoutParams);
+            blueBox.setLayoutParams(blueLayoutParams);
+        });
 
         orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
