@@ -4,20 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.TextView;
-import android.os.Bundle;
 import android.widget.ImageView;
-
-import java.util.Optional;
 
 public class CompassActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compass);setContentView(R.layout.activity_compass);
+        setContentView(R.layout.activity_main);
 
         ImageView homeIcon = findViewById(R.id.red_icon);
         ImageView familyIcon = findViewById(R.id.blue_icon);
