@@ -23,10 +23,17 @@ public class MainActivity extends AppCompatActivity {
         ImageView homeIcon = findViewById(R.id.red_icon);
         ImageView familyIcon = findViewById(R.id.blue_icon);
         ImageView friendIcon = findViewById(R.id.purple_icon);
+        TextView homeLabel = findViewById(R.id.homeLabelDisplay);
+        TextView familyLabel = findViewById(R.id.familyLabelDisplay);
+        TextView friendLabel = findViewById(R.id.friendLabelDisplay);
 
         homeIcon.setVisibility(View.INVISIBLE);
         familyIcon.setVisibility(View.INVISIBLE);
         friendIcon.setVisibility(View.INVISIBLE);
+        homeLabel.setVisibility(View.INVISIBLE);
+        familyLabel.setVisibility(View.INVISIBLE);
+        friendLabel.setVisibility(View.INVISIBLE);
+
 
         SharedPreferences preferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
         String homeLatLong = preferences.getString("mine", "");
@@ -37,14 +44,17 @@ public class MainActivity extends AppCompatActivity {
 
         if(!homeLatLong.equals("")){
             homeIcon.setVisibility(View.VISIBLE);
+            homeLabel.setVisibility(View.VISIBLE);
         }
 
         if(!friendLatLong.equals("")){
             friendIcon.setVisibility(View.VISIBLE);
+            friendLabel.setVisibility(View.VISIBLE);
         }
 
         if(!familyLatLong.equals("")){
             familyIcon.setVisibility(View.VISIBLE);
+            familyLabel.setVisibility(View.VISIBLE);
         }
 
         if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED

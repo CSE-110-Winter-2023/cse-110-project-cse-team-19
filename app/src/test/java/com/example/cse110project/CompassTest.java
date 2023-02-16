@@ -43,8 +43,17 @@ public class CompassTest {
         scenario.onActivity(activity -> {
             ImageView homeIcon = activity.findViewById(R.id.red_icon);
             TextView homeText = activity.findViewById(R.id.homeLabelDisplay);
+            ImageView familyIcon = activity.findViewById(R.id.blue_icon);
+            TextView familyText = activity.findViewById(R.id.familyLabelDisplay);
+            ImageView friendIcon = activity.findViewById(R.id.purple_icon);
+            TextView friendText = activity.findViewById(R.id.friendLabelDisplay);
+
             assertEquals(View.VISIBLE, homeIcon.getVisibility());
             assertEquals(View.VISIBLE, homeText.getVisibility());
+            assertEquals(View.INVISIBLE, familyIcon.getVisibility());
+            assertEquals(View.INVISIBLE, familyText.getVisibility());
+            assertEquals(View.INVISIBLE, friendIcon.getVisibility());
+            assertEquals(View.INVISIBLE, friendText.getVisibility());
         });
 
     }
