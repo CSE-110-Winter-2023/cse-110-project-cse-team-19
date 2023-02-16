@@ -3,6 +3,8 @@ package com.example.cse110project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.content.pm.PackageManager;
@@ -83,5 +85,11 @@ public class MainActivity extends AppCompatActivity {
             orientationView.setText(Float.toString(orientation));
             layout.setRotation((float) Math.toDegrees(-orientation));
         });
+    }
+
+    public void onBackClicked(View view) {
+        Intent intent = new Intent(this, LabelActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
