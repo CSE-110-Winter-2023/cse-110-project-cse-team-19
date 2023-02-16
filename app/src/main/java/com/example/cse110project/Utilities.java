@@ -82,4 +82,8 @@ public class Utilities {
         }
         return degrees;
     }
+
+    public static double stringToDouble(String str){
+        return Double.parseDouble(str);
+    }
 }
