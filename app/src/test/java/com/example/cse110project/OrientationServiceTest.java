@@ -20,9 +20,12 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+
 @RunWith(RobolectricTestRunner.class)
 public class OrientationServiceTest {
-
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
     @Test
     public void test_orientation_service(){
         Application application = ApplicationProvider.getApplicationContext();
@@ -30,21 +33,24 @@ public class OrientationServiceTest {
         app.grantPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        var scenario = ActivityScenario.launch(MainActivity.class);
-        scenario.moveToState(Lifecycle.State.CREATED);
+        var testValue = 3.5f;
+
+        var scenario = ActivityScenario.launch(CompassActivity.class);
+        scenario.moveToState(Lifecycle.State.STARTED);
         scenario.onActivity(activity -> {
-            var mockDataSource = new MutableLiveData<Float>();
-            var expected = 2.65386f;
-            mockDataSource.setValue(expected);
-
             var orientationService = OrientationService.singleton(activity);
-            orientationService.setMockOrientationSource(mockDataSource);
-            orientationService.getOrientation().observe(activity, orientation->{
-                assertEquals(orientation,expected,0);
-            });
 
-            //TextView textView = activity.findViewById(R.id.orientationView);
-            //var observed = Float.parseFloat(textView.getText().toString());
+            var mockOrientation = new MutableLiveData<Float>();
+            orientationService.setMockOrientationSource(mockOrientation);
+            // We don't want to have to do this! It's not our job to tell the activity!
+            activity.reobserveOrientation();
+
+            mockOrientation.setValue(testValue);
+            TextView textView = activity.findViewById(R.id.orientation);
+
+            var expected = Float.toString(testValue);
+            var observed = textView.getText().toString();
+            assertEquals(expected, observed);
         });
     }
 }

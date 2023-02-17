@@ -132,6 +132,17 @@ public class CompassActivity extends AppCompatActivity {
         });
     }
 
+    //for orientation testing
+    public void reobserveOrientation() {
+        var orientationData = orientationService.getOrientation();
+        orientationData.observe(this, this::onOrientationChanged);
+    }
+
+    private void onOrientationChanged(Float orientation) {
+        TextView orientationText = findViewById(R.id.orientation);
+        orientationText.setText(Float.toString(orientation));
+    }
+
     public void backToCoordinates(View view) {
         finish();
     }
