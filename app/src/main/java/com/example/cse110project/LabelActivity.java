@@ -24,7 +24,7 @@ public class LabelActivity extends AppCompatActivity {
     }
 
     public void onSubmitClicked(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, CompassActivity.class);
         startActivity(intent);
         finish();
     }
