@@ -65,30 +65,30 @@ public class CompassActivity extends AppCompatActivity {
 
         // Else makes labels away if they decide to get rid of
         // coordinates for any reason, doesn't work rn tho
-        else {
-            homeIcon.setVisibility(View.INVISIBLE);
-            homeLabel.setVisibility(View.INVISIBLE);
-        }
+//        else {
+//            homeIcon.setVisibility(View.INVISIBLE);
+//            homeLabel.setVisibility(View.INVISIBLE);
+//        }
 
         if(!friendLatLong.equals("")){
             friendIcon.setVisibility(View.VISIBLE);
             friendLabel.setVisibility(View.VISIBLE);
         }
 
-        else {
-            friendIcon.setVisibility(View.INVISIBLE);
-            friendLabel.setVisibility(View.INVISIBLE);
-        }
+//        else {
+//            friendIcon.setVisibility(View.INVISIBLE);
+//            friendLabel.setVisibility(View.INVISIBLE);
+//        }
 
         if(!familyLatLong.equals("")){
             familyIcon.setVisibility(View.VISIBLE);
             familyLabel.setVisibility(View.VISIBLE);
         }
 
-        else {
-            familyIcon.setVisibility(View.INVISIBLE);
-            familyLabel.setVisibility(View.INVISIBLE);
-        }
+//        else {
+//            familyIcon.setVisibility(View.INVISIBLE);
+//            familyLabel.setVisibility(View.INVISIBLE);
+//        }
 
         if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
