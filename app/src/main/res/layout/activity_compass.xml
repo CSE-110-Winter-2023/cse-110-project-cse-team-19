@@ -77,7 +77,7 @@
             android:id="@+id/red_icon"
             android:layout_width="39dp"
             android:layout_height="38dp"
-            app:srcCompat="@drawable/red"
+            app:srcCompat="@drawable/icon_red"
 
 
             app:layout_constraintBottom_toTopOf="@+id/compass_image"
@@ -93,7 +93,7 @@
             android:id="@+id/blue_icon"
             android:layout_width="39dp"
             android:layout_height="38dp"
-            app:srcCompat="@drawable/blue"
+            app:srcCompat="@drawable/icons_blue"
 
             app:layout_constraintBottom_toTopOf="@+id/compass_image"
             app:layout_constraintCircle="@+id/compassLayout"
