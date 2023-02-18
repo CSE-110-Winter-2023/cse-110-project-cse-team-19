@@ -3,6 +3,8 @@ package com.example.cse110project;
 import android.app.Activity;
 import android.app.AlertDialog;
 
+import java.util.Locale;
+
 public class Utilities {
     public static void showAlert(Activity activity, String message){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
@@ -85,5 +87,11 @@ public class Utilities {
 
     public static double stringToDouble(String str){
         return Double.parseDouble(str);
+    }
+
+    static String formatLocation(double latitude, double longitude) {
+        return String.format(Locale.US, "%.0f° %.0f' %.0f\" N, %.0f° %.0f' %.0f\" W",
+                Math.abs(latitude), Math.abs(latitude % 1) * 60, Math.abs(latitude % 1 % 1) * 60,
+                Math.abs(longitude), Math.abs(longitude % 1) * 60, Math.abs(longitude % 1 % 1) * 60);
     }
 }

@@ -3,8 +3,8 @@ package com.example.cse110project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.util.Pair;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.content.pm.PackageManager;
@@ -90,16 +90,11 @@ public class CompassActivity extends AppCompatActivity {
 //            familyLabel.setVisibility(View.INVISIBLE);
 //        }
 
-        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 200);
-        }
-
         locationService = LocationService.singleton(this);
+        this.reobserveLocation();
 
 
-        TextView textView = (TextView) findViewById(R.id.locationView);
+        TextView textView = (TextView) findViewById(R.id.locationText);
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
 
         locationService.getLocation().observe(this, loc->{
@@ -134,6 +129,20 @@ public class CompassActivity extends AppCompatActivity {
 
     public void backToCoordinates(View view) {
         finish();
+    }
+
+    /**
+     * Taken from Lab Demo 5
+     * Basically rechecks for current location
+     */
+    private void reobserveLocation() {
+        var locationData = locationService.getLocation();
+        locationData.observe(this, this::onLocationChanged);
+    }
+
+    private void onLocationChanged(android.util.Pair<Double, Double> latLong) {
+        TextView locationText = findViewById(R.id.locationText);
+        locationText.setText(Utilities.formatLocation(latLong.first, latLong.second));
     }
 }
 

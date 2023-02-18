@@ -25,7 +25,7 @@ import java.util.Arrays;
 public class LocationService implements LocationListener {
 
     final String[] REQUIRED_PERMISSIONS = {
-            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
 
@@ -88,7 +88,7 @@ public class LocationService implements LocationListener {
 
     @Override
     public void onLocationChanged(@NonNull Location location){
-        this.locationValue.postValue(new Pair<Double, Double>(location.getLatitude(), location.getLongitude()));
+        this.locationValue.postValue(new Pair<>(location.getLatitude(), location.getLongitude()));
     }
 
     private void unregisterLocationListener() { locationManager.removeUpdates(this); }
