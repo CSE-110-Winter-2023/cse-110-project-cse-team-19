@@ -79,9 +79,11 @@ public class Utilities {
         // If the longitude is south of us we need to add 180 degrees to place the label
         // on the bottom half of the circle. This is because arcTan is bound by [-90, 90] degrees.
 
-        if(degrees < 0){
-            degrees +=360;
+
+        if(degrees < 0) {
+            degrees += 360;
         }
+
         return degrees;
     }
 

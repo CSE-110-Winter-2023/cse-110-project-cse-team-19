@@ -9,17 +9,25 @@ import android.content.SharedPreferences;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class CompassActivity extends AppCompatActivity {
     private LocationService locationService;
-    private OrientationService orientationService;
+    //private OrientationService orientationService;
     private final double OUR_LAT = 32.88129;
     private final double OUR_LONG = -117.23758;
 
+    private ExecutorService backgroundThreadExecutor = Executors.newSingleThreadExecutor();
+    private Future<Void> future;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,17 +105,33 @@ public class CompassActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.locationText);
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
-
+        TextView orientationView = (TextView) findViewById(R.id.orientation);
+        RotateCompass.rotateCompass(this, this, layout, orientationView);
+        /*
         orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
-        orientationService.getOrientation().observe(this, orientation->{
+        orientationService.getOrientation().observe(this, orientation -> {
             orientationView.setText(Float.toString(orientation));
             layout.setRotation((float) Math.toDegrees(-orientation));
         });
+
+         */
+    /*
+        this.future = backgroundThreadExecutor.submit(() -> {
+
+            Looper.prepare();
+            Handler mHandler = new Handler(Looper.myLooper());
+
+
+            Looper.loop();
+            return null;
+        });
+     */
     }
 
     public void backToCoordinates(View view) {
         finish();
+        this.future.cancel(true);
     }
 
     /**
