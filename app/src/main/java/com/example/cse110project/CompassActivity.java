@@ -101,20 +101,9 @@ public class CompassActivity extends AppCompatActivity {
         locationService = LocationService.singleton(this);
         this.reobserveLocation();
 
-
-        TextView textView = (TextView) findViewById(R.id.locationText);
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
         RotateCompass.rotateCompass(this, this, layout, orientationView);
-        /*
-        orientationService = OrientationService.singleton(this);
-        TextView orientationView = (TextView) findViewById(R.id.orientation);
-        orientationService.getOrientation().observe(this, orientation -> {
-            orientationView.setText(Float.toString(orientation));
-            layout.setRotation((float) Math.toDegrees(-orientation));
-        });
-
-         */
     /*
         this.future = backgroundThreadExecutor.submit(() -> {
 
@@ -137,7 +126,7 @@ public class CompassActivity extends AppCompatActivity {
      * Taken from Lab Demo 5
      * Basically rechecks for current location
      */
-    private void reobserveLocation() {
+    public void reobserveLocation() {
         var locationData = locationService.getLocation();
         locationData.observe(this, this::onLocationChanged);
     }
