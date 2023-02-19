@@ -97,6 +97,7 @@ public class CompassActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.locationText);
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
 
+        /*
         locationService.getLocation().observe(this, loc->{
             textView.setText(Double.toString(loc.first) + " , " +
                     Double.toString(loc.second));
@@ -118,7 +119,7 @@ public class CompassActivity extends AppCompatActivity {
             homeIcon.setLayoutParams(redLayoutParams);
 //            familyIcon.setLayoutParams(blueLayoutParams);
         });
-
+        */
         orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
         orientationService.getOrientation().observe(this, orientation->{

@@ -90,8 +90,6 @@ public class Utilities {
     }
 
     static String formatLocation(double latitude, double longitude) {
-        return String.format(Locale.US, "%.0f° %.0f' %.0f\" N, %.0f° %.0f' %.0f\" W",
-                Math.abs(latitude), Math.abs(latitude % 1) * 60, Math.abs(latitude % 1 % 1) * 60,
-                Math.abs(longitude), Math.abs(longitude % 1) * 60, Math.abs(longitude % 1 % 1) * 60);
+        return (latitude + ", " + longitude);
     }
 }
