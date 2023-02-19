@@ -36,6 +36,47 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNextClicked(View view) {
 
+        checkIfValidInputs();
+
+
+    }
+
+    public void saveCoordinates() {
+        SharedPreferences.Editor editor = preferences.edit();
+
+        EditText testMyCoords = findViewById(R.id.personalHomeCoords);
+        EditText testFamilyCoords = findViewById(R.id.familyHomeCoords);
+        EditText testFriendCoords = findViewById(R.id.friendsHomeCoords);
+
+        String myCoords = testMyCoords.getText().toString();
+        String familyCoords = testFamilyCoords.getText().toString();
+        String friendCoords = testFriendCoords.getText().toString();
+
+        editor.putString(Utilities.PERSONAL_HOME_COORDINATES, myCoords);
+        editor.putString(Utilities.FAMILY_HOME_COORDINATES, familyCoords);
+        editor.putString(Utilities.FRIEND_HOME_COORDINATES, friendCoords);
+
+        editor.apply();
+    }
+
+    public void applyCoordinates() {
+
+        EditText myCoords = findViewById(R.id.personalHomeCoords);
+        EditText familyCoords = findViewById(R.id.familyHomeCoords);
+        EditText friendCoords = findViewById(R.id.friendsHomeCoords);
+
+        String mine = preferences.getString(Utilities.PERSONAL_HOME_COORDINATES, "");
+        String family = preferences.getString(Utilities.FAMILY_HOME_COORDINATES, "");
+        String friend = preferences.getString(Utilities.FRIEND_HOME_COORDINATES, "");
+
+        myCoords.setText(mine);
+        familyCoords.setText(family);
+        friendCoords.setText(friend);
+
+
+    }
+
+    public void checkIfValidInputs(){
         EditText myCoords = findViewById(R.id.personalHomeCoords);
         EditText familyCoords = findViewById(R.id.familyHomeCoords);
         EditText friendCoords = findViewById(R.id.friendsHomeCoords);
@@ -86,43 +127,5 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LabelActivity.class);
             startActivity(intent);
         }
-
-
-    }
-
-    public void saveCoordinates() {
-        SharedPreferences.Editor editor = preferences.edit();
-
-        EditText testMyCoords = findViewById(R.id.personalHomeCoords);
-        EditText testFamilyCoords = findViewById(R.id.familyHomeCoords);
-        EditText testFriendCoords = findViewById(R.id.friendsHomeCoords);
-
-        String myCoords = testMyCoords.getText().toString();
-        String familyCoords = testFamilyCoords.getText().toString();
-        String friendCoords = testFriendCoords.getText().toString();
-
-        editor.putString(Utilities.PERSONAL_HOME_COORDINATES, myCoords);
-        editor.putString(Utilities.FAMILY_HOME_COORDINATES, familyCoords);
-        editor.putString(Utilities.FRIEND_HOME_COORDINATES, friendCoords);
-
-        editor.apply();
-    }
-
-    //Possibly Delete?
-    public void applyCoordinates() {
-
-        EditText myCoords = findViewById(R.id.personalHomeCoords);
-        EditText familyCoords = findViewById(R.id.familyHomeCoords);
-        EditText friendCoords = findViewById(R.id.friendsHomeCoords);
-
-        String mine = preferences.getString(Utilities.PERSONAL_HOME_COORDINATES, "");
-        String family = preferences.getString(Utilities.FAMILY_HOME_COORDINATES, "");
-        String friend = preferences.getString(Utilities.FRIEND_HOME_COORDINATES, "");
-
-        myCoords.setText(mine);
-        familyCoords.setText(family);
-        friendCoords.setText(friend);
-
-
     }
 }
