@@ -34,7 +34,6 @@ public class OrientationServiceTest {
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
         var testValue = 3.5f;
-
         var scenario = ActivityScenario.launch(CompassActivity.class);
         scenario.moveToState(Lifecycle.State.STARTED);
         scenario.onActivity(activity -> {
@@ -42,8 +41,6 @@ public class OrientationServiceTest {
 
             var mockOrientation = new MutableLiveData<Float>();
             orientationService.setMockOrientationSource(mockOrientation);
-            // We don't want to have to do this! It's not our job to tell the activity!
-            activity.reobserveOrientation();
 
             mockOrientation.setValue(testValue);
             TextView textView = activity.findViewById(R.id.orientation);

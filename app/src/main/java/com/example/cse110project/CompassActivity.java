@@ -9,9 +9,15 @@ import android.content.SharedPreferences;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class CompassActivity extends AppCompatActivity {
     private LocationService locationService;
@@ -19,6 +25,8 @@ public class CompassActivity extends AppCompatActivity {
     private final double OUR_LAT = 32.88129;
     private final double OUR_LONG = -117.23758;
 
+    private ExecutorService backgroundThreadExecutor = Executors.newSingleThreadExecutor();
+    private Future<Void> future;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,25 +134,28 @@ public class CompassActivity extends AppCompatActivity {
 
         orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
-        orientationService.getOrientation().observe(this, orientation->{
-            orientationView.setText(Float.toString(orientation));
-            layout.setRotation((float) Math.toDegrees(-orientation));
+        orientationService.getOrientation().observe(this, orientation -> {
+            runOnUiThread(() -> {
+                orientationView.setText(Float.toString(orientation));
+                layout.setRotation((float) Math.toDegrees(-orientation));
+            });
         });
-    }
+    /*
+        this.future = backgroundThreadExecutor.submit(() -> {
 
-    //for orientation testing
-    public void reobserveOrientation() {
-        var orientationData = orientationService.getOrientation();
-        orientationData.observe(this, this::onOrientationChanged);
-    }
+            Looper.prepare();
+            Handler mHandler = new Handler(Looper.myLooper());
 
-    private void onOrientationChanged(Float orientation) {
-        TextView orientationText = findViewById(R.id.orientation);
-        orientationText.setText(Float.toString(orientation));
+
+            Looper.loop();
+            return null;
+        });
+     */
     }
 
     public void backToCoordinates(View view) {
         finish();
+        this.future.cancel(true);
     }
 }
 
