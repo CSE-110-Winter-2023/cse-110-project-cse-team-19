@@ -92,31 +92,31 @@
         android:id="@+id/familyHomeTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="@string/enterLabel"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:hint="@string/enterLabel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.796"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.471" />
 
     <EditText
         android:id="@+id/friendsHomeTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="@string/enterLabel"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:hint="@string/enterLabel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.796"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.476"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.638" />
 </androidx.constraintlayout.widget.ConstraintLayout>
