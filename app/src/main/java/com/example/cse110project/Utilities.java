@@ -41,7 +41,7 @@ public class Utilities {
     public static boolean isValidOrientation(String str){
         try {
             double orienation = Double.parseDouble(str);
-            if ((orienation < 0 || orienation > 360) && str != "") {
+            if ((orienation < 0 || orienation > 360) && !str.equals("")) {
                 return false;
             }
             return true;
