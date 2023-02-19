@@ -19,11 +19,11 @@ public class LabelActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy(){
-        saveLabels();
         super.onDestroy();
     }
 
     public void onSubmitClicked(View view) {
+        saveLabels();
         Intent intent = new Intent(this, CompassActivity.class);
         startActivity(intent);
         finish();
