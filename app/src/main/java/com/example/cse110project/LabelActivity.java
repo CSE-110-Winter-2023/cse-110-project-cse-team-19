@@ -30,7 +30,7 @@ public class LabelActivity extends AppCompatActivity {
     }
 
     public void saveLabels(){
-        SharedPreferences preferences = preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         EditText myLabel = findViewById(R.id.personalHomeTextBox);
@@ -41,23 +41,23 @@ public class LabelActivity extends AppCompatActivity {
         String friend = friendLabel.getText().toString();
         String family = familyLabel.getText().toString();
 
-        editor.putString("myLabel", mine);
-        editor.putString("friendLabel", friend);
-        editor.putString("familyLabel", family);
+        editor.putString(Utilities.PERSONAL_HOME_LABEL, mine);
+        editor.putString(Utilities.FAMILY_HOME_LABEL, family);
+        editor.putString(Utilities.FRIEND_HOME_LABEL, friend);
 
         editor.apply();
 
     }
 
     public void applyLabels() {
-        SharedPreferences preferences = preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
         EditText myLabel = findViewById(R.id.personalHomeTextBox);
-        EditText familyLabel = findViewById(R.id.friendsHomeTextBox);
         EditText friendLabel = findViewById(R.id.familyHomeTextBox);
+        EditText familyLabel = findViewById(R.id.friendsHomeTextBox);
 
-        String mine = preferences.getString("myLabel", "My Label Default");
-        String family = preferences.getString("familyLabel", "Family Label Default");
-        String friend = preferences.getString("friendLabel", "Friend Label Default");
+        String mine = preferences.getString(Utilities.PERSONAL_HOME_LABEL, "My House");
+        String family = preferences.getString(Utilities.FAMILY_HOME_LABEL, "Family House");
+        String friend = preferences.getString(Utilities.FRIEND_HOME_LABEL, "Friend House");
 
         myLabel.setText(mine);
         familyLabel.setText(family);
