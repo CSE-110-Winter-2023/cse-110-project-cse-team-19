@@ -3,8 +3,8 @@ package com.example.cse110project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.util.Pair;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.content.pm.PackageManager;
@@ -33,13 +33,13 @@ public class CompassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
 
-        ImageView homeIcon = findViewById(R.id.red_icon);
         ImageView familyIcon = findViewById(R.id.blue_icon);
         ImageView friendIcon = findViewById(R.id.purple_icon);
         TextView homeLabel = findViewById(R.id.homeLabelDisplay);
         TextView familyLabel = findViewById(R.id.familyLabelDisplay);
         TextView friendLabel = findViewById(R.id.friendLabelDisplay);
 
+        ImageView homeIcon = findViewById(R.id.red_icon);
         homeIcon.setVisibility(View.INVISIBLE);
         familyIcon.setVisibility(View.INVISIBLE);
         friendIcon.setVisibility(View.INVISIBLE);
@@ -98,39 +98,12 @@ public class CompassActivity extends AppCompatActivity {
 //            familyLabel.setVisibility(View.INVISIBLE);
 //        }
 
-        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 200);
-        }
-
         locationService = LocationService.singleton(this);
+        this.reobserveLocation();
 
 
-        TextView textView = (TextView) findViewById(R.id.locationView);
+        TextView textView = (TextView) findViewById(R.id.locationText);
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
-
-        locationService.getLocation().observe(this, loc->{
-            textView.setText(Double.toString(loc.first) + " , " +
-                    Double.toString(loc.second));
-
-//            String gilderPort = "32.89075438019187, -117.25108298507078";
-//            String ourLocation = "32.88129, -117.23758";
-//            String parents = "38.557209840254735, -121.38793501534316";
-            double parentHouseDegrees = Utilities.findAngle(32.88129, -117.23758, 38.557209840254735, -121.38793501534316);
-
-
-            double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
-//            double sanDiegoCountyDegrees = Utilities.findAngle(32.88129, -117.23758, 32.778364, -116.116286);
-
-            ConstraintLayout.LayoutParams redLayoutParams = (ConstraintLayout.LayoutParams) homeIcon.getLayoutParams();
-//            ConstraintLayout.LayoutParams blueLayoutParams = (ConstraintLayout.LayoutParams) familyIcon.getLayoutParams();
-//
-            redLayoutParams.circleAngle = (float) parentHouseDegrees;
-//            blueLayoutParams.circleAngle = (float) sanDiegoCountyDegrees;
-            homeIcon.setLayoutParams(redLayoutParams);
-//            familyIcon.setLayoutParams(blueLayoutParams);
-        });
 
         orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
@@ -156,6 +129,38 @@ public class CompassActivity extends AppCompatActivity {
     public void backToCoordinates(View view) {
         finish();
         this.future.cancel(true);
+    }
+
+    /**
+     * Taken from Lab Demo 5
+     * Basically rechecks for current location
+     */
+    private void reobserveLocation() {
+        var locationData = locationService.getLocation();
+        locationData.observe(this, this::onLocationChanged);
+    }
+
+    private void onLocationChanged(android.util.Pair<Double, Double> latLong) {
+        ImageView homeIcon = findViewById(R.id.red_icon);
+
+        TextView locationText = findViewById(R.id.locationText);
+        locationText.setText(Utilities.formatLocation(latLong.first, latLong.second));
+        String gilderPort = "32.89075438019187, -117.25108298507078";
+//            String ourLocation = "32.88129, -117.23758";
+//            String parents = "38.557209840254735, -121.38793501534316";
+        double parentHouseDegrees = Utilities.findAngle(latLong.first,latLong.second, 38.557209840254735, -121.38793501534316);
+
+
+        double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
+//            double sanDiegoCountyDegrees = Utilities.findAngle(32.88129, -117.23758, 32.778364, -116.116286);
+
+        ConstraintLayout.LayoutParams redLayoutParams = (ConstraintLayout.LayoutParams) homeIcon.getLayoutParams();
+//            ConstraintLayout.LayoutParams blueLayoutParams = (ConstraintLayout.LayoutParams) familyIcon.getLayoutParams();
+//
+        redLayoutParams.circleAngle = (float) parentHouseDegrees;
+//            blueLayoutParams.circleAngle = (float) sanDiegoCountyDegrees;
+        homeIcon.setLayoutParams(redLayoutParams);
+//            familyIcon.setLayoutParams(blueLayoutParams);
     }
 }
 
