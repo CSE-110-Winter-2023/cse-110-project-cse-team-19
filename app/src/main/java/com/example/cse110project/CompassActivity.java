@@ -44,12 +44,12 @@ public class CompassActivity extends AppCompatActivity {
         if (!mockOrientation.equals("")){
             float mockOri = Float.parseFloat(mockOrientation);
             //orientation = mockOri;
-            Log.d("mockOrientation","Henlo1");
-            RotateCompass.rotateCompass(this, this, layout, mockOri);
+            //Log.d("mockOrientation","Henlo1");
+            RotateCompass.rotateCompass(this, this, layout, orientationView, mockOri);
 
         }
         else{
-            Log.d("mockOrientation","Henlo");
+            //Log.d("mockOrientation","Henlo");
             RotateCompass.rotateCompass(this, this, layout, orientationView);
         }
 

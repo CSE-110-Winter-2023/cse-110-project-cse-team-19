@@ -15,10 +15,10 @@ public class RotateCompass {
         });
     }
 
-    public static void rotateCompass(Activity activity, LifecycleOwner lifecycle, ConstraintLayout layout, Float rotate){
+    public static void rotateCompass(Activity activity, LifecycleOwner lifecycle, ConstraintLayout layout, TextView view, Float rotate){
         OrientationService orientationService = OrientationService.singleton(activity);
         orientationService.getOrientation().observe(lifecycle, orientation -> {
-            //view.setText(Float.toString(orientation));
+            view.setText(Float.toString(orientation));
             layout.setRotation(-rotate);
         });
     }
