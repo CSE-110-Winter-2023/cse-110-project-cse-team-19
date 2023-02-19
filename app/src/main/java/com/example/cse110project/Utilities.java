@@ -16,6 +16,8 @@ public class Utilities {
     public final static String FAMILY_HOME_LABEL = "familyLabel";
     public final static String FRIEND_HOME_LABEL = "friendLabel";
 
+    public final static String ORIENTATION_LABEL = "orientationLabel";
+
     public static void showAlert(Activity activity, String message){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
 
@@ -36,6 +38,19 @@ public class Utilities {
         return list;
     }
 
+    public static boolean isValidOrientation(String str){
+        try {
+            double orienation = Double.parseDouble(str);
+            if ((orienation < 0 || orienation > 360) && str != "") {
+                return false;
+            }
+            return true;
+        }
+
+        catch (Exception e){
+            return false;
+        }
+    }
     public static boolean isValidLatitude(String str){
         try {
             double lat = Double.parseDouble(str);

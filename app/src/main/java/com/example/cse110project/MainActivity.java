@@ -39,15 +39,22 @@ public class MainActivity extends AppCompatActivity {
         EditText myCoords = findViewById(R.id.personalHomeCoords);
         EditText familyCoords = findViewById(R.id.familyHomeCoords);
         EditText friendCoords = findViewById(R.id.friendsHomeCoords);
+        EditText orientationLabel = findViewById(R.id.mockTextBox);
 
         String mine = myCoords.getText().toString();
         String family = familyCoords.getText().toString();
         String friend = friendCoords.getText().toString();
+        String mock_orientation = orientationLabel.getText().toString();
 
         boolean canSwitch = true;
 
         if (mine.length() == 0 && family.length() == 0 && friend.length() == 0) {
             Utilities.showAlert(this, "Must enter at least one coordinate");
+            canSwitch = false;
+        }
+
+        if (!Utilities.isValidOrientation(mock_orientation)){
+            Utilities.showAlert(this, "Please enter a number between 0 to 360");
             canSwitch = false;
         }
 

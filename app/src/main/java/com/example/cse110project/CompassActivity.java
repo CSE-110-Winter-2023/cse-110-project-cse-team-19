@@ -41,10 +41,13 @@ public class CompassActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
         String mockOrientation = preferences.getString("orientationLabel", "");
+
+
         if (!mockOrientation.equals("")){
             float mockOri = Float.parseFloat(mockOrientation);
             //orientation = mockOri;
             //Log.d("mockOrientation","Henlo1");
+            orientationView.setText(mockOrientation);
             RotateCompass.rotateCompass(this, this, layout, orientationView, mockOri);
 
         }
