@@ -3,12 +3,14 @@ package com.example.cse110project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.MutableLiveData;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,6 +46,7 @@ public class CompassActivity extends AppCompatActivity {
         String homeLatLong = preferences.getString("mine", "");
         String friendLatLong = preferences.getString("family", "");
         String familyLatLong = preferences.getString("friend", "");
+        String mockOrientation = preferences.getString("mock_orientation", "");
 
         System.out.println(homeLatLong);
 
@@ -126,9 +129,26 @@ public class CompassActivity extends AppCompatActivity {
 
         orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
+        if (!mockOrientation.equals("")){
+            float mockOri = Float.parseFloat(mockOrientation);
+            MutableLiveData<Float> mock_orientation = new MutableLiveData<>(mockOri);
+            orientationService.setMockOrientationSource(mock_orientation);
+        }
         orientationService.getOrientation().observe(this, orientation->{
             orientationView.setText(Float.toString(orientation));
+
+
+            if (!mockOrientation.equals("")){
+                float mockOri = Float.parseFloat(mockOrientation);
+                orientation = mockOri;
+                Log.d("mockOrientation","Henlo1");
+
+            }
+            else{
+                Log.d("mockOrientation","Henlo");
+            }
             layout.setRotation((float) Math.toDegrees(-orientation));
+            //layout.setRotation((float) Math.toDegrees(-60));
         });
     }
 

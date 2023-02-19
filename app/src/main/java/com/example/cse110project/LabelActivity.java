@@ -36,14 +36,17 @@ public class LabelActivity extends AppCompatActivity {
         EditText myLabel = findViewById(R.id.personalHomeTextBox);
         EditText friendLabel = findViewById(R.id.friendsHomeTextBox);
         EditText familyLabel = findViewById(R.id.familyHomeTextBox);
+        EditText orientationLabel = findViewById(R.id.orientationTextBox);
 
         String mine = myLabel.getText().toString();
         String friend = friendLabel.getText().toString();
         String family = familyLabel.getText().toString();
+        String mock_orientation = orientationLabel.getText().toString();
 
         editor.putString("myLabel", mine);
         editor.putString("friendLabel", friend);
         editor.putString("familyLabel", family);
+        editor.putString("mock_orientationLabel", mock_orientation);
 
         editor.apply();
 
@@ -54,14 +57,17 @@ public class LabelActivity extends AppCompatActivity {
         EditText myLabel = findViewById(R.id.personalHomeTextBox);
         EditText familyLabel = findViewById(R.id.friendsHomeTextBox);
         EditText friendLabel = findViewById(R.id.familyHomeTextBox);
+        EditText orientationLabel = findViewById(R.id.orientationTextBox);
 
         String mine = preferences.getString("myLabel", "My Label Default");
         String family = preferences.getString("familyLabel", "Family Label Default");
         String friend = preferences.getString("friendLabel", "Friend Label Default");
+        String mock_orientation = preferences.getString("mock_orientationLabel", "Orientation Label Default");
 
         myLabel.setText(mine);
         familyLabel.setText(family);
         friendLabel.setText(friend);
+        orientationLabel.setText(mock_orientation);
     }
 
 
