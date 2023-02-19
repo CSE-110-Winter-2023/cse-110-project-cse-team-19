@@ -21,7 +21,7 @@ import java.util.concurrent.Future;
 
 public class CompassActivity extends AppCompatActivity {
     private LocationService locationService;
-    private OrientationService orientationService;
+    //private OrientationService orientationService;
     private final double OUR_LAT = 32.88129;
     private final double OUR_LONG = -117.23758;
 
@@ -104,15 +104,17 @@ public class CompassActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.locationText);
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
-
+        TextView orientationView = (TextView) findViewById(R.id.orientation);
+        RotateCompass.rotateCompass(this, this, layout, orientationView);
+        /*
         orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
         orientationService.getOrientation().observe(this, orientation -> {
-            runOnUiThread(() -> {
-                orientationView.setText(Float.toString(orientation));
-                layout.setRotation((float) Math.toDegrees(-orientation));
-            });
+            orientationView.setText(Float.toString(orientation));
+            layout.setRotation((float) Math.toDegrees(-orientation));
         });
+
+         */
     /*
         this.future = backgroundThreadExecutor.submit(() -> {
 
