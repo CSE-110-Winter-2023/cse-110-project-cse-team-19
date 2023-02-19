@@ -52,8 +52,8 @@ public class LabelActivity extends AppCompatActivity {
     public void applyLabels() {
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
         EditText myLabel = findViewById(R.id.personalHomeTextBox);
-        EditText friendLabel = findViewById(R.id.familyHomeTextBox);
-        EditText familyLabel = findViewById(R.id.friendsHomeTextBox);
+        EditText friendLabel = findViewById(R.id.friendsHomeTextBox);
+        EditText familyLabel = findViewById(R.id.familyHomeTextBox);
 
         String mine = preferences.getString(Utilities.PERSONAL_HOME_LABEL, "My House");
         String family = preferences.getString(Utilities.FAMILY_HOME_LABEL, "Family House");

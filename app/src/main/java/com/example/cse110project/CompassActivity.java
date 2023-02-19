@@ -22,8 +22,6 @@ import java.util.concurrent.Future;
 
 public class CompassActivity extends AppCompatActivity {
     private LocationService locationService;
-    private final double OUR_LAT = 32.88129;
-    private final double OUR_LONG = -117.23758;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +109,7 @@ public class CompassActivity extends AppCompatActivity {
         TextView familyLabel = findViewById(R.id.familyLabelDisplay);
         TextView friendLabel = findViewById(R.id.friendLabelDisplay);
 
+
         homeIcon.setVisibility(View.INVISIBLE);
         familyIcon.setVisibility(View.INVISIBLE);
         friendIcon.setVisibility(View.INVISIBLE);
@@ -124,6 +123,10 @@ public class CompassActivity extends AppCompatActivity {
         String homeLatLong = preferences.getString(Utilities.PERSONAL_HOME_COORDINATES, "");
         String familyLatLong = preferences.getString(Utilities.FAMILY_HOME_COORDINATES, "");
         String friendLatLong = preferences.getString(Utilities.FRIEND_HOME_COORDINATES, "");
+
+        homeLabel.setText(preferences.getString(Utilities.PERSONAL_HOME_LABEL, "My Home"));
+        familyLabel.setText(preferences.getString(Utilities.FAMILY_HOME_LABEL, "Family House"));
+        friendLabel.setText(preferences.getString(Utilities.FRIEND_HOME_LABEL, "Friend's House"));
 
 
         if(!homeLatLong.equals("")){
