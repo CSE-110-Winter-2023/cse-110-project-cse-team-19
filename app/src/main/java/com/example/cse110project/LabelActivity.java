@@ -30,7 +30,7 @@ public class LabelActivity extends AppCompatActivity {
     }
 
     public void saveLabels(){
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences preferences = preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         EditText myLabel = findViewById(R.id.personalHomeTextBox);
@@ -50,7 +50,7 @@ public class LabelActivity extends AppCompatActivity {
     }
 
     public void applyLabels() {
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences preferences = preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
         EditText myLabel = findViewById(R.id.personalHomeTextBox);
         EditText familyLabel = findViewById(R.id.friendsHomeTextBox);
         EditText friendLabel = findViewById(R.id.familyHomeTextBox);
