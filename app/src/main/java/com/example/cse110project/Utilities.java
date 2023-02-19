@@ -73,14 +73,14 @@ public class Utilities {
 //    }
     
     public static double findAngle(double ourLat, double ourLong, double theirLat, double theirLong){
-        double radians = Math.atan((theirLong - ourLong) / (theirLat - ourLat));
+        double radians = Math.atan2((theirLong - ourLong), (theirLat - ourLat));
         double degrees = Math.toDegrees(radians);
 
         // If the longitude is south of us we need to add 180 degrees to place the label
         // on the bottom half of the circle. This is because arcTan is bound by [-90, 90] degrees.
 
-        if (theirLong > ourLong){
-            degrees = degrees + 180;
+        if(degrees < 0){
+            degrees +=360;
         }
         return degrees;
     }
