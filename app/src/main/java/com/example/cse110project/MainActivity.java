@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,19 +23,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
 
+
+        applyCoordinates();
+
         if (!preferences.getString("mine", "").equals("") || !preferences.getString("family", "").equals("")
                 || !preferences.getString("friend", "").equals("")){
             Intent intent = new Intent(this, CompassActivity.class);
             startActivity(intent);
         }
-        applyCoordinates();
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        saveCoordinates();
-        super.onDestroy();
 
     }
 
@@ -85,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
                     "Must be two numbers separated by a single space.");
         }
 
-
         if (canSwitch) {
+            saveCoordinates();
             Intent intent = new Intent(this, LabelActivity.class);
             startActivity(intent);
         }
@@ -97,13 +93,17 @@ public class MainActivity extends AppCompatActivity {
     public void saveCoordinates() {
         SharedPreferences.Editor editor = preferences.edit();
 
-        String testMyCoords = findViewById(R.id.personalHomeCoords).toString();
-        String testFamilyCoords = findViewById(R.id.familyHomeCoords).toString();
-        String testFriendCoords = findViewById(R.id.friendsHomeCoords).toString();
+        EditText testMyCoords = findViewById(R.id.personalHomeCoords);
+        EditText testFamilyCoords = findViewById(R.id.familyHomeCoords);
+        EditText testFriendCoords = findViewById(R.id.friendsHomeCoords);
 
-        editor.putString("mine", testMyCoords);
-        editor.putString("family", testFamilyCoords);
-        editor.putString("friend", testFriendCoords);
+        String myCoords = testMyCoords.getText().toString();
+        String familyCoords = testFamilyCoords.getText().toString();
+        String friendCoords = testFriendCoords.getText().toString();
+
+        editor.putString("mine", myCoords);
+        editor.putString("family", familyCoords);
+        editor.putString("friend", friendCoords);
 
         editor.apply();
     }
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         String mine = preferences.getString("mine", "");
         String family = preferences.getString("family", "");
         String friend = preferences.getString("friend", "");
+        System.out.println(mine);
 
         myCoords.setText(mine);
         familyCoords.setText(family);
