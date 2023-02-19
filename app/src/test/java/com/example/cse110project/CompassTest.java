@@ -29,7 +29,7 @@ public class CompassTest {
 
         SharedPreferences preferences = InstrumentationRegistry.getInstrumentation().getTargetContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("mine", "12.82 -05.12");
+        editor.putString("mine", "12.82, -05.12");
         editor.apply();
 
         Application application = ApplicationProvider.getApplicationContext();
@@ -38,7 +38,7 @@ public class CompassTest {
         app.grantPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        var scenario = ActivityScenario.launch(MainActivity.class);
+        var scenario = ActivityScenario.launch(CompassActivity.class);
         scenario.moveToState(Lifecycle.State.CREATED);
         scenario.onActivity(activity -> {
             ImageView homeIcon = activity.findViewById(R.id.red_icon);
