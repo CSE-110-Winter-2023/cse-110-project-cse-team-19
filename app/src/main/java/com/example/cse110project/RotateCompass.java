@@ -14,4 +14,12 @@ public class RotateCompass {
             layout.setRotation((float) Math.toDegrees(-orientation));
         });
     }
+
+    public static void rotateCompass(Activity activity, LifecycleOwner lifecycle, ConstraintLayout layout, Float rotate){
+        OrientationService orientationService = OrientationService.singleton(activity);
+        orientationService.getOrientation().observe(lifecycle, orientation -> {
+            //view.setText(Float.toString(orientation));
+            layout.setRotation(-rotate);
+        });
+    }
 }

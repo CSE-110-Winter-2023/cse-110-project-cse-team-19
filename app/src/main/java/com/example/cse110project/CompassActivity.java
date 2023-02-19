@@ -3,18 +3,15 @@ package com.example.cse110project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
-
 import androidx.core.util.Pair;
-
 
 import android.content.SharedPreferences;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.os.Looper;
-
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -57,7 +54,7 @@ public class CompassActivity extends AppCompatActivity {
         String homeLatLong = preferences.getString("mine", "");
         String friendLatLong = preferences.getString("family", "");
         String familyLatLong = preferences.getString("friend", "");
-        String mockOrientation = preferences.getString("mock_orientation", "");
+        String mockOrientation = preferences.getString("orientationLabel", "");
 
         System.out.println(homeLatLong);
 
@@ -111,7 +108,21 @@ public class CompassActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.locationText);
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
-        RotateCompass.rotateCompass(this, this, layout, orientationView);
+
+        if (!mockOrientation.equals("")){
+            float mockOri = Float.parseFloat(mockOrientation);
+            //orientation = mockOri;
+            Log.d("mockOrientation","Henlo1");
+            RotateCompass.rotateCompass(this, this, layout, mockOri);
+
+        }
+        else{
+            Log.d("mockOrientation","Henlo");
+            RotateCompass.rotateCompass(this, this, layout, orientationView);
+        }
+
+
+
         /*
         orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
@@ -157,7 +168,7 @@ public class CompassActivity extends AppCompatActivity {
 
     public void backToCoordinates(View view) {
         finish();
-        this.future.cancel(true);
+        //this.future.cancel(true);
     }
 
     /**

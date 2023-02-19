@@ -96,14 +96,17 @@ public class MainActivity extends AppCompatActivity {
         EditText testMyCoords = findViewById(R.id.personalHomeCoords);
         EditText testFamilyCoords = findViewById(R.id.familyHomeCoords);
         EditText testFriendCoords = findViewById(R.id.friendsHomeCoords);
+        EditText orientationLabel = findViewById(R.id.mockTextBox);
 
         String myCoords = testMyCoords.getText().toString();
         String familyCoords = testFamilyCoords.getText().toString();
         String friendCoords = testFriendCoords.getText().toString();
+        String mock_orientation = orientationLabel.getText().toString();
 
         editor.putString("mine", myCoords);
         editor.putString("family", familyCoords);
         editor.putString("friend", friendCoords);
+        editor.putString("orientationLabel", mock_orientation);
 
         editor.apply();
     }
@@ -114,15 +117,18 @@ public class MainActivity extends AppCompatActivity {
         EditText myCoords = findViewById(R.id.personalHomeCoords);
         EditText familyCoords = findViewById(R.id.familyHomeCoords);
         EditText friendCoords = findViewById(R.id.friendsHomeCoords);
+        EditText orientationLabel = findViewById(R.id.mockTextBox);
 
         String mine = preferences.getString("mine", "");
         String family = preferences.getString("family", "");
         String friend = preferences.getString("friend", "");
+        String mock_orientation = preferences.getString("orientationLabel", "");
         System.out.println(mine);
 
         myCoords.setText(mine);
         familyCoords.setText(family);
         friendCoords.setText(friend);
+        orientationLabel.setText(mock_orientation);
 
 
     }
