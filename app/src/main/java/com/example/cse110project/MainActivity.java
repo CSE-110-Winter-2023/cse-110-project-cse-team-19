@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             canSwitch = false;
         }
 
-        if (!Utilities.isValidOrientation(mock_orientation)){
+        if (!Utilities.isValidOrientation(mock_orientation) && mock_orientation != ""){
             Utilities.showAlert(this, "Please enter a number between 0 to 360");
             canSwitch = false;
         }
