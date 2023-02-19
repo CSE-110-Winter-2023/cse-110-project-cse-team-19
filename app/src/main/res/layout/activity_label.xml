@@ -20,6 +20,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.089" />
 
+
+
     <TextView
         android:id="@+id/personalHomeText"
         android:layout_width="wrap_content"
@@ -71,6 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.784" />
+
 
     <EditText
         android:id="@+id/personalHomeTextBox"

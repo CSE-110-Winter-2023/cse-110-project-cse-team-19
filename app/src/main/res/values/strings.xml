@@ -9,4 +9,6 @@
     <string name="submit">Submit</string>
     <string name="enterLatLon">Enter Latitude/Longitude</string>
     <string name="enterLabel">Enter Label</string>
+    <string name="mock_orientation">Mock Orientation</string>
+    <string name="enter_integer_from_0_360">Enter Integer from 0-360</string>
 </resources>
