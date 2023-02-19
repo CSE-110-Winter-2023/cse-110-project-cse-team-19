@@ -6,6 +6,16 @@ import android.app.AlertDialog;
 import java.util.Locale;
 
 public class Utilities {
+    public final static String PREFERENCES_NAME = "my_preferences";
+
+    public final static String PERSONAL_HOME_COORDINATES = "mine";
+    public final static String FAMILY_HOME_COORDINATES = "family";
+    public final static String FRIEND_HOME_COORDINATES = "friend";
+
+    public final static String PERSONAL_HOME_LABEL = "myLabel";
+    public final static String FAMILY_HOME_LABEL = "familyLabel";
+    public final static String FRIEND_HOME_LABEL = "friendLabel";
+
     public static void showAlert(Activity activity, String message){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
 

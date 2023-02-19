@@ -21,13 +21,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
+        preferences = getApplicationContext().getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
 
 
         applyCoordinates();
 
-        if (!preferences.getString("mine", "").equals("") || !preferences.getString("family", "").equals("")
-                || !preferences.getString("friend", "").equals("")){
+        if (!preferences.getString(Utilities.PERSONAL_HOME_COORDINATES, "").equals("") || !preferences.getString(Utilities.FAMILY_HOME_COORDINATES, "").equals("")
+                || !preferences.getString(Utilities.FRIEND_HOME_COORDINATES, "").equals("")){
             Intent intent = new Intent(this, CompassActivity.class);
             startActivity(intent);
         }
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 !Utilities.isValidLongitude(mineList[1])) {
             canSwitch = false;
             Utilities.showAlert(this, "Personal home coordinates not formatted properly. " +
-                    "Must be two numbers separated by a single space.");
+                    "Must be two numbers separated by a comma and then a single space.");
         }
 
         String[] familyList = Utilities.parseCoords(family);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 !Utilities.isValidLongitude(familyList[1])) {
             canSwitch = false;
             Utilities.showAlert(this, "Family home coordinates not formatted properly. " +
-                    "Must be two numbers separated by a single space.");
+                    "Must be two numbers separated by a comma and then a single space.");
         }
 
         String[] friendList = Utilities.parseCoords(friend);
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 !Utilities.isValidLongitude(friendList[1])) {
             canSwitch = false;
             Utilities.showAlert(this, "Friend home coordinates not formatted properly. " +
-                    "Must be two numbers separated by a single space.");
+                    "Must be two numbers separated by a comma and then a single space.");
         }
 
         if (canSwitch) {
@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
         String familyCoords = testFamilyCoords.getText().toString();
         String friendCoords = testFriendCoords.getText().toString();
 
-        editor.putString("mine", myCoords);
-        editor.putString("family", familyCoords);
-        editor.putString("friend", friendCoords);
+        editor.putString(Utilities.PERSONAL_HOME_COORDINATES, myCoords);
+        editor.putString(Utilities.FAMILY_HOME_COORDINATES, familyCoords);
+        editor.putString(Utilities.FRIEND_HOME_COORDINATES, friendCoords);
 
         editor.apply();
     }
@@ -115,10 +115,9 @@ public class MainActivity extends AppCompatActivity {
         EditText familyCoords = findViewById(R.id.familyHomeCoords);
         EditText friendCoords = findViewById(R.id.friendsHomeCoords);
 
-        String mine = preferences.getString("mine", "");
-        String family = preferences.getString("family", "");
-        String friend = preferences.getString("friend", "");
-        System.out.println(mine);
+        String mine = preferences.getString(Utilities.PERSONAL_HOME_COORDINATES, "");
+        String family = preferences.getString(Utilities.FAMILY_HOME_COORDINATES, "");
+        String friend = preferences.getString(Utilities.FRIEND_HOME_COORDINATES, "");
 
         myCoords.setText(mine);
         familyCoords.setText(family);
