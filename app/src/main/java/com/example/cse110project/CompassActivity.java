@@ -25,13 +25,13 @@ public class CompassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
 
-        ImageView homeIcon = findViewById(R.id.red_icon);
         ImageView familyIcon = findViewById(R.id.blue_icon);
         ImageView friendIcon = findViewById(R.id.purple_icon);
         TextView homeLabel = findViewById(R.id.homeLabelDisplay);
         TextView familyLabel = findViewById(R.id.familyLabelDisplay);
         TextView friendLabel = findViewById(R.id.friendLabelDisplay);
 
+        ImageView homeIcon = findViewById(R.id.red_icon);
         homeIcon.setVisibility(View.INVISIBLE);
         familyIcon.setVisibility(View.INVISIBLE);
         friendIcon.setVisibility(View.INVISIBLE);
@@ -97,29 +97,6 @@ public class CompassActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.locationText);
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
 
-        /*
-        locationService.getLocation().observe(this, loc->{
-            textView.setText(Double.toString(loc.first) + " , " +
-                    Double.toString(loc.second));
-
-//            String gilderPort = "32.89075438019187, -117.25108298507078";
-//            String ourLocation = "32.88129, -117.23758";
-//            String parents = "38.557209840254735, -121.38793501534316";
-            double parentHouseDegrees = Utilities.findAngle(32.88129, -117.23758, 38.557209840254735, -121.38793501534316);
-
-
-            double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
-//            double sanDiegoCountyDegrees = Utilities.findAngle(32.88129, -117.23758, 32.778364, -116.116286);
-
-            ConstraintLayout.LayoutParams redLayoutParams = (ConstraintLayout.LayoutParams) homeIcon.getLayoutParams();
-//            ConstraintLayout.LayoutParams blueLayoutParams = (ConstraintLayout.LayoutParams) familyIcon.getLayoutParams();
-//
-            redLayoutParams.circleAngle = (float) parentHouseDegrees;
-//            blueLayoutParams.circleAngle = (float) sanDiegoCountyDegrees;
-            homeIcon.setLayoutParams(redLayoutParams);
-//            familyIcon.setLayoutParams(blueLayoutParams);
-        });
-        */
         orientationService = OrientationService.singleton(this);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
         orientationService.getOrientation().observe(this, orientation->{
@@ -142,8 +119,26 @@ public class CompassActivity extends AppCompatActivity {
     }
 
     private void onLocationChanged(android.util.Pair<Double, Double> latLong) {
+        ImageView homeIcon = findViewById(R.id.red_icon);
+
         TextView locationText = findViewById(R.id.locationText);
         locationText.setText(Utilities.formatLocation(latLong.first, latLong.second));
+        String gilderPort = "32.89075438019187, -117.25108298507078";
+//            String ourLocation = "32.88129, -117.23758";
+//            String parents = "38.557209840254735, -121.38793501534316";
+        double parentHouseDegrees = Utilities.findAngle(latLong.first,latLong.second, 38.557209840254735, -121.38793501534316);
+
+
+        double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
+//            double sanDiegoCountyDegrees = Utilities.findAngle(32.88129, -117.23758, 32.778364, -116.116286);
+
+        ConstraintLayout.LayoutParams redLayoutParams = (ConstraintLayout.LayoutParams) homeIcon.getLayoutParams();
+//            ConstraintLayout.LayoutParams blueLayoutParams = (ConstraintLayout.LayoutParams) familyIcon.getLayoutParams();
+//
+        redLayoutParams.circleAngle = (float) parentHouseDegrees;
+//            blueLayoutParams.circleAngle = (float) sanDiegoCountyDegrees;
+        homeIcon.setLayoutParams(redLayoutParams);
+//            familyIcon.setLayoutParams(blueLayoutParams);
     }
 }
 
