@@ -26,9 +26,6 @@ public class CompassActivity extends AppCompatActivity {
     private final double OUR_LAT = 32.88129;
     private final double OUR_LONG = -117.23758;
 
-    private ExecutorService backgroundThreadExecutor = Executors.newSingleThreadExecutor();
-    private Future<Void> future;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,24 +53,10 @@ public class CompassActivity extends AppCompatActivity {
 
         System.out.println(homeLatLong);
 
-        if(!homeLatLong.equals("")){
+        if(!homeLatLong.equals("")) {
             homeIcon.setVisibility(View.VISIBLE);
             homeLabel.setVisibility(View.VISIBLE);
-            // I think we can set the intial angles here, but the parseDouble
-            // method I use in utilities is causing a java.lang.NumberFormatException
-//            String[] coordinates = Utilities.parseCoords(homeLatLong);
-//            double latitude = Utilities.stringToDouble(coordinates[0]);
-//            double longitude = Utilities.stringToDouble(coordinates[1]);
-            // have our coordinates ready by here, for now just using
-            // hard coded values
-//            double angle = Utilities.findAngle(OUR_LAT, OUR_LONG, latitude, longitude);
-//            ConstraintLayout.LayoutParams redLayoutParams = (ConstraintLayout.LayoutParams) homeIcon.getLayoutParams();
-//            redLayoutParams.circleAngle = (float) angle;
-//            homeIcon.setLayoutParams(redLayoutParams);
         }
-
-        // Else makes labels away if they decide to get rid of
-        // coordinates for any reason, doesn't work rn tho
         else {
             homeIcon.setVisibility(View.INVISIBLE);
             homeLabel.setVisibility(View.INVISIBLE);
@@ -105,22 +88,10 @@ public class CompassActivity extends AppCompatActivity {
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.compassLayout);
         TextView orientationView = (TextView) findViewById(R.id.orientation);
         RotateCompass.rotateCompass(this, this, layout, orientationView);
-    /*
-        this.future = backgroundThreadExecutor.submit(() -> {
-
-            Looper.prepare();
-            Handler mHandler = new Handler(Looper.myLooper());
-
-
-            Looper.loop();
-            return null;
-        });
-     */
     }
 
     public void backToCoordinates(View view) {
         finish();
-        this.future.cancel(true);
     }
 
     /**
@@ -153,19 +124,5 @@ public class CompassActivity extends AppCompatActivity {
             redLayoutParams.circleAngle = (float) ourHomeAngle;
             homeIcon.setLayoutParams(redLayoutParams);
         }
-//        String gilderPort = "32.89075438019187, -117.25108298507078";
-//        double parentHouseDegrees = Utilities.findAngle(latLong.first,latLong.second, 38.557209840254735, -121.38793501534316);
-
-
-//        double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
-//            double sanDiegoCountyDegrees = Utilities.findAngle(32.88129, -117.23758, 32.778364, -116.116286);
-
-//        ConstraintLayout.LayoutParams redLayoutParams = (ConstraintLayout.LayoutParams) homeIcon.getLayoutParams();
-//            ConstraintLayout.LayoutParams blueLayoutParams = (ConstraintLayout.LayoutParams) familyIcon.getLayoutParams();
-//
-//        redLayoutParams.circleAngle = (float) parentHouseDegrees;
-//            blueLayoutParams.circleAngle = (float) sanDiegoCountyDegrees;
-//        homeIcon.setLayoutParams(redLayoutParams);
-//            familyIcon.setLayoutParams(blueLayoutParams);
     }
 }
