@@ -2,6 +2,8 @@ package com.example.cse110project;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.util.Locale;
 
@@ -17,6 +19,7 @@ public class Utilities {
     public final static String FRIEND_HOME_LABEL = "friendLabel";
 
     public final static String ORIENTATION_LABEL = "orientationLabel";
+
 
     public static void showAlert(Activity activity, String message){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
@@ -119,4 +122,15 @@ public class Utilities {
     static String formatLocation(double latitude, double longitude) {
         return (latitude + ", " + longitude);
     }
+
+//    public static void resetPrefs(){
+//        Context context;
+//        SharedPreferences preferences;
+//        context = ApplicationProvider.getApplicationContext();
+//        preferences = context.getSharedPreferences(Utilities.PREFERENCES_NAME, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        editor.putString(Utilities.PERSONAL_HOME_COORDINATES, "");
+//        editor.putString(Utilities.PERSONAL_HOME_LABEL, "My Home");
+//        editor.apply();
+//    }
 }

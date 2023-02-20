@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         preferences = getApplicationContext().getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
 
-
         applyCoordinates();
 
         if (!preferences.getString(Utilities.PERSONAL_HOME_COORDINATES, "").equals("") || !preferences.getString(Utilities.FAMILY_HOME_COORDINATES, "").equals("")
@@ -83,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         if (!Utilities.isValidOrientation(mock_orientation) && !mock_orientation.equals("")){
             Utilities.showAlert(this, "Please enter a number between 0 to 360");
             canSwitch = false;
+
         }
 
         String[] mineList = Utilities.parseCoords(mine);
@@ -120,10 +120,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LabelActivity.class);
             startActivity(intent);
         }
-
-
     }
-
 
     public void applyCoordinates() {
 
