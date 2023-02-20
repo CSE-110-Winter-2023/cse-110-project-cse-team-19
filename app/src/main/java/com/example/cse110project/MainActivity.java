@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Possibly Delete?
     public void applyCoordinates() {
 
         EditText myCoords = findViewById(R.id.personalHomeCoords);
