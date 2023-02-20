@@ -122,6 +122,7 @@ public class CompassActivity extends AppCompatActivity {
 
         ImageView homeLegend = findViewById(R.id.red_legend);
         ImageView familyLegend = findViewById(R.id.blue_legend);
+        ImageView friendLegend = findViewById(R.id.purple_legend);
 
         homeIcon.setVisibility(View.INVISIBLE);
         familyIcon.setVisibility(View.INVISIBLE);
@@ -129,6 +130,7 @@ public class CompassActivity extends AppCompatActivity {
 
         homeLegend.setVisibility(View.INVISIBLE);
         familyLegend.setVisibility(View.INVISIBLE);
+        friendLegend.setVisibility(View.INVISIBLE);
 
         homeLabel.setVisibility(View.INVISIBLE);
         familyLabel.setVisibility(View.INVISIBLE);
