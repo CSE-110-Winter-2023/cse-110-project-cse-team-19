@@ -11,27 +11,22 @@
         android:id="@+id/locationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="78dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginBottom="124dp"
         android:text="locationCoordinates"
-        app:layout_constraintBottom_toTopOf="@+id/orientation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/compassLayout" />
+        tools:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/orientation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="386dp"
-        android:layout_marginBottom="28dp"
-        android:text="orientation"
+        android:layout_marginStart="232dp"
+        android:layout_marginBottom="84dp"
+        android:text="Mock Orientation"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationText" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/compassLayout"
@@ -75,7 +70,7 @@
 
             app:layout_constraintCircle="@+id/compassLayout"
             app:layout_constraintCircleAngle="210"
-            app:layout_constraintCircleRadius="190dp"
+            app:layout_constraintCircleRadius="150dp"
             app:layout_constraintEnd_toStartOf="@+id/compass_image"
             app:layout_constraintStart_toEndOf="@+id/compass_image"
             app:layout_constraintTop_toBottomOf="@+id/compass_image"
@@ -89,7 +84,7 @@
 
             app:layout_constraintCircle="@+id/compassLayout"
             app:layout_constraintCircleAngle="0"
-            app:layout_constraintCircleRadius="190dp"
+            app:layout_constraintCircleRadius="150dp"
             app:layout_constraintEnd_toStartOf="@+id/compass_image"
             app:layout_constraintStart_toEndOf="@+id/compass_image"
             app:layout_constraintTop_toBottomOf="@+id/compass_image"
@@ -102,191 +97,112 @@
             app:layout_constraintBottom_toTopOf="@+id/compass_image"
             app:layout_constraintCircle="@+id/compassLayout"
             app:layout_constraintCircleAngle="320"
-            app:layout_constraintCircleRadius="190dp"
+            app:layout_constraintCircleRadius="150dp"
             app:layout_constraintEnd_toStartOf="@+id/compass_image"
             app:layout_constraintStart_toEndOf="@+id/compass_image"
             app:layout_constraintTop_toBottomOf="@+id/compass_image"
             app:srcCompat="@drawable/icons_purple" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/homeLabelDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="51dp"
-        android:layout_marginBottom="110dp"
-        android:text="My Home"
-        app:layout_constraintBottom_toTopOf="@+id/compassLayout"
-        app:layout_constraintEnd_toStartOf="@+id/familyLabelDisplay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/familyLabelDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="111dp"
-        android:text="Family Home"
-        app:layout_constraintBottom_toTopOf="@+id/compassLayout"
-        app:layout_constraintEnd_toStartOf="@+id/friendLabelDisplay"
-        app:layout_constraintStart_toEndOf="@+id/homeLabelDisplay"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/friendLabelDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginBottom="114dp"
-        android:text="Friend Home"
-        app:layout_constraintBottom_toTopOf="@+id/compassLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/familyLabelDisplay"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
+        android:layout_width="169dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="backToCoordinates"
+        android:text="Change House Coordinates"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="152dp"
+        android:layout_height="124dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/friendLabelDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="85dp"
+            android:text="Friend Home"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/familyLabelDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
+            android:text="Family Home"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/homeLabelDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:text="My Home"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/red_legend"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toEndOf="@+id/homeLabelDisplay"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/red" />
+
+        <ImageView
+            android:id="@+id/blue_legend"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintStart_toEndOf="@+id/familyLabelDisplay"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/blue"
+            tools:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/purple_legend"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="85dp"
+            app:layout_constraintStart_toEndOf="@+id/friendLabelDisplay"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/purple" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="53dp"
-        android:onClick="backToCoordinates"
-        android:text="Coordinates"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="124dp"
+        android:text="Current Location Coordinates"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="84dp"
+        android:text="Current Mock Orientation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".CoordinateActivity">-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/inputLocationText"-->
-<!--        android:layout_width="354dp"-->
-<!--        android:layout_height="47dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="@string/inputLocationText"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.491"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.089" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/personalHomeText"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/pHome"-->
-<!--        android:textSize="15sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.051"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.329" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/familyHomeText"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/fHome"-->
-<!--        android:textSize="15sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.07"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.473" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/friendsHomeText"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/frHome"-->
-<!--        android:textSize="15sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.072"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.634" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/next_btn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/next"-->
-<!--        android:onClick="onNextClicked"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.783"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.784" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/personalHomeCoords"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:autofillHints=""-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:minHeight="48dp"-->
-<!--        android:hint="@string/enterLatLon"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.791"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.323"-->
-<!--        tools:ignore="DuplicateSpeakableTextCheck" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/familyHomeCoords"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:autofillHints=""-->
-<!--        android:ems="10"-->
-<!--        android:hint="@string/enterLatLon"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:minHeight="48dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.8"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.48" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/friendsHomeCoords"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:autofillHints=""-->
-<!--        android:ems="10"-->
-<!--        android:hint="@string/enterLatLon"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:minHeight="48dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.805"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.647" />-->
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

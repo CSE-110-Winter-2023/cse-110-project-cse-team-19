@@ -29,9 +29,7 @@ public class CompassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
 
-
         setVisibilities();
-
 
         locationService = LocationService.singleton(this);
         this.reobserveLocation();
@@ -42,64 +40,14 @@ public class CompassActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
         String mockOrientation = preferences.getString("orientationLabel", "");
 
-
         if (!mockOrientation.equals("")){
             float mockOri = Float.parseFloat(mockOrientation);
-            //orientation = mockOri;
-            //Log.d("mockOrientation","Henlo1");
             orientationView.setText(mockOrientation);
-            RotateCompass.rotateCompass(this, this, layout, orientationView, mockOri);
-
+            RotateCompass.rotateCompass(layout, orientationView, mockOri);
         }
         else{
-            //Log.d("mockOrientation","Henlo");
             RotateCompass.rotateCompass(this, this, layout, orientationView);
         }
-
-
-
-        /*
-        orientationService = OrientationService.singleton(this);
-        TextView orientationView = (TextView) findViewById(R.id.orientation);
-<<<<<<< HEAD
-        if (!mockOrientation.equals("")){
-            float mockOri = Float.parseFloat(mockOrientation);
-            MutableLiveData<Float> mock_orientation = new MutableLiveData<>(mockOri);
-            orientationService.setMockOrientationSource(mock_orientation);
-        }
-        orientationService.getOrientation().observe(this, orientation->{
-=======
-        orientationService.getOrientation().observe(this, orientation -> {
->>>>>>> e314b3371493872b9b742b72aa1755f654286b72
-            orientationView.setText(Float.toString(orientation));
-
-
-            if (!mockOrientation.equals("")){
-                float mockOri = Float.parseFloat(mockOrientation);
-                orientation = mockOri;
-                Log.d("mockOrientation","Henlo1");
-
-            }
-            else{
-                Log.d("mockOrientation","Henlo");
-            }
-            layout.setRotation((float) Math.toDegrees(-orientation));
-            //layout.setRotation((float) Math.toDegrees(-60));
-        });
-
-         */
-    /*
-        this.future = backgroundThreadExecutor.submit(() -> {
-
-            Looper.prepare();
-            Handler mHandler = new Handler(Looper.myLooper());
-
-
-            Looper.loop();
-            return null;
-        });
-     */
-
     }
 
     public void backToCoordinates(View view) {
@@ -172,15 +120,21 @@ public class CompassActivity extends AppCompatActivity {
         TextView familyLabel = findViewById(R.id.familyLabelDisplay);
         TextView friendLabel = findViewById(R.id.friendLabelDisplay);
 
+        ImageView homeLegend = findViewById(R.id.red_legend);
+        ImageView familyLegend = findViewById(R.id.blue_legend);
+        ImageView friendLegend = findViewById(R.id.purple_legend);
 
         homeIcon.setVisibility(View.INVISIBLE);
         familyIcon.setVisibility(View.INVISIBLE);
         friendIcon.setVisibility(View.INVISIBLE);
 
+        homeLegend.setVisibility(View.INVISIBLE);
+        familyLegend.setVisibility(View.INVISIBLE);
+        friendLegend.setVisibility(View.INVISIBLE);
+
         homeLabel.setVisibility(View.INVISIBLE);
         familyLabel.setVisibility(View.INVISIBLE);
         friendLabel.setVisibility(View.INVISIBLE);
-
 
         SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
         String homeLatLong = preferences.getString(Utilities.PERSONAL_HOME_COORDINATES, "");
@@ -191,35 +145,23 @@ public class CompassActivity extends AppCompatActivity {
         familyLabel.setText(preferences.getString(Utilities.FAMILY_HOME_LABEL, "Family House"));
         friendLabel.setText(preferences.getString(Utilities.FRIEND_HOME_LABEL, "Friend's House"));
 
-
         if(!homeLatLong.equals("")){
             homeIcon.setVisibility(View.VISIBLE);
             homeLabel.setVisibility(View.VISIBLE);
-        }
-
-        else {
-            homeIcon.setVisibility(View.INVISIBLE);
-            homeLabel.setVisibility(View.INVISIBLE);
+            homeLegend.setVisibility(View.VISIBLE);
         }
 
         if(!familyLatLong.equals("")){
             familyIcon.setVisibility(View.VISIBLE);
             familyLabel.setVisibility(View.VISIBLE);
-        }
-
-        else {
-            familyIcon.setVisibility(View.INVISIBLE);
-            familyLabel.setVisibility(View.INVISIBLE);
+            familyLegend.setVisibility(View.VISIBLE);
         }
 
         if(!friendLatLong.equals("")){
             friendIcon.setVisibility(View.VISIBLE);
             friendLabel.setVisibility(View.VISIBLE);
         }
-
-        else {
-            friendIcon.setVisibility(View.INVISIBLE);
-            friendLabel.setVisibility(View.INVISIBLE);
-        }
     }
+
+
 }

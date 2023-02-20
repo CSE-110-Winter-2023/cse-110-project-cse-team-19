@@ -48,25 +48,56 @@ public class CoordinateTest {
 
     @Test
     public void checkLatitudeTest() {
-        String s1 = "words";
-        String s2 = "-15.99";
-        String s3 = "89.99";
-        String s4 = "0.00";
-        String s5 = "208.9498";
-        String s6 = "-100.13";
+        String invalidStrValue = "words";
+        String validNegativeValue = "-15.99";
+        String validPositiveValue = "89.99";
+        String zeroValue = "0.00";
+        String invalidUpperLimit = "208.9498";
+        String invalidLowerLimit = "-100.13";
+        String validLowerLimit = "-90";
+        String validUpperLimit = "90";
+        String invalidMarginalLowerLimit = "-91";
+        String invalidMarginalUpperLimit = "91";
 
-
-        assertEquals(false, Utilities.isValidLatitude(s1));
-        assertEquals(true, Utilities.isValidLatitude(s2));
-        assertEquals(true, Utilities.isValidLatitude(s3));
-        assertEquals(true, Utilities.isValidLatitude(s4));
-        assertEquals(false, Utilities.isValidLatitude(s5));
-        assertEquals(false, Utilities.isValidLatitude(s6));
+        assertEquals(false, Utilities.isValidLatitude(invalidStrValue));
+        assertEquals(true, Utilities.isValidLatitude(validNegativeValue));
+        assertEquals(true, Utilities.isValidLatitude(validPositiveValue));
+        assertEquals(true, Utilities.isValidLatitude(zeroValue));
+        assertEquals(false, Utilities.isValidLatitude(invalidUpperLimit));
+        assertEquals(false, Utilities.isValidLatitude(invalidLowerLimit));
+        assertEquals(true, Utilities.isValidLatitude(validLowerLimit));
+        assertEquals(true, Utilities.isValidLatitude(validUpperLimit));
+        assertEquals(false, Utilities.isValidLatitude(invalidMarginalLowerLimit));
+        assertEquals(false, Utilities.isValidLatitude(invalidMarginalUpperLimit));
     }
 
     @Test
     public void checkLongitudeTest() {
+        String invalidStrValue = "words";
+        String validNegativeValue = "-15.99";
+        String validNegativeValue2 = "-121.99";
+        String validPositiveValue = "89.99";
+        String validPositiveValue2 = "160.67";
+        String zeroValue = "0.00";
+        String invalidUpperLimit = "208.9498";
+        String invalidLowerLimit = "-200.13";
+        String validLowerLimit = "-180";
+        String validUpperLimit = "180";
+        String invalidMarginalLowerLimit = "-181";
+        String invalidMarginalUpperLimit = "181";
 
+        assertEquals(false, Utilities.isValidLongitude(invalidStrValue));
+        assertEquals(true, Utilities.isValidLongitude(validNegativeValue));
+        assertEquals(true, Utilities.isValidLongitude(validNegativeValue2));
+        assertEquals(true, Utilities.isValidLongitude(validPositiveValue));
+        assertEquals(true, Utilities.isValidLongitude(validPositiveValue2));
+        assertEquals(true, Utilities.isValidLongitude(zeroValue));
+        assertEquals(false, Utilities.isValidLongitude(invalidUpperLimit));
+        assertEquals(false, Utilities.isValidLongitude(invalidLowerLimit));
+        assertEquals(true, Utilities.isValidLongitude(validLowerLimit));
+        assertEquals(true, Utilities.isValidLongitude(validUpperLimit));
+        assertEquals(false, Utilities.isValidLongitude(invalidMarginalLowerLimit));
+        assertEquals(false, Utilities.isValidLongitude(invalidMarginalUpperLimit));
     }
 
     @Test
