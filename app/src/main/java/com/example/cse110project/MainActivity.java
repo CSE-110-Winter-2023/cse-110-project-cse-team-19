@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         if (!Utilities.isValidOrientation(mock_orientation) && mock_orientation != ""){
             Utilities.showAlert(this, "Please enter a number between 0 to 360");
             canSwitch = false;
+
         }
 
         String[] mineList = Utilities.parseCoords(mine);
@@ -92,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LabelActivity.class);
             startActivity(intent);
         }
-
-
     }
 
     public void saveCoordinates() {
@@ -114,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(Utilities.FAMILY_HOME_COORDINATES, familyCoords);
         editor.putString(Utilities.FRIEND_HOME_COORDINATES, friendCoords);
         editor.putString("orientationLabel", mock_orientation);
-
 
         editor.apply();
     }
