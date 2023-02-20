@@ -174,7 +174,7 @@
             tools:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/purple_legend"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
