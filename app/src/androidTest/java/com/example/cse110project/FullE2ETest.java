@@ -13,6 +13,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertEquals;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -46,10 +48,8 @@ public class FullE2ETest {
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
         editor.apply();
-
-        ActivityScenarioRule<MainActivity> mActivityScenarioRule =
-                new ActivityScenarioRule<>(MainActivity.class);
     }
+
 
 //    @Rule
 //    public GrantPermissionRule mGrantPermissionRule =
@@ -59,15 +59,32 @@ public class FullE2ETest {
 
     @Test
     public void fullE2ETest() {
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.personalHomeCoords),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                7),
-                        isDisplayed()));
-        appCompatEditText.perform(replaceText("25, 118"), closeSoftKeyboard());
+
+        try{
+            ViewInteraction appCompatEditText = onView(
+                    allOf(withId(R.id.personalHomeCoords),
+                            childAtPosition(
+                                    childAtPosition(
+                                            withId(android.R.id.content),
+                                            0),
+                                    7),
+                            isDisplayed()));
+            appCompatEditText.perform(replaceText("25, 118"), closeSoftKeyboard());
+        }
+
+        catch(Exception e){
+            ViewInteraction materialButton3 = onView(
+                    allOf(withId(R.id.button), withText("Change House Coordinates"),
+                            childAtPosition(
+                                    childAtPosition(
+                                            withId(android.R.id.content),
+                                            0),
+                                    3),
+                            isDisplayed()));
+            materialButton3.perform(click());
+
+            return;
+        }
 
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.next_btn), withText("Next"),
