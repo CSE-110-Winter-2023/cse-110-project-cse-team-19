@@ -47,14 +47,17 @@ public class MainActivity extends AppCompatActivity {
         EditText testMyCoords = findViewById(R.id.personalHomeCoords);
         EditText testFamilyCoords = findViewById(R.id.familyHomeCoords);
         EditText testFriendCoords = findViewById(R.id.friendsHomeCoords);
+        EditText orientationLabel = findViewById(R.id.mockTextBox);
 
         String myCoords = testMyCoords.getText().toString();
         String familyCoords = testFamilyCoords.getText().toString();
         String friendCoords = testFriendCoords.getText().toString();
+        String mock_orientation = orientationLabel.getText().toString();
 
         editor.putString(Utilities.PERSONAL_HOME_COORDINATES, myCoords);
         editor.putString(Utilities.FAMILY_HOME_COORDINATES, familyCoords);
         editor.putString(Utilities.FRIEND_HOME_COORDINATES, friendCoords);
+        editor.putString("orientationLabel", mock_orientation);
 
         editor.apply();
     }
