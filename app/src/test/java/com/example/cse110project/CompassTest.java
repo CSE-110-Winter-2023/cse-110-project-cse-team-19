@@ -64,14 +64,14 @@ public class CompassTest {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("orientationLabel", "100");
         editor.apply();
-        String value = preferences.getString("orientationLabel", null);
+        var value = Float.parseFloat(preferences.getString("orientationLabel", null));
 
         var scenario2 = ActivityScenario.launch(CompassActivity.class);
         scenario2.moveToState(Lifecycle.State.STARTED);
         scenario2.onActivity(activity -> {
             TextView textView = activity.findViewById(R.id.orientation);
-            var observed = textView.getText().toString();
-            assertEquals(value, observed);
+            var observed = Float.parseFloat(textView.getText().toString());
+            assertEquals(value, observed, 0);
         });
     }
 }

@@ -29,9 +29,7 @@ public class CompassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
 
-
         setVisibilities();
-
 
         locationService = LocationService.singleton(this);
         this.reobserveLocation();
@@ -45,61 +43,13 @@ public class CompassActivity extends AppCompatActivity {
 
         if (!mockOrientation.equals("")){
             float mockOri = Float.parseFloat(mockOrientation);
-            //orientation = mockOri;
-            //Log.d("mockOrientation","Henlo1");
             orientationView.setText(mockOrientation);
-            RotateCompass.rotateCompass(this, this, layout, orientationView, mockOri);
+            RotateCompass.rotateCompass(layout, orientationView, mockOri);
 
         }
         else{
-            //Log.d("mockOrientation","Henlo");
             RotateCompass.rotateCompass(this, this, layout, orientationView);
         }
-
-
-
-        /*
-        orientationService = OrientationService.singleton(this);
-        TextView orientationView = (TextView) findViewById(R.id.orientation);
-<<<<<<< HEAD
-        if (!mockOrientation.equals("")){
-            float mockOri = Float.parseFloat(mockOrientation);
-            MutableLiveData<Float> mock_orientation = new MutableLiveData<>(mockOri);
-            orientationService.setMockOrientationSource(mock_orientation);
-        }
-        orientationService.getOrientation().observe(this, orientation->{
-=======
-        orientationService.getOrientation().observe(this, orientation -> {
->>>>>>> e314b3371493872b9b742b72aa1755f654286b72
-            orientationView.setText(Float.toString(orientation));
-
-
-            if (!mockOrientation.equals("")){
-                float mockOri = Float.parseFloat(mockOrientation);
-                orientation = mockOri;
-                Log.d("mockOrientation","Henlo1");
-
-            }
-            else{
-                Log.d("mockOrientation","Henlo");
-            }
-            layout.setRotation((float) Math.toDegrees(-orientation));
-            //layout.setRotation((float) Math.toDegrees(-60));
-        });
-
-         */
-    /*
-        this.future = backgroundThreadExecutor.submit(() -> {
-
-            Looper.prepare();
-            Handler mHandler = new Handler(Looper.myLooper());
-
-
-            Looper.loop();
-            return null;
-        });
-     */
-
     }
 
     public void backToCoordinates(View view) {
