@@ -59,36 +59,26 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void applyCoordinates() {
-
-        EditText myCoords = findViewById(R.id.personalHomeCoords);
-        EditText familyCoords = findViewById(R.id.familyHomeCoords);
-        EditText friendCoords = findViewById(R.id.friendsHomeCoords);
-
-        String mine = preferences.getString(Utilities.PERSONAL_HOME_COORDINATES, "");
-        String family = preferences.getString(Utilities.FAMILY_HOME_COORDINATES, "");
-        String friend = preferences.getString(Utilities.FRIEND_HOME_COORDINATES, "");
-
-        myCoords.setText(mine);
-        familyCoords.setText(family);
-        friendCoords.setText(friend);
-
-
-    }
-
     public void checkIfValidInputs(){
         EditText myCoords = findViewById(R.id.personalHomeCoords);
         EditText familyCoords = findViewById(R.id.familyHomeCoords);
         EditText friendCoords = findViewById(R.id.friendsHomeCoords);
+        EditText orientationLabel = findViewById(R.id.mockTextBox);
 
         String mine = myCoords.getText().toString();
         String family = familyCoords.getText().toString();
         String friend = friendCoords.getText().toString();
+        String mock_orientation = orientationLabel.getText().toString();
 
         boolean canSwitch = true;
 
         if (mine.length() == 0 && family.length() == 0 && friend.length() == 0) {
             Utilities.showAlert(this, "Must enter at least one coordinate");
+            canSwitch = false;
+        }
+
+        if (!Utilities.isValidOrientation(mock_orientation) && !mock_orientation.equals("")){
+            Utilities.showAlert(this, "Please enter a number between 0 to 360");
             canSwitch = false;
         }
 
@@ -127,5 +117,31 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LabelActivity.class);
             startActivity(intent);
         }
+
+
+    }
+
+
+    //Possibly Delete?
+    public void applyCoordinates() {
+
+        EditText myCoords = findViewById(R.id.personalHomeCoords);
+        EditText familyCoords = findViewById(R.id.familyHomeCoords);
+        EditText friendCoords = findViewById(R.id.friendsHomeCoords);
+        EditText orientationLabel = findViewById(R.id.mockTextBox);
+
+
+        String mine = preferences.getString("mine", "");
+        String family = preferences.getString("family", "");
+        String friend = preferences.getString("friend", "");
+        String mock_orientation = preferences.getString("orientationLabel", "");
+
+
+
+        myCoords.setText(mine);
+        familyCoords.setText(family);
+        friendCoords.setText(friend);
+        orientationLabel.setText(mock_orientation);
+
     }
 }
