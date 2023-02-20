@@ -36,8 +36,6 @@ public class E2EActivityScenario {
         editor.putString(Utilities.ORIENTATION_LABEL, "");
         editor.apply();
 
-        assertEquals("", Utilities.ORIENTATION_LABEL);
-
         //Simulates app restart
         Activity activity = Robolectric.buildActivity(Activity.class).create().start().resume().get();
         activity.finish();
@@ -48,5 +46,6 @@ public class E2EActivityScenario {
 
         assertEquals("12.82, -05.12", retrievedCoord);
         assertEquals("Taylor's House", retrievedLabel);
+        assertEquals("", preferences.getString(Utilities.ORIENTATION_LABEL, null));
     }
 }
