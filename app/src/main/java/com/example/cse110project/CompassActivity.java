@@ -42,14 +42,12 @@ public class CompassActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
         String mockOrientation = preferences.getString("orientationLabel", "");
 
-
         if (!mockOrientation.equals("")){
             float mockOri = Float.parseFloat(mockOrientation);
             //orientation = mockOri;
             //Log.d("mockOrientation","Henlo1");
             orientationView.setText(mockOrientation);
             RotateCompass.rotateCompass(this, this, layout, orientationView, mockOri);
-
         }
         else{
             //Log.d("mockOrientation","Henlo");
@@ -172,15 +170,19 @@ public class CompassActivity extends AppCompatActivity {
         TextView familyLabel = findViewById(R.id.familyLabelDisplay);
         TextView friendLabel = findViewById(R.id.friendLabelDisplay);
 
+        ImageView homeLegend = findViewById(R.id.red_legend);
+        ImageView familyLegend = findViewById(R.id.blue_legend);
 
         homeIcon.setVisibility(View.INVISIBLE);
         familyIcon.setVisibility(View.INVISIBLE);
         friendIcon.setVisibility(View.INVISIBLE);
 
+        homeLegend.setVisibility(View.INVISIBLE);
+        familyLegend.setVisibility(View.INVISIBLE);
+
         homeLabel.setVisibility(View.INVISIBLE);
         familyLabel.setVisibility(View.INVISIBLE);
         friendLabel.setVisibility(View.INVISIBLE);
-
 
         SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
         String homeLatLong = preferences.getString(Utilities.PERSONAL_HOME_COORDINATES, "");
@@ -191,35 +193,21 @@ public class CompassActivity extends AppCompatActivity {
         familyLabel.setText(preferences.getString(Utilities.FAMILY_HOME_LABEL, "Family House"));
         friendLabel.setText(preferences.getString(Utilities.FRIEND_HOME_LABEL, "Friend's House"));
 
-
         if(!homeLatLong.equals("")){
             homeIcon.setVisibility(View.VISIBLE);
             homeLabel.setVisibility(View.VISIBLE);
-        }
-
-        else {
-            homeIcon.setVisibility(View.INVISIBLE);
-            homeLabel.setVisibility(View.INVISIBLE);
+            homeLegend.setVisibility(View.VISIBLE);
         }
 
         if(!familyLatLong.equals("")){
             familyIcon.setVisibility(View.VISIBLE);
             familyLabel.setVisibility(View.VISIBLE);
-        }
-
-        else {
-            familyIcon.setVisibility(View.INVISIBLE);
-            familyLabel.setVisibility(View.INVISIBLE);
+            familyLegend.setVisibility(View.VISIBLE);
         }
 
         if(!friendLatLong.equals("")){
             friendIcon.setVisibility(View.VISIBLE);
             friendLabel.setVisibility(View.VISIBLE);
-        }
-
-        else {
-            friendIcon.setVisibility(View.INVISIBLE);
-            friendLabel.setVisibility(View.INVISIBLE);
         }
     }
 }

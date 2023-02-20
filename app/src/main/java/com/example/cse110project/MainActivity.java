@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    //Possibly Delete?
     public void applyCoordinates() {
 
         EditText myCoords = findViewById(R.id.personalHomeCoords);
@@ -140,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
         familyCoords.setText(family);
         friendCoords.setText(friend);
         orientationLabel.setText(mock_orientation);
-
 
     }
 }
