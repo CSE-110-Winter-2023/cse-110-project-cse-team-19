@@ -222,4 +222,6 @@ public class CompassActivity extends AppCompatActivity {
             friendLabel.setVisibility(View.INVISIBLE);
         }
     }
+
+
 }

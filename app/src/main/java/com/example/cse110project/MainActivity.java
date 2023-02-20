@@ -36,6 +36,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNextClicked(View view) {
 
+        checkIfValidInputs();
+
+
+    }
+
+    public void saveCoordinates() {
+        SharedPreferences.Editor editor = preferences.edit();
+
+        EditText testMyCoords = findViewById(R.id.personalHomeCoords);
+        EditText testFamilyCoords = findViewById(R.id.familyHomeCoords);
+        EditText testFriendCoords = findViewById(R.id.friendsHomeCoords);
+
+        String myCoords = testMyCoords.getText().toString();
+        String familyCoords = testFamilyCoords.getText().toString();
+        String friendCoords = testFriendCoords.getText().toString();
+
+        editor.putString(Utilities.PERSONAL_HOME_COORDINATES, myCoords);
+        editor.putString(Utilities.FAMILY_HOME_COORDINATES, familyCoords);
+        editor.putString(Utilities.FRIEND_HOME_COORDINATES, friendCoords);
+
+        editor.apply();
+    }
+
+    public void checkIfValidInputs(){
         EditText myCoords = findViewById(R.id.personalHomeCoords);
         EditText familyCoords = findViewById(R.id.familyHomeCoords);
         EditText friendCoords = findViewById(R.id.friendsHomeCoords);
@@ -97,28 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void saveCoordinates() {
-        SharedPreferences.Editor editor = preferences.edit();
-
-        EditText testMyCoords = findViewById(R.id.personalHomeCoords);
-        EditText testFamilyCoords = findViewById(R.id.familyHomeCoords);
-        EditText testFriendCoords = findViewById(R.id.friendsHomeCoords);
-        EditText orientationLabel = findViewById(R.id.mockTextBox);
-
-        String myCoords = testMyCoords.getText().toString();
-        String familyCoords = testFamilyCoords.getText().toString();
-        String friendCoords = testFriendCoords.getText().toString();
-        String mock_orientation = orientationLabel.getText().toString();
-
-
-        editor.putString(Utilities.PERSONAL_HOME_COORDINATES, myCoords);
-        editor.putString(Utilities.FAMILY_HOME_COORDINATES, familyCoords);
-        editor.putString(Utilities.FRIEND_HOME_COORDINATES, friendCoords);
-        editor.putString("orientationLabel", mock_orientation);
-
-
-        editor.apply();
-    }
 
     //Possibly Delete?
     public void applyCoordinates() {
@@ -140,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
         familyCoords.setText(family);
         friendCoords.setText(friend);
         orientationLabel.setText(mock_orientation);
-
 
     }
 }
