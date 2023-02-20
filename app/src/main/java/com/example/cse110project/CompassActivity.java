@@ -29,9 +29,7 @@ public class CompassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
 
-
         setVisibilities();
-
 
         locationService = LocationService.singleton(this);
         this.reobserveLocation();
