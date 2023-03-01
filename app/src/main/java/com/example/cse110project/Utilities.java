@@ -1,3 +1,4 @@
+/*
 package com.example.cse110project;
 
 import android.app.Activity;
@@ -134,3 +135,5 @@ public class Utilities {
 //        editor.apply();
 //    }
 }
+
+ */

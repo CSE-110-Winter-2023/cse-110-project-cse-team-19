@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    /*
     private SharedPreferences preferences;
 
     @Override
@@ -142,5 +143,11 @@ public class MainActivity extends AppCompatActivity {
         friendCoords.setText(friend);
         orientationLabel.setText(mock_orientation);
 
+    }
+    */
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
     }
 }

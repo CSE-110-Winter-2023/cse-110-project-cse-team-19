@@ -1,3 +1,4 @@
+/*
 package com.example.cse110project;
 
 import android.app.Activity;
@@ -102,3 +103,5 @@ public class OrientationService implements SensorEventListener {
         returnedAzimuth.addSource(azimuth,returnedAzimuth::postValue);
     }
 }
+*/
+

@@ -1,3 +1,4 @@
+/*
 package com.example.cse110project;
 
 import android.content.Intent;
@@ -74,3 +75,4 @@ public class LabelActivity extends AppCompatActivity {
 
 
 }
+*/
