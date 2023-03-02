@@ -1,3 +1,4 @@
+/*
 package com.example.cse110project;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,10 +56,7 @@ public class CompassActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Taken from Lab Demo 5
-     * Basically rechecks for current location
-     */
+
     public void reobserveLocation() {
         var locationData = locationService.getLocation();
         locationData.observe(this, this::onLocationChanged);
@@ -165,3 +163,4 @@ public class CompassActivity extends AppCompatActivity {
 
 
 }
+*/
