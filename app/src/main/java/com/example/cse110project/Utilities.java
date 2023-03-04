@@ -1,12 +1,17 @@
 package com.example.cse110project;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 
 import java.util.Locale;
 import java.util.UUID;
 
 public class Utilities {
+    public static final String USER_NAME = "user name";
+    public static final String USER_UID = "user UID";
     public static void showAlert(Activity activity, String message){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
 
