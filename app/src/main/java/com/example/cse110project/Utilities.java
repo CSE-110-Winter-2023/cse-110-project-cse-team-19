@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 
 import java.util.Locale;
+import java.util.UUID;
 
 public class Utilities {
     public static void showAlert(Activity activity, String message){
@@ -91,5 +92,9 @@ public class Utilities {
 
     static String formatLocation(double latitude, double longitude) {
         return (latitude + ", " + longitude);
+    }
+
+    public static String createUID() {
+        return UUID.randomUUID().toString();
     }
 }
