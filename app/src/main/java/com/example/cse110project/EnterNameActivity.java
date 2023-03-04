@@ -24,6 +24,7 @@ public class EnterNameActivity extends AppCompatActivity {
         if (name.equals("")){
             Utilities.showAlert(this, "Name box can't be left empty");
         }
+
         String personalUID = Utilities.createUID();
 
         SharedPreferences.Editor editor = preferences.edit();
