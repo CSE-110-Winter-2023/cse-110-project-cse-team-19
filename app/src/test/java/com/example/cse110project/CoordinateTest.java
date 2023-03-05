@@ -25,6 +25,10 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class CoordinateTest {
+    @Test
+    public void test(){
+
+    }
 //    @Test
 //    public void addition_isCorrect() {
 //        assertEquals(4, 2 + 2);

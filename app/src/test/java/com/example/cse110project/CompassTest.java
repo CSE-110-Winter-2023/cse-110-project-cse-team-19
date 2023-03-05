@@ -25,8 +25,13 @@ import org.robolectric.shadows.ShadowApplication;
 public class CompassTest {
 
     @Test
-    public void test_MyHomeDisplay(){
+    public void test(){
 
+    }
+
+//    @Test
+//    public void test_MyHomeDisplay(){
+//
 //        SharedPreferences preferences = InstrumentationRegistry.getInstrumentation().getTargetContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
 //        SharedPreferences.Editor editor = preferences.edit();
 //        editor.putString("mine", "12.82 -05.12");
@@ -55,8 +60,8 @@ public class CompassTest {
 //            assertEquals(View.INVISIBLE, friendIcon.getVisibility());
 //            assertEquals(View.INVISIBLE, friendText.getVisibility());
 //        });
-
-    }
+//
+//    }
 //    @Test public void testDegrees(){
 //        double gliderPortDegrees = Utilities.findAngle(32.88129, -117.23758, 32.89075438019187, -117.25108298507078);
 //        double sanDiegoCountyDegrees = Utilities.findAngle(32.88129, -117.23758, 32.778364, -118.116286);
@@ -65,4 +70,5 @@ public class CompassTest {
 //        assertEquals(83.3191821322892, sanDiegoCountyDegrees, .00001);
 //
 //    }
+//
 }

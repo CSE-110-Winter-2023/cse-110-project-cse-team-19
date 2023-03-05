@@ -22,6 +22,10 @@ import org.robolectric.shadows.ShadowApplication;
 
 @RunWith(RobolectricTestRunner.class)
 public class OrientationServiceTest {
+    @Test
+    public void test(){
+
+    }
 
 //    @Test
 //    public void test_orientation_service(){
