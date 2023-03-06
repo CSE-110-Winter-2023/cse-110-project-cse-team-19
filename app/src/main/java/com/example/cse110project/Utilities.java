@@ -1,25 +1,20 @@
-/*
 package com.example.cse110project;
 
 import static android.content.Context.MODE_PRIVATE;
+import android.content.Context;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-<<<<<<< HEAD
-=======
-import android.content.Context;
->>>>>>> 391863b40ab4c02c608b115e39b04bbde4b4dd48
 import android.content.SharedPreferences;
 
 import java.util.Locale;
 import java.util.UUID;
 
 public class Utilities {
-<<<<<<< HEAD
+    public final static String PREFERENCES_NAME = "my_preferences";
     public static final String USER_NAME = "user name";
     public static final String USER_UID = "user UID";
-=======
-    public final static String PREFERENCES_NAME = "my_preferences";
+/*
 
     public final static String PERSONAL_HOME_COORDINATES = "mine";
     public final static String FAMILY_HOME_COORDINATES = "family";
@@ -31,8 +26,6 @@ public class Utilities {
 
     public final static String ORIENTATION_LABEL = "orientationLabel";
 
-
->>>>>>> 391863b40ab4c02c608b115e39b04bbde4b4dd48
     public static void showAlert(Activity activity, String message){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
 
@@ -135,11 +128,7 @@ public class Utilities {
         return (latitude + ", " + longitude);
     }
 
-<<<<<<< HEAD
-    public static String createUID() {
-        return UUID.randomUUID().toString();
-    }
-=======
+ */
 //    public static void resetPrefs(){
 //        Context context;
 //        SharedPreferences preferences;
@@ -150,7 +139,23 @@ public class Utilities {
 //        editor.putString(Utilities.PERSONAL_HOME_LABEL, "My Home");
 //        editor.apply();
 //    }
->>>>>>> 391863b40ab4c02c608b115e39b04bbde4b4dd48
-}
+    public static String createUID() {
+        return UUID.randomUUID().toString();
+    }
 
- */
+    public static void showAlert(Activity activity, String message){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+
+        alertBuilder
+                .setTitle("Alert!")
+                .setMessage(message)
+                .setPositiveButton("Ok", (dialog, id) -> {
+                    dialog.cancel();
+                })
+                .setCancelable(true);
+
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
+}

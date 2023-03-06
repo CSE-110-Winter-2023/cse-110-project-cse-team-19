@@ -14,19 +14,16 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-<<<<<<< HEAD
-    //
-//    private SharedPreferences preferences;
-//
-//    @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Intent intent = new Intent(this, EnterNameActivity.class);
         startActivity(intent);
+    }
+}
 
-=======
 
     /*
     private SharedPreferences preferences;
@@ -155,16 +152,9 @@ public class MainActivity extends AppCompatActivity {
         familyCoords.setText(family);
         friendCoords.setText(friend);
         orientationLabel.setText(mock_orientation);
->>>>>>> 391863b40ab4c02c608b115e39b04bbde4b4dd48
 
     }
     */
-
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-}
 //        preferences = getApplicationContext().getSharedPreferences("my_preferences", MODE_PRIVATE);
 //
 //
