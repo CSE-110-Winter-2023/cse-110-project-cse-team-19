@@ -1,3 +1,4 @@
+/*
 package com.example.cse110project;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -44,10 +45,7 @@ public class LocationService implements LocationListener {
         return instance;
     }
 
-    /**
-     * Constructor for LocationService
-     * @param activity Context needed to initiate LocationManager
-     */
+
     protected LocationService(AppCompatActivity activity) {
         this.locationValue = new MutableLiveData<>();
         this.activity = activity;
@@ -56,7 +54,6 @@ public class LocationService implements LocationListener {
         withLocationPermissions(this::registerLocationListener);
     }
 
-    /** called when we have permissions */
     @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
     private void registerLocationListener() {
         this.locationManager.requestLocationUpdates(
@@ -95,9 +92,10 @@ public class LocationService implements LocationListener {
 
     public LiveData<Pair<Double, Double>> getLocation() { return this.locationValue; }
 
-    public void setMockOrientationSource(MutableLiveData<Pair<Double, Double>> mockDataSource) {
+    public void setMockLocationSource(MutableLiveData<Pair<Double, Double>> mockDataSource) {
         unregisterLocationListener();
         this.locationValue = mockDataSource;
     }
 
 }
+*/

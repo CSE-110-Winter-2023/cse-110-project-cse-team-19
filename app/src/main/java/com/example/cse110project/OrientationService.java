@@ -1,3 +1,4 @@
+/*
 package com.example.cse110project;
 
 import android.app.Activity;
@@ -6,8 +7,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class OrientationService implements SensorEventListener {
@@ -17,9 +20,16 @@ public class OrientationService implements SensorEventListener {
     private float[] accelerometerReading;
     private float[] magnetometerReading;
     private MutableLiveData<Float> azimuth;
+    private MediatorLiveData<Float> returnedAzimuth;
+
+    private LiveData<Float> mockOrientation = null;
+
 
     protected OrientationService(Activity activity){
         this.azimuth = new MutableLiveData<>();
+        this.returnedAzimuth = new MediatorLiveData<>();
+        returnedAzimuth.addSource(azimuth,returnedAzimuth::postValue);
+
         this.sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
         this.registerSensorListeners();
     }
@@ -68,7 +78,7 @@ public class OrientationService implements SensorEventListener {
         if(success) {
             float[] orientation = new float[3];
             SensorManager.getOrientation(r, orientation);
-            this.azimuth.postValue(orientation[0]);
+            this.returnedAzimuth.postValue(orientation[0]);
         }
     }
 
@@ -77,19 +87,21 @@ public class OrientationService implements SensorEventListener {
     }
 
     public LiveData<Float> getOrientation() {
-        return this.azimuth;
+        return this.returnedAzimuth;
     }
 
     public void setMockOrientationSource(MutableLiveData<Float> mockDataSource) {
-        instance.unregisterSensorListeners();
-        instance.azimuth = mockDataSource;
+        this.unregisterSensorListeners();
+        this.mockOrientation = mockDataSource;
+        returnedAzimuth.removeSource(azimuth);
+        returnedAzimuth.addSource(mockOrientation,returnedAzimuth::postValue);
     }
 
-    /*
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterSensorListeners();
+    public void clearMockOrientationSource(){
+        this.registerSensorListeners();
+        returnedAzimuth.removeSource(mockOrientation);
+        returnedAzimuth.addSource(azimuth,returnedAzimuth::postValue);
     }
-    */
 }
+*/
+
