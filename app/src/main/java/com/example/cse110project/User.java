@@ -13,7 +13,7 @@ import com.google.gson.stream.JsonWriter;
 
 import java.time.Instant;
 
-@Entity(tableName = "user")
+@Entity(tableName = "users")
 public class User {
     // User UIDs are going to likely be the public_code we use for our primary key
     @PrimaryKey
