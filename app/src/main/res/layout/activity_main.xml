@@ -31,7 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.229" />
-
     <TextView
         android:id="@+id/personalHomeText"
         android:layout_width="wrap_content"
@@ -44,7 +43,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.329" />
-
     <TextView
         android:id="@+id/familyHomeText"
         android:layout_width="wrap_content"
@@ -57,7 +55,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.473" />
-
     <TextView
         android:id="@+id/friendsHomeText"
         android:layout_width="wrap_content"
@@ -70,7 +67,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.634" />
-
     <Button
         android:id="@+id/next_btn"
         android:layout_width="wrap_content"
@@ -83,7 +79,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.784" />
-
     <EditText
         android:id="@+id/mockTextBox"
         android:layout_width="wrap_content"
@@ -99,7 +94,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.223"
         tools:ignore="DuplicateSpeakableTextCheck" />
-
     <EditText
         android:id="@+id/personalHomeCoords"
         android:layout_width="wrap_content"
@@ -116,7 +110,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.323"
         tools:ignore="DuplicateSpeakableTextCheck" />
-
     <EditText
         android:id="@+id/familyHomeCoords"
         android:layout_width="wrap_content"
@@ -132,7 +125,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.48" />
-
     <EditText
         android:id="@+id/friendsHomeCoords"
         android:layout_width="wrap_content"
@@ -148,5 +140,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.647" />-->
+
+    <TextView
+        android:id="@+id/mainActivityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is the main Activity"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

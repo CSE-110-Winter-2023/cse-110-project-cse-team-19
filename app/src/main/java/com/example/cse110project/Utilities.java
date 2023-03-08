@@ -1,15 +1,20 @@
-/*
 package com.example.cse110project;
+
+import static android.content.Context.MODE_PRIVATE;
+import android.content.Context;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.Locale;
+import java.util.UUID;
 
 public class Utilities {
     public final static String PREFERENCES_NAME = "my_preferences";
+    public static final String USER_NAME = "user name";
+    public static final String USER_UID = "user UID";
+/*
 
     public final static String PERSONAL_HOME_COORDINATES = "mine";
     public final static String FAMILY_HOME_COORDINATES = "family";
@@ -20,7 +25,6 @@ public class Utilities {
     public final static String FRIEND_HOME_LABEL = "friendLabel";
 
     public final static String ORIENTATION_LABEL = "orientationLabel";
-
 
     public static void showAlert(Activity activity, String message){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
@@ -124,6 +128,7 @@ public class Utilities {
         return (latitude + ", " + longitude);
     }
 
+ */
 //    public static void resetPrefs(){
 //        Context context;
 //        SharedPreferences preferences;
@@ -134,6 +139,23 @@ public class Utilities {
 //        editor.putString(Utilities.PERSONAL_HOME_LABEL, "My Home");
 //        editor.apply();
 //    }
-}
+    public static String createUID() {
+        return UUID.randomUUID().toString();
+    }
 
- */
+    public static void showAlert(Activity activity, String message){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+
+        alertBuilder
+                .setTitle("Alert!")
+                .setMessage(message)
+                .setPositiveButton("Ok", (dialog, id) -> {
+                    dialog.cancel();
+                })
+                .setCancelable(true);
+
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
+}
