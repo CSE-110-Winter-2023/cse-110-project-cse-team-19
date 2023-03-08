@@ -23,15 +23,28 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowApplication;
 import java.time.Instant;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @RunWith(RobolectricTestRunner.class)
 
 public class US3Tests {
+    UserAPI api = new UserAPI();
 
     @Test
     public void getTimeTest() {
         String currTime = Instant.now().toString();
         assertNotNull(currTime);
         System.out.println("\n" + currTime + "\n");
+    }
+
+    @Test
+    public void getRemoteUserLocationTest() throws ExecutionException, InterruptedException, TimeoutException {
+        Future<String> userFuture = api.getUserLocationAsync("some private code");
+        String userInfo = userFuture.get(1, TimeUnit.SECONDS);
+        assertNotNull(userInfo);
+        System.out.println("\n"+ userInfo + "\n");
     }
 }

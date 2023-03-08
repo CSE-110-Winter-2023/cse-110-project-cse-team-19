@@ -15,7 +15,7 @@ public class EnterNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_name);
-        preferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
+        preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
     }
 
     public void enterNameBtnPressed(View view) {
@@ -25,12 +25,14 @@ public class EnterNameActivity extends AppCompatActivity {
             Utilities.showAlert(this, "Name box can't be left empty");
         }
 
-        String personalUID = Utilities.createUID();
+        String personalPrivateUID = Utilities.createUID();
+        String personalPublicUID = Utilities.createUID();
 
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putString(Utilities.USER_NAME, name);
-        editor.putString(Utilities.USER_UID, personalUID);
+        editor.putString(Utilities.USER_UID, personalPrivateUID);
+        editor.putString(Utilities.USER_PUBLIC_UID, personalPublicUID);
 
         editor.apply();
 

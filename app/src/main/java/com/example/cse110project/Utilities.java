@@ -14,6 +14,8 @@ public class Utilities {
     public final static String PREFERENCES_NAME = "my_preferences";
     public static final String USER_NAME = "user name";
     public static final String USER_UID = "user UID";
+
+    public static final String USER_PUBLIC_UID = "user public UID";
 /*
 
     public final static String PERSONAL_HOME_COORDINATES = "mine";
