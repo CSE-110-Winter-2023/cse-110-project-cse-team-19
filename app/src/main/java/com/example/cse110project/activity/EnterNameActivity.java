@@ -26,6 +26,7 @@ public class EnterNameActivity extends AppCompatActivity {
         String name = nameBox.getText().toString();
         if (name.equals("")){
             Utilities.showAlert(this, "Name box can't be left empty");
+            return;
         }
 
         String personalPrivateUID = Utilities.createUID();
@@ -38,7 +39,7 @@ public class EnterNameActivity extends AppCompatActivity {
         editor.putString(Utilities.USER_PUBLIC_UID, personalPublicUID);
 
         editor.apply();
-        Intent intent = new Intent(this, CompassActivity.class);
+        Intent intent = new Intent(this, EnterFriendActivity.class);
         startActivity(intent);
         finish();
     }

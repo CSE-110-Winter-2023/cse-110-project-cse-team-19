@@ -27,7 +27,7 @@ public class UserAPI {
         return instance;
     }
 
-    public String getUserLocation(String public_code) {
+    public User getUserLocation(String public_code) {
         public_code = public_code.replace(" ", "%20");
         var request = new Request.Builder()
                 .url("https://socialcompass.goto.ucsd.edu/location/" + public_code)
@@ -36,8 +36,8 @@ public class UserAPI {
 
         try (var response = client.newCall(request).execute()) {
             var body = response.body().string();
-            Log.d("UserLocationCalled", body);
-            return body;
+            User user = User.fromJSON(body);
+            return user;
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -45,7 +45,7 @@ public class UserAPI {
         }
     }
 
-    public Future<String> getUserLocationAsync(String title) throws ExecutionException, InterruptedException, TimeoutException {
+    public Future<User> getUserLocationAsync(String title) throws ExecutionException, InterruptedException, TimeoutException {
         var executor = Executors.newSingleThreadExecutor();
         var future = executor.submit(() -> getUserLocation(title));
         // We can use future.get(1, SECONDS) to wait for the result.
