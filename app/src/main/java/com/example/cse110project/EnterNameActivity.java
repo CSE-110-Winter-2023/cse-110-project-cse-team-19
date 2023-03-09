@@ -2,6 +2,7 @@ package com.example.cse110project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
@@ -35,7 +36,8 @@ public class EnterNameActivity extends AppCompatActivity {
         editor.putString(Utilities.USER_PUBLIC_UID, personalPublicUID);
 
         editor.apply();
-
+        Intent intent = new Intent(this, CompassActivity.class);
+        startActivity(intent);
         finish();
     }
 }

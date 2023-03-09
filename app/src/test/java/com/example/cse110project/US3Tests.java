@@ -7,7 +7,9 @@ import static org.junit.Assert.assertNotNull;
 
 import android.Manifest;
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.ContentInfo;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +31,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 @RunWith(RobolectricTestRunner.class)
-
 public class US3Tests {
     UserAPI api = new UserAPI();
 
@@ -46,5 +47,21 @@ public class US3Tests {
         String userInfo = userFuture.get(1, TimeUnit.SECONDS);
         assertNotNull(userInfo);
         System.out.println("\n"+ userInfo + "\n");
+    }
+
+    @Test
+    public void checkDaoInsert() throws ExecutionException, InterruptedException, TimeoutException {
+        UserAPI api = new UserAPI();
+        Future<String> futureUser = api.getUserLocationAsync("19");
+        String userJSON = futureUser.get(1, TimeUnit.SECONDS);
+        User user = User.fromJSON(userJSON);
+
+        Context context = ApplicationProvider.getApplicationContext();
+        UserDatabase db = UserDatabase.provide(context);
+        UserDao dao = db.getDao();
+        dao.upsert(user);
+
+        boolean isInserted = dao.exists("19");
+        assertEquals(true, isInserted);
     }
 }

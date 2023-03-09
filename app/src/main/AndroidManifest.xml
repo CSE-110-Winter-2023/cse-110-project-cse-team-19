@@ -32,6 +32,9 @@
 <!--                android:value="" />-->
         </activity>
         <activity
+            android:name=".EnterFriendActivity"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">

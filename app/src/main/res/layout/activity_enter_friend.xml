@@ -23,11 +23,10 @@
     <EditText
         android:id="@+id/enterUIDEditText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="102dp"
-        android:layout_marginTop="249dp"
+        android:layout_marginTop="300dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginBottom="33dp"
         android:ems="10"
         android:hint="Enter UIDs here"
         android:inputType="textPersonName"
@@ -40,10 +39,10 @@
         android:id="@+id/addBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="128dp"
-        android:text="Add"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="176dp"
         android:onClick="onAddPressed"
+        android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -51,10 +50,10 @@
         android:id="@+id/nextBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="112dp"
-        android:layout_marginBottom="128dp"
-        android:text="Next"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="176dp"
         android:onClick="onNextPressed"
+        android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
