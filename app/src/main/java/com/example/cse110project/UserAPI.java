@@ -45,6 +45,7 @@ public class UserAPI {
 
         try (var response = client.newCall(request).execute()) {
             var body = response.body().string();
+            Log.d("UserLocationCalled", body);
             return body;
         }
         catch (Exception e) {

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -27,9 +28,9 @@ public class EnterFriendActivity extends AppCompatActivity {
     }
 
     public void onAddPressed(View view) throws ExecutionException, InterruptedException, TimeoutException {
-        EditText friendUIDTextBox = findViewById(R.id.enterNameEditText);
+        EditText friendUIDTextBox = findViewById(R.id.enterUIDEditText);
         String friendUID = friendUIDTextBox.getText().toString();
-        UserAPI api = new UserAPI();
+        UserAPI api = UserAPI.provide();
         Future<String> userFriendFuture = api.getUserLocationAsync(friendUID);
         String userFriendJson = userFriendFuture.get(1, TimeUnit.SECONDS);
 
@@ -38,6 +39,5 @@ public class EnterFriendActivity extends AppCompatActivity {
         UserDao dao = db.getDao();
 
         dao.upsert(userFriend);
-
     }
 }
