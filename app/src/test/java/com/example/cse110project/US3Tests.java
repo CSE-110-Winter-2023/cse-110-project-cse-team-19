@@ -79,7 +79,7 @@ public class US3Tests {
         UserDao dao = db.getDao();
         dao.upsert(user);
 
-        LiveData<User> liveUser = dao.get("19");
+        //LiveData<User> liveUser = dao.get("19");
 
 
     }
