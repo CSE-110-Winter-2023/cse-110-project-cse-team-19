@@ -36,18 +36,17 @@ public class US3Tests {
 
     @Test
     public void getRemoteUserLocationTest() throws ExecutionException, InterruptedException, TimeoutException {
-        Future<String> userFuture = api.getUserLocationAsync("some private code");
-        String userInfo = userFuture.get(1, TimeUnit.SECONDS);
+        Future<User> userFuture = api.getUserLocationAsync("some private code");
+        User userInfo = userFuture.get(1, TimeUnit.SECONDS);
         assertNotNull(userInfo);
-        System.out.println("\n"+ userInfo + "\n");
+        System.out.println("\n"+ userInfo.toJSON() + "\n");
     }
 
     @Test
     public void checkDaoInsert() throws ExecutionException, InterruptedException, TimeoutException {
         UserAPI api = UserAPI.provide();
-        Future<String> futureUser = api.getUserLocationAsync("19");
-        String userJSON = futureUser.get(1, TimeUnit.SECONDS);
-        User user = User.fromJSON(userJSON);
+        Future<User> futureUser = api.getUserLocationAsync("19");
+        User user = futureUser.get(1, TimeUnit.SECONDS);
 
         Context context = ApplicationProvider.getApplicationContext();
         UserDatabase db = UserDatabase.provide(context);
@@ -61,9 +60,8 @@ public class US3Tests {
     @Test
     public void checkDaoGet() throws ExecutionException, InterruptedException, TimeoutException {
         UserAPI api = new UserAPI();
-        Future<String> futureUser = api.getUserLocationAsync("19");
-        String userJSON = futureUser.get(1, TimeUnit.SECONDS);
-        User user = User.fromJSON(userJSON);
+        Future<User> futureUser = api.getUserLocationAsync("19");
+        User user = futureUser.get(1, TimeUnit.SECONDS);
 
         Context context = ApplicationProvider.getApplicationContext();
         UserDatabase db = UserDatabase.provide(context);
