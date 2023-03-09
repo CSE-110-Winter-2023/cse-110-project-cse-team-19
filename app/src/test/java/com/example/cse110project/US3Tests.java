@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ImageView;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -63,5 +65,22 @@ public class US3Tests {
 
         boolean isInserted = dao.exists("19");
         assertEquals(true, isInserted);
+    }
+
+    @Test
+    public void checkDaoGet() throws ExecutionException, InterruptedException, TimeoutException {
+        UserAPI api = new UserAPI();
+        Future<String> futureUser = api.getUserLocationAsync("19");
+        String userJSON = futureUser.get(1, TimeUnit.SECONDS);
+        User user = User.fromJSON(userJSON);
+
+        Context context = ApplicationProvider.getApplicationContext();
+        UserDatabase db = UserDatabase.provide(context);
+        UserDao dao = db.getDao();
+        dao.upsert(user);
+
+        LiveData<User> liveUser = dao.get("19");
+
+
     }
 }

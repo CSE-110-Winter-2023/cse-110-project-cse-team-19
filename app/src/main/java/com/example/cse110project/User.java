@@ -21,6 +21,7 @@ public class User {
     @NonNull
     public String public_code;
 
+
     // The Users private code used when we need to update their own location
     // Might actually not want to include this in all Users since the api never
     // returns a private code
