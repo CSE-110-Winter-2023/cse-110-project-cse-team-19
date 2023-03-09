@@ -19,8 +19,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, EnterNameActivity.class);
+        SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
+
+        if (preferences.getString(Utilities.USER_UID, "").equals(""));{
+            Intent intent = new Intent(this, EnterNameActivity.class);
+            startActivity(intent);
+        }
+
+        Intent intent = new Intent(this, EnterFriendActivity.class);
         startActivity(intent);
+
     }
 }
 
