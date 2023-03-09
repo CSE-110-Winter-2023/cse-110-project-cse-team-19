@@ -1,17 +1,15 @@
-package com.example.cse110project;
+package com.example.cse110project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 
-import java.util.ArrayList;
+import com.example.cse110project.R;
+import com.example.cse110project.Utilities;
+import com.example.cse110project.activity.EnterFriendActivity;
+import com.example.cse110project.activity.EnterNameActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override

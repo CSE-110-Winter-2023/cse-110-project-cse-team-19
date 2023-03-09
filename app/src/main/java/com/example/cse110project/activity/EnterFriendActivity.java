@@ -1,12 +1,17 @@
-package com.example.cse110project;
+package com.example.cse110project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.cse110project.R;
+import com.example.cse110project.model.User;
+import com.example.cse110project.model.UserAPI;
+import com.example.cse110project.model.UserDao;
+import com.example.cse110project.model.UserDatabase;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;

@@ -1,13 +1,15 @@
-package com.example.cse110project;
+package com.example.cse110project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.cse110project.R;
+import com.example.cse110project.Utilities;
 
 public class EnterNameActivity extends AppCompatActivity {
 

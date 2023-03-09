@@ -1,4 +1,4 @@
-package com.example.cse110project;
+package com.example.cse110project.model;
 
 import android.content.Context;
 
