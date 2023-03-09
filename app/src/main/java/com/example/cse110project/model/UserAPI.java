@@ -1,24 +1,15 @@
-package com.example.cse110project;
+package com.example.cse110project.model;
 
 import android.util.Log;
 
-import androidx.annotation.AnyThread;
-import androidx.annotation.MainThread;
-import androidx.annotation.WorkerThread;
-
-import com.google.gson.Gson;
-
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 
 public class UserAPI {
     private volatile static UserAPI instance = null;
@@ -45,6 +36,7 @@ public class UserAPI {
 
         try (var response = client.newCall(request).execute()) {
             var body = response.body().string();
+            Log.d("UserLocationCalled", body);
             return body;
         }
         catch (Exception e) {
