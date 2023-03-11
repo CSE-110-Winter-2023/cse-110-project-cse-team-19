@@ -68,6 +68,13 @@ public class US3Tests {
         UserDao dao = db.getDao();
         dao.upsert(user);
 
+        assertEquals(null, user.private_code);
+
         //LiveData<User> liveUser = dao.get("19");
+    }
+
+    @Test
+    public void testJsonForPut() {
+
     }
 }

@@ -2,6 +2,7 @@ package com.example.cse110project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,9 +11,10 @@ import android.widget.EditText;
 
 import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
+import com.example.cse110project.model.User;
+
 
 public class EnterNameActivity extends AppCompatActivity {
-
     private SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +37,21 @@ public class EnterNameActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putString(Utilities.USER_NAME, name);
-        editor.putString(Utilities.USER_UID, personalPrivateUID);
+        editor.putString(Utilities.USER_PRIVATE_UID, personalPrivateUID);
         editor.putString(Utilities.USER_PUBLIC_UID, personalPublicUID);
 
         editor.apply();
+
+        // Initialize our current user object with their public UID and name as label
+        // Still store private UID into preferences tho
+        // This behavior can be changed if needed.
+        Utilities.personalUser = new User(personalPublicUID, personalPrivateUID, name, 0, 0);
+
         Intent intent = new Intent(this, EnterFriendActivity.class);
+
         startActivity(intent);
         finish();
+
     }
+
 }

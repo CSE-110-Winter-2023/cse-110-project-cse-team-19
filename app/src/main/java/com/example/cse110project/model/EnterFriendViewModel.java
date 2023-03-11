@@ -43,7 +43,7 @@ public class EnterFriendViewModel extends AndroidViewModel {
         if (!repo.existsLocal(public_id)) {
             UserAPI api = new UserAPI();
             Future<User> future = api.getUserLocationAsync(public_id);
-            User user = future.get(1, TimeUnit.SECONDS);
+            User user = future.get(3, TimeUnit.SECONDS);
 
             // An endpoint that doesn't exist results in a user being created with just
             // latitude and longitude

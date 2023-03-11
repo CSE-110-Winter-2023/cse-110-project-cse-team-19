@@ -1,7 +1,14 @@
 package com.example.cse110project.model;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.cse110project.Utilities;
+
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -10,6 +17,7 @@ import java.util.concurrent.TimeoutException;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class UserAPI {
     private volatile static UserAPI instance = null;
@@ -51,4 +59,37 @@ public class UserAPI {
         // We can use future.get(1, SECONDS) to wait for the result.
         return future;
     }
+
+    public void putUserLocation(Context context, User user) {
+        String pub_code = user.public_code;
+        String url = pub_code.replace(" ", "%20");
+
+        String userJSON = user.toJSON();
+        RequestBody JSONbody = RequestBody.create(userJSON, JSON);
+//        SharedPreferences prefs = context.getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
+//
+//        String public_UID = prefs.getString(Utilities.USER_PUBLIC_UID, "");
+//        String private_UID = prefs.getString(Utilities.USER_PRIVATE_UID, "");
+//
+//        String public_UID_url = public_UID.replace(" ", "%20");
+//        RequestBody bodyJSON = RequestBody.create(user.toJSON(), JSON);
+
+
+        var request = new Request.Builder()
+                .url("https://sharednotes.goto.ucsd.edu/notes/" + url)
+                .method("PUT", JSONbody)
+                .build();
+
+        try {
+            var response = client.newCall(request).execute();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+//    public Future<Boolean> putUserLocationAsync() {
+//        return null;
+//    }
 }

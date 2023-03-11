@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
 
-        if (preferences.getString(Utilities.USER_UID, "").equals(""));{
+        if (preferences.getString(Utilities.USER_PRIVATE_UID, "").equals(""));{
             Intent intent = new Intent(this, EnterNameActivity.class);
             startActivity(intent);
         }

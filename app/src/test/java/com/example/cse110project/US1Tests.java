@@ -52,7 +52,7 @@ public class US1Tests {
             nextBtn.performClick();
 
             String preferencesName = preferences.getString(Utilities.USER_NAME, "");
-            String preferencesUID = preferences.getString(Utilities.USER_UID, "");
+            String preferencesUID = preferences.getString(Utilities.USER_PUBLIC_UID, "");
 
             assertEquals("Tyler Culp", preferencesName);
             assertNotNull(preferencesUID);

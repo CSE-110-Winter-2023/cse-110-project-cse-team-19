@@ -4,23 +4,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
+import com.example.cse110project.model.User;
+import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDao;
 import com.example.cse110project.model.UserDatabase;
+import com.example.cse110project.service.LocationService;
+
+import java.time.Instant;
+import java.util.concurrent.Executors;
 
 public class CompassActivity extends AppCompatActivity {
-
+    UserAPI api = new UserAPI();
+    private LocationService locationService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
+
         var context = getApplicationContext();
         var db = UserDatabase.provide(context);
         var dao = db.getDao();
+
+        locationService = LocationService.singleton(this);
+
+        var executor = Executors.newSingleThreadExecutor();
+        var future = executor.submit(() -> {
+            this.reobserveLocation();
+        });
+
 
 
         TextView personalUIDTextView = findViewById(R.id.userUIDTextView);
@@ -45,5 +62,22 @@ public class CompassActivity extends AppCompatActivity {
 
     public void enterFriendsBtnPressed(View view) {
         finish();
+    }
+
+    public void reobserveLocation() {
+        var locationData = locationService.getLocation();
+        locationData.observe(this, this::onLocationChanged);
+    }
+
+    public void onLocationChanged(Pair<Double, Double> latLong) {
+        User currUser = Utilities.personalUser;
+        double newLat = latLong.first;
+        double newLong = latLong.second;
+
+        currUser.latitude = (float) newLat;
+        currUser.longitude = (float) newLong;
+        currUser.updated_at = Instant.now().toString();
+
+        api.putUserLocation(this, currUser);
     }
 }
