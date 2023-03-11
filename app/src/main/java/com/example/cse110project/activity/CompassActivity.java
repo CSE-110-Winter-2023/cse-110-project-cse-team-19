@@ -53,7 +53,6 @@ public class CompassActivity extends AppCompatActivity {
 //            throw new RuntimeException(e);
 //        }
 
-//
 //        personalUIDTextView = findViewById(R.id.userUIDTextView);
 //        SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
 //        String personalPublicUID = preferences.getString(Utilities.USER_PUBLIC_UID, "");
