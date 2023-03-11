@@ -35,6 +35,10 @@ public class CompassActivity extends AppCompatActivity {
 
         locationService = LocationService.singleton(this);
 
+        if (Utilities.personalUser.private_code == null) {
+            throw new IllegalStateException("personal UID can't be empty by the time we get to the Compass");
+        }
+
         var executor = Executors.newSingleThreadExecutor();
         var future = executor.submit(() -> {
             this.reobserveLocation();
@@ -46,9 +50,6 @@ public class CompassActivity extends AppCompatActivity {
 //        SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
 //        String personalPublicUID = preferences.getString(Utilities.USER_PUBLIC_UID, "");
 
-        if (Utilities.personalUser) {
-            throw new IllegalStateException("personal UID can't be empty by the time we get to the Compass");
-        }
 //        personalUIDTextView.setText(personalPublicUID);
 
         // These were used to check that UIDs that I entered on the EnterFriendsActivity were actually
