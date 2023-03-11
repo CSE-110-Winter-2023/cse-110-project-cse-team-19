@@ -20,12 +20,14 @@ import java.time.Instant;
 import java.util.concurrent.Executors;
 
 public class CompassActivity extends AppCompatActivity {
+    TextView personalUIDTextView;
     UserAPI api = new UserAPI();
     private LocationService locationService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
+        personalUIDTextView = findViewById(R.id.userUIDTextView);
 
         var context = getApplicationContext();
         var db = UserDatabase.provide(context);
@@ -39,15 +41,15 @@ public class CompassActivity extends AppCompatActivity {
         });
 
 
+//
+//        personalUIDTextView = findViewById(R.id.userUIDTextView);
+//        SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
+//        String personalPublicUID = preferences.getString(Utilities.USER_PUBLIC_UID, "");
 
-        TextView personalUIDTextView = findViewById(R.id.userUIDTextView);
-        SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
-        String personalPublicUID = preferences.getString(Utilities.USER_PUBLIC_UID, "");
-
-        if (personalPublicUID.equals("")) {
+        if (Utilities.personalUser) {
             throw new IllegalStateException("personal UID can't be empty by the time we get to the Compass");
         }
-        personalUIDTextView.setText(personalPublicUID);
+//        personalUIDTextView.setText(personalPublicUID);
 
         // These were used to check that UIDs that I entered on the EnterFriendsActivity were actually
         // put into the Room database correctly and that I would be able to get them back out.
@@ -78,8 +80,10 @@ public class CompassActivity extends AppCompatActivity {
         Utilities.personalUser.updated_at = Instant.now().toString();
 
 
-        api.putUserLocation(Utilities.personalUser);
+        api.putUserAsync(Utilities.personalUser);
+        personalUIDTextView.setText("Latitude: " + newLat + ", longitude: "+ newLong);
 
-        // Loop through all of the
+
+        // Loop through all of the friend UIDs we have and recompute the formula for getting their angles on the compass
     }
 }

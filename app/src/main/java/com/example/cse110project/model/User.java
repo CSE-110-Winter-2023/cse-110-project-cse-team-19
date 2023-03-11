@@ -21,7 +21,6 @@ public class User {
     // Might actually not want to include this in all Users since the api never
     // returns a private code
     @SerializedName("private_code")
-    @NonNull
     public String private_code;
 
     // A label to add when we PUT locations
@@ -50,7 +49,7 @@ public class User {
     public String updated_at;
 
     // General POJO constructor for the User
-    public User(@NonNull String public_code, @NonNull String private_code, @NonNull String label,
+    public User(@NonNull String public_code, String private_code, @NonNull String label,
                 @NonNull float latitude, @NonNull float longitude) {
         this.public_code = public_code;
         this.private_code = private_code;

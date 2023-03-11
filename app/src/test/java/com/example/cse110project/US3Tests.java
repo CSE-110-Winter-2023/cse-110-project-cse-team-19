@@ -6,8 +6,10 @@ import static org.junit.Assert.assertNotNull;
 
 import android.content.Context;
 
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 
+import com.example.cse110project.activity.CompassActivity;
 import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDao;
@@ -108,6 +110,15 @@ public class US3Tests {
 
         assertEquals(100, user.latitude, .0001);
         assertEquals(-50, user.longitude, .0001);
+    }
+
+    @Test
+    public void putLocationInCompassActivity() {
+        try(ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
+            scenario.onActivity(activity -> {
+
+            });
+        }
     }
 
 
