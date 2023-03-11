@@ -70,14 +70,16 @@ public class CompassActivity extends AppCompatActivity {
     }
 
     public void onLocationChanged(Pair<Double, Double> latLong) {
-        User currUser = Utilities.personalUser;
         double newLat = latLong.first;
         double newLong = latLong.second;
 
-        currUser.latitude = (float) newLat;
-        currUser.longitude = (float) newLong;
-        currUser.updated_at = Instant.now().toString();
+        Utilities.personalUser.latitude = (float) newLat;
+        Utilities.personalUser.longitude = (float) newLong;
+        Utilities.personalUser.updated_at = Instant.now().toString();
 
-        api.putUserLocation(this, currUser);
+
+        api.putUserLocation(Utilities.personalUser);
+
+        // Loop through all of the
     }
 }

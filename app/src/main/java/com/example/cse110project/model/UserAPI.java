@@ -60,33 +60,33 @@ public class UserAPI {
         return future;
     }
 
-    public void putUserLocation(Context context, User user) {
+    public String putUserLocation(User user) {
         String pub_code = user.public_code;
         String url = pub_code.replace(" ", "%20");
 
         String userJSON = user.toJSON();
         RequestBody JSONbody = RequestBody.create(userJSON, JSON);
-//        SharedPreferences prefs = context.getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
-//
-//        String public_UID = prefs.getString(Utilities.USER_PUBLIC_UID, "");
-//        String private_UID = prefs.getString(Utilities.USER_PRIVATE_UID, "");
-//
-//        String public_UID_url = public_UID.replace(" ", "%20");
-//        RequestBody bodyJSON = RequestBody.create(user.toJSON(), JSON);
-
 
         var request = new Request.Builder()
-                .url("https://sharednotes.goto.ucsd.edu/notes/" + url)
+                .url("https://socialcompass.goto.ucsd.edu/location/" + url)
                 .method("PUT", JSONbody)
                 .build();
 
-        try {
-            var response = client.newCall(request).execute();
+        try (var response = client.newCall(request).execute()) {;
+            var body = response.body().string();
+            return body;
 
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public Future<String> putUserAsync(User user) {
+        var executor = Executors.newSingleThreadExecutor();
+        var future = executor.submit(() -> putUserLocation(user));
+        // We can use future.get(1, SECONDS) to wait for the result.
+        return future;
     }
 
 //    public Future<Boolean> putUserLocationAsync() {

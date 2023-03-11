@@ -19,6 +19,7 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.time.Instant;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -74,7 +75,40 @@ public class US3Tests {
     }
 
     @Test
-    public void testJsonForPut() {
+    public void testJsonForPut() throws ExecutionException, InterruptedException, TimeoutException {
+        User putUser = new User("l7har", "0000", "A place",35, 25);
+        var executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+            api.putUserLocation(putUser);
+        });
+        Future<User> future = api.getUserLocationAsync(putUser.public_code);
+        User userFromCloud = future.get(1, TimeUnit.SECONDS);
+
+        assertEquals(userFromCloud.public_code, putUser.public_code);
+        assertEquals(userFromCloud.label, putUser.label);
+        assertEquals(userFromCloud.latitude, putUser.latitude, .0001);
+        assertEquals(userFromCloud.longitude, putUser.longitude, .0001);
 
     }
+
+    @Test
+    public void getThenPut() throws ExecutionException, InterruptedException, TimeoutException {
+        Future<User> future = api.getUserLocationAsync("spirit");
+        User user = future.get(1, TimeUnit.SECONDS);
+        System.out.println("\n"+ user.toJSON() + "\n");
+        user.private_code = "1234";
+        user.latitude = 100;
+        user.longitude = -50;
+        //System.out.println("\n"+ user.toJSON() + "\n");
+        var putFuture = api.putUserAsync(user);
+        String put = putFuture.get(1,TimeUnit.SECONDS);
+        future = api.getUserLocationAsync("spirit");
+        user = future.get(1, TimeUnit.SECONDS);
+        System.out.println("\n"+ user.toJSON() + "\n");
+
+        assertEquals(100, user.latitude, .0001);
+        assertEquals(-50, user.longitude, .0001);
+    }
+
+
 }
