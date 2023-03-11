@@ -2,7 +2,6 @@ package com.example.cse110project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
@@ -10,24 +9,25 @@ import android.widget.TextView;
 
 import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
-import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserAPI;
-import com.example.cse110project.model.UserDao;
 import com.example.cse110project.model.UserDatabase;
 import com.example.cse110project.service.LocationService;
 
 import java.time.Instant;
-import java.util.concurrent.Executors;
 
 public class CompassActivity extends AppCompatActivity {
-    TextView personalUIDTextView;
+    TextView latLong;
+    TextView public_uid;
     UserAPI api = new UserAPI();
     private LocationService locationService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
-        personalUIDTextView = findViewById(R.id.userUIDTextView);
+        latLong = findViewById(R.id.userUIDTextView);
+        latLong.setText("Some new text in the box");
+        public_uid = findViewById(R.id.public_uid);
+        public_uid.setText(Utilities.personalUser.public_code);
 
         var context = getApplicationContext();
         var db = UserDatabase.provide(context);
@@ -39,11 +39,19 @@ public class CompassActivity extends AppCompatActivity {
             throw new IllegalStateException("personal UID can't be empty by the time we get to the Compass");
         }
 
-        var executor = Executors.newSingleThreadExecutor();
-        var future = executor.submit(() -> {
-            this.reobserveLocation();
-        });
+        this.reobserveLocation();
 
+//        var executor = Executors.newSingleThreadExecutor();
+//        var future = executor.submit(this::reobserveLocation);
+//        try {
+//            var getFuture = future.get(1, TimeUnit.SECONDS);
+//        } catch (ExecutionException e) {
+//            throw new RuntimeException(e);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        } catch (TimeoutException e) {
+//            throw new RuntimeException(e);
+//        }
 
 //
 //        personalUIDTextView = findViewById(R.id.userUIDTextView);
@@ -82,7 +90,7 @@ public class CompassActivity extends AppCompatActivity {
 
 
         api.putUserAsync(Utilities.personalUser);
-        personalUIDTextView.setText("Latitude: " + newLat + ", longitude: "+ newLong);
+        this.latLong.setText("Latitude: " + newLat + ", longitude: "+ newLong);
 
 
         // Loop through all of the friend UIDs we have and recompute the formula for getting their angles on the compass
