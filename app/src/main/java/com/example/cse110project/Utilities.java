@@ -1,23 +1,21 @@
 package com.example.cse110project;
 
-import static android.content.Context.MODE_PRIVATE;
-import android.content.Context;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.SharedPreferences;
 
 import com.example.cse110project.model.User;
 
-import java.util.Locale;
 import java.util.UUID;
 
 public class Utilities {
     public final static String PREFERENCES_NAME = "my_preferences";
-    public static final String USER_NAME = "user name";
+    public static final String LABEL_NAME = "user name";
     public static final String USER_PRIVATE_UID = "user private UID";
-
     public static final String USER_PUBLIC_UID = "user public UID";
+    public static final String USER_LONGITUDE = "user longitude";
+    public static final String USER_LATITUDE = "user latitude";
+    public static final String CREATED_AT = "created at";
+    public static final String UPDATED_AT = "updated at";
     public static User personalUser;
 /*
 

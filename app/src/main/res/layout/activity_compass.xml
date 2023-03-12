@@ -44,4 +44,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.318"
         app:layout_constraintStart_toStartOf="parent" />
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linaerLayout"-->
+<!--        android:layout_width="409dp"-->
+<!--        android:layout_height="498dp"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:layout_marginBottom="50dp"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/public_uid"></LinearLayout>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
