@@ -12,11 +12,12 @@ import android.widget.EditText;
 import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
 import com.example.cse110project.model.User;
-import com.example.cse110project.model.UserDao;
-import com.example.cse110project.model.UserDatabase;
+
+import java.time.Instant;
 
 
 public class EnterNameActivity extends AppCompatActivity {
+    public Context context;
     private SharedPreferences preferences;
    // public Context context;
     @Override
@@ -39,10 +40,15 @@ public class EnterNameActivity extends AppCompatActivity {
         String personalPublicUID = Utilities.createUID();
 
         SharedPreferences.Editor editor = preferences.edit();
-
-        editor.putString(Utilities.USER_NAME, name);
-        editor.putString(Utilities.USER_PRIVATE_UID, personalPrivateUID);
         editor.putString(Utilities.USER_PUBLIC_UID, personalPublicUID);
+        editor.putString(Utilities.USER_PRIVATE_UID, personalPrivateUID);
+        editor.putString(Utilities.LABEL_NAME, name);
+        editor.putFloat(Utilities.USER_LATITUDE, 0);
+        editor.putFloat(Utilities.USER_LONGITUDE, 0);
+        editor.putString(Utilities.CREATED_AT, Instant.now().toString());
+        editor.putString(Utilities.UPDATED_AT, Instant.now().toString());
+
+
 
         editor.apply();
 

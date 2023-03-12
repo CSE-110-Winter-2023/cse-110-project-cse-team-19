@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cse110project.R;
@@ -16,6 +18,8 @@ import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDatabase;
 import com.example.cse110project.model.UserRepository;
 import com.example.cse110project.service.LocationService;
+
+import org.w3c.dom.Text;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -27,10 +31,21 @@ public class CompassActivity extends AppCompatActivity {
     TextView public_uid;
     UserAPI api = new UserAPI();
     private LocationService locationService;
+    SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
+        prefs = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
+        TextView myText = new TextView(this);
+        myText.setText("TextView number: 1");
+
+
+//        for (int i = 0; i < 3; i++) {
+//            TextView myText = new TextView(this);
+//            myText.setText("TextView number: " + i);
+//            layout.addView(myText);
+//        }
         latLong = findViewById(R.id.userUIDTextView);
         latLong.setText("Some new text in the box");
         public_uid = findViewById(R.id.public_uid);
@@ -101,10 +116,18 @@ public class CompassActivity extends AppCompatActivity {
     public void onLocationChanged(Pair<Double, Double> latLong) {
         double newLat = latLong.first;
         double newLong = latLong.second;
+        String updatedTime = Instant.now().toString();
 
         Utilities.personalUser.latitude = (float) newLat;
         Utilities.personalUser.longitude = (float) newLong;
-        Utilities.personalUser.updated_at = Instant.now().toString();
+        Utilities.personalUser.updated_at = updatedTime;
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putFloat(Utilities.USER_LATITUDE, (float) newLat);
+        editor.putFloat(Utilities.USER_LONGITUDE, (float) newLong);
+        editor.putString(Utilities.UPDATED_AT, updatedTime);
+
+        editor.apply();
 
 
         api.putUserAsync(Utilities.personalUser);

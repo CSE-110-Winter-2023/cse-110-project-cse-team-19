@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -39,6 +40,10 @@ public class EnterFriendActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_friend);
+
+        SharedPreferences prefs = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
+        this.recreateUser(prefs);
+
 
         var viewModel = setUpViewModel();
         var adapter = setupAdapter(viewModel);
@@ -132,5 +137,21 @@ public class EnterFriendActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EnterNameActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void recreateUser(SharedPreferences prefs) {
+        String user_public_code = prefs.getString(Utilities.USER_PUBLIC_UID, "");
+        String user_personal_code = prefs.getString(Utilities.USER_PRIVATE_UID, "");
+        String user_label = prefs.getString(Utilities.LABEL_NAME, "");
+        float user_latitude = prefs.getFloat(Utilities.USER_LATITUDE, 0);
+        float user_longitude = prefs.getFloat(Utilities.USER_LONGITUDE, 0);
+        String user_created_at = prefs.getString(Utilities.CREATED_AT, "");
+        String user_updated_at = prefs.getString(Utilities.UPDATED_AT, "");
+
+        Utilities.personalUser = new User(user_public_code, user_personal_code,
+                user_label, user_latitude, user_longitude);
+        Utilities.personalUser.created_at = user_created_at;
+        Utilities.personalUser.updated_at = user_updated_at;
+
     }
 }

@@ -5,11 +5,13 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 
 import com.example.cse110project.activity.CompassActivity;
+import com.example.cse110project.activity.EnterFriendActivity;
 import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDao;
@@ -113,10 +115,25 @@ public class US3Tests {
     }
 
     @Test
-    public void putLocationInCompassActivity() {
-        try(ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
+    public void testRecreateUser() {
+        try (ActivityScenario<EnterFriendActivity> scenario = ActivityScenario.launch(EnterFriendActivity.class)){
             scenario.onActivity(activity -> {
+                SharedPreferences prefs = activity.getSharedPreferences(Utilities.PREFERENCES_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor =prefs.edit();
+                editor.putString(Utilities.USER_PUBLIC_UID, "abcdefg");
+                editor.putString(Utilities.USER_PRIVATE_UID, "12345");
+                editor.putString(Utilities.LABEL_NAME, "Tyler");
+                editor.putFloat(Utilities.USER_LATITUDE, 20);
+                editor.putFloat(Utilities.USER_LONGITUDE, 50);
+                editor.putString(Utilities.CREATED_AT, Instant.EPOCH.toString());
+                editor.putString(Utilities.UPDATED_AT, Instant.now().toString());
 
+                editor.apply();
+
+                activity.recreateUser(prefs);
+                System.out.println(Utilities.personalUser.toJSON());
+
+                assertNotNull(Utilities.personalUser);
             });
         }
     }
