@@ -31,7 +31,7 @@ public class UserRepository {
         // If we get a local then we pass it on
         user.addSource(getLocal(public_id), user::postValue);
         // If we get a remote update pass it on
-        user.addSource(getRemote(public_id), updateFromRemote);
+        //user.addSource(getRemote(public_id), updateFromRemote);
 
         return user;
     }

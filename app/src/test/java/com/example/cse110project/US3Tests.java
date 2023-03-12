@@ -6,7 +6,11 @@ import static org.junit.Assert.assertNotNull;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.View;
+import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LiveData;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 
@@ -16,17 +20,22 @@ import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDao;
 import com.example.cse110project.model.UserDatabase;
+import com.example.cse110project.model.UserRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import java.time.Instant;
+import java.util.Hashtable;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import java.util.Enumeration;
 
 @RunWith(RobolectricTestRunner.class)
 public class US3Tests {
@@ -138,5 +147,30 @@ public class US3Tests {
         }
     }
 
+    /*
+    @Test
+    public void testCreateTextView() {
+        try (ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
+            scenario.onActivity(activity -> {
+                ConstraintLayout layout = activity.findViewById(R.id.compassLayout);
+                Hashtable<String, TextView> table = activity.getTextViews();
+                Enumeration<String> e = table.keys();
 
+                int i = 0;
+                while (e.hasMoreElements()) {
+
+                    // Getting the key of a particular entry
+                    String key = e.nextElement();
+
+                    // Print and display the Rank and Name
+                    TextView textView = table.get(key);
+                    textView.setId(i);
+                    View newTextView = layout.findViewById(i);
+                    i++;
+                    assertNotNull(newTextView);
+                }
+            });
+        }
+    }
+     */
 }

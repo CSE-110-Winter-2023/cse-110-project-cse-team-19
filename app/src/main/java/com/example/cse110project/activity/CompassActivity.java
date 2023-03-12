@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cse110project.R;
@@ -19,10 +18,7 @@ import com.example.cse110project.model.UserDatabase;
 import com.example.cse110project.model.UserRepository;
 import com.example.cse110project.service.LocationService;
 
-import org.w3c.dom.Text;
-
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -32,6 +28,8 @@ public class CompassActivity extends AppCompatActivity {
     UserAPI api = new UserAPI();
     private LocationService locationService;
     SharedPreferences prefs;
+    Hashtable<String, TextView> tableTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,21 +89,41 @@ public class CompassActivity extends AppCompatActivity {
 //        dao.get("My current location").observe(this, user -> {
 //            personalUIDTextView.setText(user.toJSON());
 //        });
-        Hashtable<String, TextView> listTextView = new Hashtable<>();
+        tableTextView = new Hashtable<>();
         LiveData<List<User>> list = repo.getAllLocal();
         ConstraintLayout constraint = findViewById(R.id.compassLayout);
         list.observe(this, listUsers ->{
             for(User user : listUsers){
-                TextView textView = new TextView(this);
-                textView.setText(user.label);
-                constraint.addView(textView);
-                listTextView.put(user.public_code, textView);
+                if(!tableTextView.containsKey(user.public_code)){
+                    TextView textView = new TextView(this);
+                    textView.setText(user.label);
+                    constraint.addView(textView);
+                    tableTextView.put(user.public_code, textView);
+                } else {
+                    TextView textView = tableTextView.get(user.public_code);
+                    textView.setText(user.label);
+                }
+            }
+        });
+
+        list.observe(this, listUsers ->{
+            for(User user : listUsers){
+                LiveData<User> updatedUser = repo.getRemote(user.public_code);
+                updatedUser.observe(this, updatedUsers -> {
+                    if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
+                        dao.upsert(updatedUsers);
+                    }
+                });
             }
         });
     }
 
     public void enterFriendsBtnPressed(View view) {
         finish();
+    }
+
+    public Hashtable<String, TextView> getTextViews(){
+        return tableTextView;
     }
 
     public void reobserveLocation() {
