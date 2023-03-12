@@ -1,6 +1,8 @@
 package com.example.cse110project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LiveData;
 
 import android.os.Bundle;
 import android.util.Pair;
@@ -9,11 +11,16 @@ import android.widget.TextView;
 
 import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
+import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDatabase;
+import com.example.cse110project.model.UserRepository;
 import com.example.cse110project.service.LocationService;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 public class CompassActivity extends AppCompatActivity {
     TextView latLong;
@@ -32,6 +39,7 @@ public class CompassActivity extends AppCompatActivity {
         var context = getApplicationContext();
         var db = UserDatabase.provide(context);
         var dao = db.getDao();
+        var repo = new UserRepository(dao);
 
         locationService = LocationService.singleton(this);
 
@@ -68,6 +76,17 @@ public class CompassActivity extends AppCompatActivity {
 //        dao.get("My current location").observe(this, user -> {
 //            personalUIDTextView.setText(user.toJSON());
 //        });
+        Hashtable<String, TextView> listTextView = new Hashtable<>();
+        LiveData<List<User>> list = repo.getAllLocal();
+        ConstraintLayout constraint = findViewById(R.id.compassLayout);
+        list.observe(this, listUsers ->{
+            for(User user : listUsers){
+                TextView textView = new TextView(this);
+                textView.setText(user.label);
+                constraint.addView(textView);
+                listTextView.put(user.public_code, textView);
+            }
+        });
     }
 
     public void enterFriendsBtnPressed(View view) {

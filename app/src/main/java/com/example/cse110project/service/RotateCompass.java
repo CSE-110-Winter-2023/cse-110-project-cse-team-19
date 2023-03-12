@@ -1,5 +1,4 @@
-/*
-package com.example.cse110project;
+package com.example.cse110project.service;
 
 import android.app.Activity;
 import android.widget.TextView;
@@ -9,7 +8,7 @@ import androidx.lifecycle.LifecycleOwner;
 
 public class RotateCompass {
     public static void rotateCompass(Activity activity, LifecycleOwner lifecycle, ConstraintLayout layout, TextView view){
-        OrientationService orientationService = OrientationService.singleton(activity);
+        com.example.cse110project.OrientationService orientationService = com.example.cse110project.OrientationService.singleton(activity);
         orientationService.getOrientation().observe(lifecycle, orientation -> {
             view.setText(Float.toString(orientation));
             layout.setRotation((float) Math.toDegrees(-orientation));
@@ -21,4 +20,3 @@ public class RotateCompass {
         layout.setRotation(-rotate);
     }
 }
-*/
