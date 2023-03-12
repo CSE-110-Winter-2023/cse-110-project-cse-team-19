@@ -45,7 +45,7 @@ public class UserRepository {
     public LiveData<List<User>> getAllLocal() { return dao.getAll(); }
 
     public void upsertLocal(User user, boolean incrementVersion) {
-        if (incrementVersion) user.updated_at = Instant.now().toString();
+        //if (incrementVersion) user.updated_at = Instant.now().toString();
         user.updated_at = Instant.now().toString();
         dao.upsert(user);
     }

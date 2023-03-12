@@ -91,6 +91,12 @@ public class CompassActivity extends AppCompatActivity {
         api.putUserAsync(Utilities.personalUser);
         this.latLong.setText("Latitude: " + newLat + ", longitude: "+ newLong);
 
+//        var context = getApplicationContext();
+//        var db = UserDatabase.provide(context);
+//        var dao = db.getDao();
+//
+//        dao.upsert(Utilities.personalUser);
+
 
         // Loop through all of the friend UIDs we have and recompute the formula for getting their angles on the compass
     }

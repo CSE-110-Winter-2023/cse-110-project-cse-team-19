@@ -10,6 +10,7 @@ import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
 import com.example.cse110project.activity.EnterFriendActivity;
 import com.example.cse110project.activity.EnterNameActivity;
+import com.example.cse110project.model.UserDatabase;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -17,7 +18,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (Utilities.personalUser == null) {
+        var context = getApplicationContext();
+        var db = UserDatabase.provide(context);
+        var dao = db.getDao();
+
+        var preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
+
+        if (preferences.getString(Utilities.USER_PUBLIC_UID, "").equals("")) {
             Intent intent = new Intent(this, EnterNameActivity.class);
             startActivity(intent);
         }

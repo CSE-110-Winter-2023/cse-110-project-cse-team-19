@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cse110project.R;
+import com.example.cse110project.Utilities;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +45,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     public void setUsers(List<User> users) {
+        //users.remove(Utilities.personalUser);
         this.users = users;
         notifyDataSetChanged();
     }

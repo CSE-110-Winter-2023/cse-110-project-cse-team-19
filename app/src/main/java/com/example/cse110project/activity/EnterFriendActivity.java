@@ -2,6 +2,7 @@ package com.example.cse110project.activity;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import com.example.cse110project.model.UserAdapter;
 import com.example.cse110project.model.UserDao;
 import com.example.cse110project.model.UserDatabase;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -88,7 +90,12 @@ public class EnterFriendActivity extends AppCompatActivity {
         UserAdapter adapter = new UserAdapter();
         adapter.setHasStableIds(true);
         adapter.setOnUserDeleteClickedListener(user -> onUserDeleteClicked(user, viewModel));
-        viewModel.getUsers().observe(this, adapter::setUsers);
+        LiveData<List<User>> listOfUsers= viewModel.getUsers();
+        //Wanted to remove user's ID but having trouble removing user from the list
+//        listOfUsers.observe(this, activity -> {
+//            //activity.remove(0);
+//        });
+        listOfUsers.observe(this, adapter::setUsers);
         return adapter;
     }
 
