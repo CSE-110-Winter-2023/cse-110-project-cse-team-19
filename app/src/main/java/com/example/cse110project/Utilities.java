@@ -176,4 +176,7 @@ public class Utilities {
         return degrees;
     }
 
+    static String formatLocation(double latitude, double longitude) {
+        return (latitude + ", " + longitude);
+    }
 }

@@ -147,9 +147,10 @@ public class US3Tests {
         }
     }
 
-    /*
+
     @Test
     public void testCreateTextView() {
+        Utilities.personalUser = new User("test","test","test",0,0);
         try (ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
             scenario.onActivity(activity -> {
                 ConstraintLayout layout = activity.findViewById(R.id.compassLayout);
@@ -158,11 +159,7 @@ public class US3Tests {
 
                 int i = 0;
                 while (e.hasMoreElements()) {
-
-                    // Getting the key of a particular entry
                     String key = e.nextElement();
-
-                    // Print and display the Rank and Name
                     TextView textView = table.get(key);
                     textView.setId(i);
                     View newTextView = layout.findViewById(i);
@@ -172,5 +169,4 @@ public class US3Tests {
             });
         }
     }
-     */
 }

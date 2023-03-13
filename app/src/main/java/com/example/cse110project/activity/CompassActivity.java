@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
@@ -14,11 +15,14 @@ import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
 import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserAPI;
+import com.example.cse110project.model.UserDao;
 import com.example.cse110project.model.UserDatabase;
 import com.example.cse110project.model.UserRepository;
 import com.example.cse110project.service.LocationService;
+import com.example.cse110project.service.RotateCompass;
 
 import java.time.Instant;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -30,6 +34,11 @@ public class CompassActivity extends AppCompatActivity {
     SharedPreferences prefs;
     Hashtable<String, TextView> tableTextView;
 
+    Context context;
+    UserDatabase db;
+    UserDao dao;
+    UserRepository repo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +47,10 @@ public class CompassActivity extends AppCompatActivity {
         TextView myText = new TextView(this);
         myText.setText("TextView number: 1");
 
+        context = getApplicationContext();
+        db = UserDatabase.provide(context);
+        dao = db.getDao();
+        repo = new UserRepository(dao);
 
 //        for (int i = 0; i < 3; i++) {
 //            TextView myText = new TextView(this);
@@ -47,12 +60,9 @@ public class CompassActivity extends AppCompatActivity {
         latLong = findViewById(R.id.userUIDTextView);
         latLong.setText("Some new text in the box");
         public_uid = findViewById(R.id.public_uid);
-        public_uid.setText(Utilities.personalUser.public_code);
-
-        var context = getApplicationContext();
-        var db = UserDatabase.provide(context);
-        var dao = db.getDao();
-        var repo = new UserRepository(dao);
+        if(Utilities.personalUser != null){
+            public_uid.setText(Utilities.personalUser.public_code);
+        }
 
         locationService = LocationService.singleton(this);
 
@@ -99,9 +109,11 @@ public class CompassActivity extends AppCompatActivity {
                     textView.setText(user.label);
                     constraint.addView(textView);
                     tableTextView.put(user.public_code, textView);
+                    RotateCompass.constrainUser(textView, Utilities.personalUser.latitude , Utilities.personalUser.longitude, user.latitude, user.longitude);
                 } else {
                     TextView textView = tableTextView.get(user.public_code);
                     textView.setText(user.label);
+                    RotateCompass.constrainUser(textView, Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude);
                 }
             }
         });
@@ -116,6 +128,10 @@ public class CompassActivity extends AppCompatActivity {
                 });
             }
         });
+
+        //rotate compass
+        TextView orientationView = (TextView) findViewById(R.id.orientation);
+        RotateCompass.rotateCompass(this, this, constraint, orientationView);
     }
 
     public void enterFriendsBtnPressed(View view) {
@@ -159,5 +175,20 @@ public class CompassActivity extends AppCompatActivity {
 
 
         // Loop through all of the friend UIDs we have and recompute the formula for getting their angles on the compass
+        Enumeration<String> e = tableTextView.keys();
+
+        while (e.hasMoreElements()) {
+            String key = e.nextElement();
+            TextView textView = tableTextView.get(key);
+        }
+
+        LiveData<List<User>> list = repo.getAllLocal();
+        list.observe(this, listUsers ->{
+            for(User user : listUsers){
+                TextView textView = tableTextView.get(user.public_code);
+                textView.setText(user.label);
+                RotateCompass.constrainUser(textView, Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude);
+            }
+        });
     }
 }

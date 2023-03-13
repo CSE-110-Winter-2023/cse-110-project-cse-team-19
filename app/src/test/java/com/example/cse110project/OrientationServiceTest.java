@@ -12,6 +12,9 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import com.example.cse110project.activity.CompassActivity;
+import com.example.cse110project.model.User;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,28 +30,29 @@ public class OrientationServiceTest {
 
     }
 
-//    @Test
-//    public void test_orientation_service(){
-//        Application application = ApplicationProvider.getApplicationContext();
-//        ShadowApplication app = Shadows.shadowOf(application);
-//        app.grantPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,
-//                Manifest.permission.ACCESS_COARSE_LOCATION);
-//
-//        var scenario = ActivityScenario.launch(MainActivity.class);
-//        scenario.moveToState(Lifecycle.State.CREATED);
-//        scenario.onActivity(activity -> {
-//            var mockDataSource = new MutableLiveData<Float>();
-//            var expected = 2.65386f;
-//            mockDataSource.setValue(expected);
-//
-//            var orientationService = OrientationService.singleton(activity);
-//            orientationService.setMockOrientationSource(mockDataSource);
-//            orientationService.getOrientation().observe(activity, orientation->{
-//                assertEquals(orientation,expected,0);
-//            });
-//
-//            //TextView textView = activity.findViewById(R.id.orientationView);
-//            //var observed = Float.parseFloat(textView.getText().toString());
-//        });
-//    }
+    @Test
+    public void test_orientation_service(){
+        Application application = ApplicationProvider.getApplicationContext();
+        ShadowApplication app = Shadows.shadowOf(application);
+        app.grantPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        Utilities.personalUser = new User("test","test","test",0,0);
+        var scenario = ActivityScenario.launch(CompassActivity.class);
+        scenario.moveToState(Lifecycle.State.CREATED);
+        scenario.onActivity(activity -> {
+            var mockDataSource = new MutableLiveData<Float>();
+            var expected = 2.65386f;
+            mockDataSource.setValue(expected);
+
+            var orientationService = com.example.cse110project.OrientationService.singleton(activity);
+            orientationService.setMockOrientationSource(mockDataSource);
+            orientationService.getOrientation().observe(activity, orientation->{
+                assertEquals(orientation,expected,0);
+            });
+
+            //TextView textView = activity.findViewById(R.id.orientationView);
+            //var observed = Float.parseFloat(textView.getText().toString());
+        });
+    }
 }
