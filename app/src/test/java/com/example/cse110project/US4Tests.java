@@ -55,7 +55,7 @@ public class US4Tests {
                     } else {
                         correctDisplay = 300;
                     }
-                    assertEquals(layoutParams.circleRadius, correctDisplay);
+                    assertEquals(layoutParams.circleRadius, correctDisplay, 0);
                 }
             });
         }
