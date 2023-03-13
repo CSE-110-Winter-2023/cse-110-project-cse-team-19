@@ -16,7 +16,8 @@ public abstract class UserDao {
     public abstract boolean exists(String public_code);
 
     @Query("SELECT * FROM users WHERE public_code = :public_code")
-    public abstract User get(String public_code);
+//    public abstract User get(String public_code);
+    public abstract LiveData<User> get(String public_code);
 
     @Query("SELECT * FROM users ORDER BY public_code")
     public abstract LiveData<List<User>> getAll();

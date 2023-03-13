@@ -1,5 +1,4 @@
-/*
-package com.example.cse110project;
+package com.example.cse110project.service;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -98,4 +97,3 @@ public class LocationService implements LocationListener {
     }
 
 }
-*/
