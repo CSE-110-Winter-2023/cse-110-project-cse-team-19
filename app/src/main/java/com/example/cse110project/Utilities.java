@@ -176,6 +176,24 @@ public class Utilities {
         return degrees;
     }
 
+    public static double findDistance(double ourLat, double ourLong, double theirLat, double theirLong){
+        var R = 3963; // Radius of the earth in miles
+        var dLat = deg2rad(theirLat-ourLat);  // deg2rad below
+        var dLon = deg2rad(theirLong-ourLong);
+        var a =
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                        Math.cos(deg2rad(ourLat)) * Math.cos(deg2rad(theirLat)) *
+                                Math.sin(dLon/2) * Math.sin(dLon/2)
+                ;
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var d = R * c;
+        return d;
+    }
+
+    public static double deg2rad(double deg){
+        return deg * (Math.PI/180);
+    }
+
     static String formatLocation(double latitude, double longitude) {
         return (latitude + ", " + longitude);
     }

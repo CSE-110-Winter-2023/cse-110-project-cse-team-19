@@ -24,10 +24,27 @@ public class RotateCompass {
         layout.setRotation(-rotate);
     }
 
+    /*
+    There are just four zones/circles (upper value of range is exclusive):
+        0-1 mile
+        1-10 miles
+        10-500 miles
+        500 miles are farther.
+     */
+
     public static void constrainUser(TextView textView, double ourLat, double ourLong, double theirLat, double theirLong){
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
         layoutParams.circleConstraint = R.id.compass_image;
-        layoutParams.circleRadius = 200;
+        double distMi = Utilities.findDistance(ourLat, ourLong, theirLat, theirLong);
+        if(distMi < 1){
+            layoutParams.circleRadius = 100;
+        } else if (distMi < 10) {
+            layoutParams.circleRadius = 200;
+        } else if (distMi < 500) {
+            layoutParams.circleRadius = 250;
+        } else {
+            layoutParams.circleRadius = 300;
+        }
         layoutParams.circleAngle = (float) Utilities.findAngle(ourLat, ourLong, theirLat, theirLong);
         textView.setLayoutParams(layoutParams);
     }
