@@ -207,7 +207,6 @@ public class CompassActivity extends AppCompatActivity {
         });
     }
 
-    //Use Observer pattern?
 
     public void zoomIn(View view){
         Button zoomInBtn = findViewById(R.id.zoomInBtn);

@@ -207,7 +207,6 @@ public class Utilities {
             circleViews.get(1).setVisibility(View.INVISIBLE);
             circleViews.get(2).setVisibility(View.INVISIBLE);
             circleViews.get(3).setVisibility(View.VISIBLE);
-
         }
         if(zoomLevel == 1){
             circleViews.get(0).setVisibility(View.INVISIBLE);
@@ -220,7 +219,6 @@ public class Utilities {
             circleViews.get(1).setVisibility(View.VISIBLE);
             circleViews.get(2).setVisibility(View.VISIBLE);
             circleViews.get(3).setVisibility(View.VISIBLE);
-
         }
         if(zoomLevel == 3){
             circleViews.get(0).setVisibility(View.VISIBLE);

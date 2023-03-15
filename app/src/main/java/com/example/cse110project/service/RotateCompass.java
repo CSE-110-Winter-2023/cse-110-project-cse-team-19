@@ -34,16 +34,16 @@ public class RotateCompass {
 
     public static void constrainUser(TextView textView, double ourLat, double ourLong, double theirLat, double theirLong){
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
-        layoutParams.circleConstraint = R.id.circleOne;
+        layoutParams.circleConstraint = R.id.compassLayout;
         double distMi = Utilities.findDistance(ourLat, ourLong, theirLat, theirLong);
         if(distMi < 1){
-            layoutParams.circleRadius = 100;
+            layoutParams.circleRadius = 150;
         } else if (distMi < 10) {
-            layoutParams.circleRadius = 200;
+            layoutParams.circleRadius = 270;
         } else if (distMi < 500) {
-            layoutParams.circleRadius = 250;
+            layoutParams.circleRadius = 370;
         } else {
-            layoutParams.circleRadius = 300;
+            layoutParams.circleRadius = 470;
         }
         layoutParams.circleAngle = (float) Utilities.findAngle(ourLat, ourLong, theirLat, theirLong);
         textView.setLayoutParams(layoutParams);
