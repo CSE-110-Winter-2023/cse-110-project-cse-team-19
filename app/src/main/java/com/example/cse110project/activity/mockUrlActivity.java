@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
+import com.example.cse110project.model.API;
 
 public class mockUrlActivity extends AppCompatActivity {
     SharedPreferences prefs;
@@ -27,4 +28,5 @@ public class mockUrlActivity extends AppCompatActivity {
         editor.apply();
         finish();
     }
+
 }
