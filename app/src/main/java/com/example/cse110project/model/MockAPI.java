@@ -81,4 +81,9 @@ public class MockAPI implements API{
         // We can use future.get(1, SECONDS) to wait for the result.
         return future;
     }
+
+    @Override
+    public String toString() {
+        return "I am the mocking API!";
+    }
 }
