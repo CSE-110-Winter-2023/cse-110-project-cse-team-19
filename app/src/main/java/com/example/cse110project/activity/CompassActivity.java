@@ -98,6 +98,9 @@ public class CompassActivity extends AppCompatActivity {
         list.observe(this, listUsers ->{
             for(User user : listUsers){
                 // Might need an if check here to ensure user.updated at isn't null
+                if (user == null) {
+                    continue;
+                }
                 LiveData<User> updatedUser = repo.getRemote(user.public_code);
                 updatedUser.observe(this, updatedUsers -> {
                     if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
