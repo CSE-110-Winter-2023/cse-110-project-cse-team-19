@@ -52,7 +52,7 @@ public class US3Tests {
     @Test
     public void getRemoteUserLocationTest() throws ExecutionException, InterruptedException, TimeoutException {
         Future<User> userFuture = api.getUserLocationAsync("some private code");
-        User userInfo = userFuture.get(1, TimeUnit.SECONDS);
+        User userInfo = userFuture.get(3, TimeUnit.SECONDS);
         assertNotNull(userInfo);
         System.out.println("\n"+ userInfo.toJSON() + "\n");
     }

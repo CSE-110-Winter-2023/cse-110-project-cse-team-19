@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
+import com.example.cse110project.model.API;
+import com.example.cse110project.model.MockAPI;
 import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDao;
@@ -29,7 +31,7 @@ import java.util.List;
 public class CompassActivity extends AppCompatActivity {
     TextView latLong;
     TextView public_uid;
-    UserAPI api = new UserAPI();
+    API api;
     private LocationService locationService;
     SharedPreferences prefs;
     Hashtable<String, TextView> tableTextView;
@@ -52,11 +54,15 @@ public class CompassActivity extends AppCompatActivity {
         dao = db.getDao();
         repo = new UserRepository(dao);
 
-//        for (int i = 0; i < 3; i++) {
-//            TextView myText = new TextView(this);
-//            myText.setText("TextView number: " + i);
-//            layout.addView(myText);
-//        }
+        String mockedUrl = prefs.getString(Utilities.MOCK_URL, "");
+        if (!mockedUrl.equals("")) {
+            api = new MockAPI(mockedUrl);
+        }
+
+        else {
+            api = new UserAPI();
+        }
+
         latLong = findViewById(R.id.userUIDTextView);
         latLong.setText("Some new text in the box");
         public_uid = findViewById(R.id.public_uid);

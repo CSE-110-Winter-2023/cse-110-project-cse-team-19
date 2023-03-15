@@ -152,6 +152,5 @@ public class EnterFriendActivity extends AppCompatActivity {
                 user_label, user_latitude, user_longitude);
         Utilities.personalUser.created_at = user_created_at;
         Utilities.personalUser.updated_at = user_updated_at;
-
     }
 }
