@@ -34,7 +34,7 @@ public class RotateCompass {
 
     public static void constrainUser(TextView textView, double ourLat, double ourLong, double theirLat, double theirLong){
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
-        layoutParams.circleConstraint = R.id.compass_image;
+        layoutParams.circleConstraint = R.id.circleOne;
         double distMi = Utilities.findDistance(ourLat, ourLong, theirLat, theirLong);
         if(distMi < 1){
             layoutParams.circleRadius = 100;

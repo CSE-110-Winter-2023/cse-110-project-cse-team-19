@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cse110project.R;
@@ -22,6 +24,7 @@ import com.example.cse110project.service.LocationService;
 import com.example.cse110project.service.RotateCompass;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -30,7 +33,13 @@ public class CompassActivity extends AppCompatActivity {
     TextView latLong;
     TextView public_uid;
     UserAPI api = new UserAPI();
+
+    //TODO Implement using SharedPreferences Later
+    int zoomLevel = 1;
     private LocationService locationService;
+    private List<ImageView> circleViews = new ArrayList<>();
+    private final List<ImageView> finalCircleSizes = new ArrayList<>();
+
     SharedPreferences prefs;
     Hashtable<String, TextView> tableTextView;
 
@@ -71,6 +80,12 @@ public class CompassActivity extends AppCompatActivity {
         }
 
         this.reobserveLocation();
+        circleViews.add(findViewById(R.id.circleOne));
+        circleViews.add(findViewById(R.id.circleTwo));
+        circleViews.add(findViewById(R.id.circleThree));
+        circleViews.add(findViewById(R.id.circleFour));
+
+        Utilities.updateZoom(zoomLevel, circleViews);
 
 //        var executor = Executors.newSingleThreadExecutor();
 //        var future = executor.submit(this::reobserveLocation);
@@ -190,5 +205,43 @@ public class CompassActivity extends AppCompatActivity {
                 RotateCompass.constrainUser(textView, Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude);
             }
         });
+    }
+
+    //Use Observer pattern?
+
+    public void zoomIn(View view){
+        Button zoomInBtn = findViewById(R.id.zoomInBtn);
+        Button zoomOutBtn = findViewById(R.id.zoomOutBtn);
+        System.out.println("Zoom Level : " + zoomLevel);
+
+        if(zoomLevel == 3){
+            zoomOutBtn.setAlpha(1f);
+            zoomOutBtn.setEnabled(true);
+        }
+        zoomLevel--;
+        if(zoomLevel < 0){
+            System.out.println("Zoom Level : " + zoomLevel);
+            zoomInBtn.setAlpha(0.5f);
+            zoomInBtn.setEnabled(false);
+            return;
+        }
+
+        Utilities.updateZoom(zoomLevel, circleViews);
+    }
+    public void zoomOut(View view){
+        Button zoomOutBtn = findViewById(R.id.zoomOutBtn);
+        Button zoomInBtn = findViewById(R.id.zoomInBtn);
+
+        if(zoomLevel == 0){
+            zoomInBtn.setAlpha(1f);
+            zoomInBtn.setEnabled(true);
+        }
+        if(zoomLevel + 1 >= circleViews.size()){
+            zoomOutBtn.setAlpha(0.5f);
+            zoomOutBtn.setEnabled(false);
+            return;
+        }
+        zoomLevel++;
+        Utilities.updateZoom(zoomLevel, circleViews);
     }
 }
