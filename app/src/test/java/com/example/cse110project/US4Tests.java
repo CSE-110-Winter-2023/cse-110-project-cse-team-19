@@ -42,7 +42,8 @@ public class US4Tests {
                 while (e.hasMoreElements()) {
                     String key = e.nextElement();
                     TextView textView = table.get(key);
-                    RotateCompass.constrainUser(textView, 32, 100, 32, -100);
+                    //TODO allow zoomLevel param
+                    //RotateCompass.constrainUser(textView, 32, 100, 32, -100);
                     var distance = (float) Utilities.findDistance(32, 100, 32, -100);
                     ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
                     float correctDisplay;

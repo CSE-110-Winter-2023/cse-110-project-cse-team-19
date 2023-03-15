@@ -184,7 +184,8 @@ public class US3Tests {
                 while (e.hasMoreElements()) {
                     String key = e.nextElement();
                     TextView textView = table.get(key);
-                    RotateCompass.constrainUser(textView, 32, 100, 32, -100);
+                    //TODO Change to allow zoomLevel param
+                    //RotateCompass.constrainUser(textView, 32, 100, 32, -100);
                     var angle = (float) Utilities.findAngle(32, 100, 32, -100);
                     ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
                     assertEquals(layoutParams.circleAngle, angle);

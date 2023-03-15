@@ -20,6 +20,7 @@ import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDao;
 import com.example.cse110project.model.UserDatabase;
 import com.example.cse110project.model.UserRepository;
+import com.example.cse110project.service.ConstrainUserService;
 import com.example.cse110project.service.LocationService;
 import com.example.cse110project.service.RotateCompass;
 
@@ -41,7 +42,8 @@ public class CompassActivity extends AppCompatActivity {
     private final List<ImageView> finalCircleSizes = new ArrayList<>();
 
     SharedPreferences prefs;
-    Hashtable<String, TextView> tableTextView;
+    //Hashtable<String, TextView> tableTextView;
+    Hashtable<String, ConstrainUserService> tableTextView;
 
     Context context;
     UserDatabase db;
@@ -123,12 +125,13 @@ public class CompassActivity extends AppCompatActivity {
                     TextView textView = new TextView(this);
                     textView.setText(user.label);
                     constraint.addView(textView);
-                    tableTextView.put(user.public_code, textView);
-                    RotateCompass.constrainUser(textView, Utilities.personalUser.latitude , Utilities.personalUser.longitude, user.latitude, user.longitude);
+                    ConstrainUserService constrainUserService = new ConstrainUserService(user.latitude, user.longitude, textView);
+                    tableTextView.put(user.public_code, constrainUserService);
+                    constrainUserService.constrainUser(Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude, zoomLevel);
                 } else {
-                    TextView textView = tableTextView.get(user.public_code);
+                    TextView textView = tableTextView.get(user.public_code).textView;
                     textView.setText(user.label);
-                    RotateCompass.constrainUser(textView, Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude);
+                    tableTextView.get(user.public_code).constrainUser(Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude, zoomLevel);
                 }
             }
         });
@@ -153,7 +156,7 @@ public class CompassActivity extends AppCompatActivity {
         finish();
     }
 
-    public Hashtable<String, TextView> getTextViews(){
+    public Hashtable<String, ConstrainUserService> getTextViews(){
         return tableTextView;
     }
 
@@ -194,19 +197,18 @@ public class CompassActivity extends AppCompatActivity {
 
         while (e.hasMoreElements()) {
             String key = e.nextElement();
-            TextView textView = tableTextView.get(key);
+            TextView textView = tableTextView.get(key).textView;
         }
 
         LiveData<List<User>> list = repo.getAllLocal();
         list.observe(this, listUsers ->{
             for(User user : listUsers){
-                TextView textView = tableTextView.get(user.public_code);
+                TextView textView = tableTextView.get(user.public_code).textView;
                 textView.setText(user.label);
-                RotateCompass.constrainUser(textView, Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude);
+                tableTextView.get(user.public_code).constrainUser(Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude, zoomLevel);
             }
         });
     }
-
 
     public void zoomIn(View view){
         Button zoomInBtn = findViewById(R.id.zoomInBtn);
@@ -226,6 +228,13 @@ public class CompassActivity extends AppCompatActivity {
         }
 
         Utilities.updateZoom(zoomLevel, circleViews);
+        Enumeration<String> e = tableTextView.keys();
+
+        while (e.hasMoreElements()) {
+            String key = e.nextElement();
+            ConstrainUserService textView = tableTextView.get(key);
+            textView.constrainUser(Utilities.personalUser.latitude, Utilities.personalUser.longitude, zoomLevel);
+        }
     }
     public void zoomOut(View view){
         Button zoomOutBtn = findViewById(R.id.zoomOutBtn);
@@ -242,5 +251,12 @@ public class CompassActivity extends AppCompatActivity {
         }
         zoomLevel++;
         Utilities.updateZoom(zoomLevel, circleViews);
+        Enumeration<String> e = tableTextView.keys();
+
+        while (e.hasMoreElements()) {
+            String key = e.nextElement();
+            ConstrainUserService textView = tableTextView.get(key);
+            textView.constrainUser(Utilities.personalUser.latitude, Utilities.personalUser.longitude, zoomLevel);
+        }
     }
 }
