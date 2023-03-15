@@ -58,11 +58,6 @@ public class EnterNameActivity extends AppCompatActivity {
         Utilities.personalUser = new User(personalPublicUID, personalPrivateUID, name, 0, 0);
 
 
-//        UserDatabase db = UserDatabase.provide(context);
-//        UserDao dao = db.getDao();
-
-        //dao.upsert(Utilities.personalUser);
-
         Intent intent = new Intent(this, EnterFriendActivity.class);
 
         startActivity(intent);

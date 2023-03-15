@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.cse110project.R;
 import com.example.cse110project.Utilities;
+import com.example.cse110project.model.API;
+import com.example.cse110project.model.MockAPI;
 import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDao;
@@ -29,11 +31,10 @@ import java.util.List;
 public class CompassActivity extends AppCompatActivity {
     TextView latLong;
     TextView public_uid;
-    UserAPI api = new UserAPI();
     private LocationService locationService;
     SharedPreferences prefs;
     Hashtable<String, TextView> tableTextView;
-
+    API api;
     Context context;
     UserDatabase db;
     UserDao dao;
@@ -51,7 +52,14 @@ public class CompassActivity extends AppCompatActivity {
         db = UserDatabase.provide(context);
         dao = db.getDao();
         repo = new UserRepository(dao);
+        String mockedUrl = prefs.getString(Utilities.MOCK_URL, "");
+        if (!mockedUrl.equals("")) {
+            api = new MockAPI(mockedUrl);
+        }
 
+        else {
+            api = new UserAPI();
+        }
         latLong = findViewById(R.id.userUIDTextView);
         latLong.setText("Some new text in the box");
         public_uid = findViewById(R.id.public_uid);
@@ -61,23 +69,12 @@ public class CompassActivity extends AppCompatActivity {
 
         locationService = LocationService.singleton(this);
 
-        if (Utilities.personalUser.private_code == null) {
-            throw new IllegalStateException("personal UID can't be empty by the time we get to the Compass");
-        }
+        // Commenting this out for testing purposes
+//        if (Utilities.personalUser.private_code == null) {
+//            throw new IllegalStateException("personal UID can't be empty by the time we get to the Compass");
+//        }
 
         this.reobserveLocation();
-
-//        var executor = Executors.newSingleThreadExecutor();
-//        var future = executor.submit(this::reobserveLocation);
-//        try {
-//            var getFuture = future.get(1, TimeUnit.SECONDS);
-//        } catch (ExecutionException e) {
-//            throw new RuntimeException(e);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        } catch (TimeoutException e) {
-//            throw new RuntimeException(e);
-//        }
 
 //        personalUIDTextView = findViewById(R.id.userUIDTextView);
 //        SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
@@ -100,6 +97,10 @@ public class CompassActivity extends AppCompatActivity {
 
         list.observe(this, listUsers ->{
             for(User user : listUsers){
+                // Might need an if check here to ensure user.updated at isn't null
+                if (user == null) {
+                    continue;
+                }
                 LiveData<User> updatedUser = repo.getRemote(user.public_code);
                 updatedUser.observe(this, updatedUsers -> {
                     if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
@@ -191,5 +192,18 @@ public class CompassActivity extends AppCompatActivity {
                 RotateCompass.constrainUser(textView, Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude);
             }
         });
+    }
+
+    public API getApi() {
+        String mockedUrl = prefs.getString(Utilities.MOCK_URL, "");
+        if (!mockedUrl.equals("")) {
+            api = new MockAPI(mockedUrl);
+        }
+
+        else {
+            api = new UserAPI();
+        }
+
+        return this.api;
     }
 }
