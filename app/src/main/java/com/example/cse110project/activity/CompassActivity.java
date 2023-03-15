@@ -53,7 +53,6 @@ public class CompassActivity extends AppCompatActivity {
         db = UserDatabase.provide(context);
         dao = db.getDao();
         repo = new UserRepository(dao);
-
         String mockedUrl = prefs.getString(Utilities.MOCK_URL, "");
         if (!mockedUrl.equals("")) {
             api = new MockAPI(mockedUrl);
@@ -62,7 +61,6 @@ public class CompassActivity extends AppCompatActivity {
         else {
             api = new UserAPI();
         }
-
         latLong = findViewById(R.id.userUIDTextView);
         latLong.setText("Some new text in the box");
         public_uid = findViewById(R.id.public_uid);
@@ -77,18 +75,6 @@ public class CompassActivity extends AppCompatActivity {
         }
 
         this.reobserveLocation();
-
-//        var executor = Executors.newSingleThreadExecutor();
-//        var future = executor.submit(this::reobserveLocation);
-//        try {
-//            var getFuture = future.get(1, TimeUnit.SECONDS);
-//        } catch (ExecutionException e) {
-//            throw new RuntimeException(e);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        } catch (TimeoutException e) {
-//            throw new RuntimeException(e);
-//        }
 
 //        personalUIDTextView = findViewById(R.id.userUIDTextView);
 //        SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
@@ -108,8 +94,21 @@ public class CompassActivity extends AppCompatActivity {
         tableTextView = new Hashtable<>();
         LiveData<List<User>> list = repo.getAllLocal();
         ConstraintLayout constraint = findViewById(R.id.compassLayout);
+
         list.observe(this, listUsers ->{
             for(User user : listUsers){
+                LiveData<User> updatedUser = repo.getRemote(user.public_code);
+                updatedUser.observe(this, updatedUsers -> {
+                    if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
+                        dao.upsert(updatedUsers);
+                    }
+                });
+            }
+        });
+
+        list.observe(this, listUsers ->{
+            for(User user : listUsers){
+
                 if(!tableTextView.containsKey(user.public_code)){
                     TextView textView = new TextView(this);
                     textView.setText(user.label);
@@ -121,17 +120,6 @@ public class CompassActivity extends AppCompatActivity {
                     textView.setText(user.label);
                     RotateCompass.constrainUser(textView, Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude);
                 }
-            }
-        });
-
-        list.observe(this, listUsers ->{
-            for(User user : listUsers){
-                LiveData<User> updatedUser = repo.getRemote(user.public_code);
-                updatedUser.observe(this, updatedUsers -> {
-                    if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
-                        dao.upsert(updatedUsers);
-                    }
-                });
             }
         });
 
@@ -192,6 +180,10 @@ public class CompassActivity extends AppCompatActivity {
         list.observe(this, listUsers ->{
             for(User user : listUsers){
                 TextView textView = tableTextView.get(user.public_code);
+
+                if (textView == null) {
+                    continue;
+                }
                 textView.setText(user.label);
                 RotateCompass.constrainUser(textView, Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude);
             }
