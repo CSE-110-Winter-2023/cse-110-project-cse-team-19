@@ -1,13 +1,5 @@
 package com.example.cse110project.model;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-
-import com.example.cse110project.Utilities;
-
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -19,27 +11,24 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
-public class UserAPI implements API {
-    private volatile static UserAPI instance = null;
+public class MockAPI implements API{
+    private volatile static MockAPI instance = null;
 
     private OkHttpClient client;
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    private String mockUrl;
 
-    public UserAPI() { this.client = new OkHttpClient(); }
-
-    public static UserAPI provide() {
-        if (instance == null) {
-            instance = new UserAPI();
-        }
-        return instance;
+    public MockAPI(String mockUrl) {
+        this.client = new OkHttpClient();
+        this.mockUrl = mockUrl;
     }
 
     @Override
     public User getUserLocation(String public_code) {
         public_code = public_code.replace(" ", "%20");
         var request = new Request.Builder()
-                .url("https://socialcompass.goto.ucsd.edu/location/" + public_code)
+                .url(this.mockUrl + public_code)
                 .method("GET", null)
                 .build();
 
@@ -71,7 +60,7 @@ public class UserAPI implements API {
         RequestBody JSONbody = RequestBody.create(userJSON, JSON);
 
         var request = new Request.Builder()
-                .url("https://socialcompass.goto.ucsd.edu/location/" + url)
+                .url(this.mockUrl + url)
                 .method("PUT", JSONbody)
                 .build();
 
@@ -93,4 +82,8 @@ public class UserAPI implements API {
         return future;
     }
 
+    @Override
+    public String toString() {
+        return "I am the mocking API!";
+    }
 }
