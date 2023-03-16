@@ -120,7 +120,7 @@ public class CompassActivity extends AppCompatActivity {
                 }
                 LiveData<User> updatedUser = repo.getRemote(user.public_code);
                 updatedUser.observe(this, updatedUsers -> {
-                    if (updatedUser == null){ /* do nothing */ }
+                    if (updatedUsers == null || updatedUsers.updated_at == null){ /* do nothing */ }
                     else if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
                         dao.upsert(updatedUsers);
                     }

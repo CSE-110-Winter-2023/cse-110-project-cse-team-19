@@ -1,5 +1,6 @@
 package com.example.cse110project.service;
 
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -52,6 +53,7 @@ public class ConstrainUserService {
         }
         layoutParams.circleAngle = (float) Utilities.findAngle(ourLat, ourLong, theirLat, theirLong);
         textView.setLayoutParams(layoutParams);
+        textView.setEllipsize(TextUtils.TruncateAt.END);
     }
     public void constrainUser(double ourLat, double ourLong, int zoomLevel){
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
