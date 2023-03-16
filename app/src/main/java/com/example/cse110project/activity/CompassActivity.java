@@ -26,6 +26,9 @@ import com.example.cse110project.model.UserRepository;
 import com.example.cse110project.service.ConstrainUserService;
 import com.example.cse110project.service.LocationService;
 import com.example.cse110project.service.RotateCompass;
+import com.example.cse110project.service.TimeService;
+
+import org.w3c.dom.Text;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -50,6 +53,8 @@ public class CompassActivity extends AppCompatActivity {
     UserDatabase db;
     UserDao dao;
     UserRepository repo;
+
+    Long lastLocationUpdateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +84,15 @@ public class CompassActivity extends AppCompatActivity {
         }
 
         locationService = LocationService.singleton(this);
-
+        var timeService = TimeService.singleton();
+        var timeData = timeService.getTimeData();
+        timeData.observe(this, this::onTimeChanged);
         // Commenting this out for testing purposes
 //        if (Utilities.personalUser.private_code == null) {
 //            throw new IllegalStateException("personal UID can't be empty by the time we get to the Compass");
 //        }
 
         this.reobserveLocation();
-        this.reobserveGPS();
         circleViews.add(findViewById(R.id.circleOne));
         circleViews.add(findViewById(R.id.circleTwo));
         circleViews.add(findViewById(R.id.circleThree));
@@ -159,18 +165,13 @@ public class CompassActivity extends AppCompatActivity {
         return tableTextView;
     }
 
-    public void reobserveGPS() {
-        var gpsStatus = locationService.getStatus();
-        Log.d("ReobserveGPS", "reobserveGPS: " + gpsStatus);
-        gpsStatus.observe(this, this::onStatusChanged);
-    }
-
-    public void onStatusChanged(Boolean gpsStatus){
-        if(gpsStatus){
-            //TODO: Make a status light and a timer
+    private void onTimeChanged(Long time) {
+        TextView gpsStatus = findViewById(R.id.gpsStatus);
+        if(this.lastLocationUpdateTime == null || (time > (this.lastLocationUpdateTime + 60000))){
+            gpsStatus.setText("Inactive");
         }
         else {
-            //TODO: Enable status light and timer
+            gpsStatus.setText("Active");
         }
     }
 
@@ -183,6 +184,7 @@ public class CompassActivity extends AppCompatActivity {
         double newLat = latLong.first;
         double newLong = latLong.second;
         String updatedTime = Instant.now().toString();
+        this.lastLocationUpdateTime = System.currentTimeMillis();
 
         Utilities.personalUser.latitude = (float) newLat;
         Utilities.personalUser.longitude = (float) newLong;

@@ -104,9 +104,6 @@ public class LocationService implements LocationListener {
 
     public LiveData<Pair<Double, Double>> getLocation() { return this.locationValue; }
 
-    public LiveData<Boolean> getStatus() { return this.gpsStatus; }
-
-
     public void setMockLocationSource(MutableLiveData<Pair<Double, Double>> mockDataSource) {
         unregisterLocationListener();
         this.locationValue = mockDataSource;
