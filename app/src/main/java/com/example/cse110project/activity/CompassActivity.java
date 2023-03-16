@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Pair;
@@ -114,12 +115,13 @@ public class CompassActivity extends AppCompatActivity {
         list.observe(this, listUsers ->{
             for(User user : listUsers){
                 // Might need an if check here to ensure user.updated at isn't null
-                if (user == null) {
+                if (user == null || user.public_code == null || user.updated_at == null) {
                     continue;
                 }
                 LiveData<User> updatedUser = repo.getRemote(user.public_code);
                 updatedUser.observe(this, updatedUsers -> {
-                    if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
+                    if (updatedUser == null){ /* do nothing */ }
+                    else if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
                         dao.upsert(updatedUsers);
                     }
                 });
@@ -128,6 +130,8 @@ public class CompassActivity extends AppCompatActivity {
 
         list.observe(this, listUsers ->{
             for(User user : listUsers){
+
+                if (user == null) { continue; }
 
                 if(!tableTextView.containsKey(user.public_code)){
                     TextView textView = new TextView(this);
@@ -150,6 +154,8 @@ public class CompassActivity extends AppCompatActivity {
     }
 
     public void enterFriendsBtnPressed(View view) {
+        Intent intent = new Intent(this, EnterFriendActivity.class);
+        startActivity(intent);
         finish();
     }
 
@@ -200,11 +206,10 @@ public class CompassActivity extends AppCompatActivity {
         LiveData<List<User>> list = repo.getAllLocal();
         list.observe(this, listUsers ->{
             for(User user : listUsers){
-                TextView textView = tableTextView.get(user.public_code).textView;
 
-                if (textView == null) {
-                    continue;
-                }
+                if (user == null || user.public_code == null || tableTextView.get(user.public_code) == null) {continue;}
+                TextView textView = tableTextView.get(user.public_code).textView;
+                if (textView == null) {continue;}
                 textView.setText(user.label);
                 tableTextView.get(user.public_code).constrainUser(Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude, zoomLevel);
             }
