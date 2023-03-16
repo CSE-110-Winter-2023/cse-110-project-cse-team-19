@@ -43,7 +43,8 @@ public class ConstrainUserService {
             circle = 3;
         }
         if(circle > zoomLevel){
-            layoutParams.circleRadius = 500;
+            layoutParams.circleRadius = 520;
+            textView.setText("●");
         }
         else{
             int i = zoomLevel - circle;
@@ -73,9 +74,9 @@ public class ConstrainUserService {
         } else {
             circle = 3;
         }
-        //TODO Change
         if(circle > zoomLevel){
-            layoutParams.circleRadius = 600;
+            layoutParams.circleRadius = 520;
+            textView.setText("●");
         }
         else{
             int i = zoomLevel - circle;

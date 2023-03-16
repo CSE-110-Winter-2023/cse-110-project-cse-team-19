@@ -21,6 +21,7 @@ import com.example.cse110project.model.UserAPI;
 import com.example.cse110project.model.UserDao;
 import com.example.cse110project.model.UserDatabase;
 import com.example.cse110project.model.UserRepository;
+import com.example.cse110project.service.ConstrainUserService;
 import com.example.cse110project.service.RotateCompass;
 
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class US3Tests {
     @Test
     public void getRemoteUserLocationTest() throws ExecutionException, InterruptedException, TimeoutException {
         Future<User> userFuture = api.getUserLocationAsync("some private code");
-        User userInfo = userFuture.get(1, TimeUnit.SECONDS);
+        User userInfo = userFuture.get(3, TimeUnit.SECONDS);
         assertNotNull(userInfo);
         System.out.println("\n"+ userInfo.toJSON() + "\n");
     }
@@ -155,13 +156,13 @@ public class US3Tests {
         try (ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
             scenario.onActivity(activity -> {
                 ConstraintLayout layout = activity.findViewById(R.id.compassLayout);
-                Hashtable<String, TextView> table = activity.getTextViews();
+                Hashtable<String, ConstrainUserService> table = activity.getTextViews();
                 Enumeration<String> e = table.keys();
 
                 int i = 0;
                 while (e.hasMoreElements()) {
                     String key = e.nextElement();
-                    TextView textView = table.get(key);
+                    TextView textView = table.get(key).textView;
                     textView.setId(i);
                     View newTextView = layout.findViewById(i);
                     i++;
@@ -177,15 +178,15 @@ public class US3Tests {
         try (ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
             scenario.onActivity(activity -> {
                 ConstraintLayout layout = activity.findViewById(R.id.compassLayout);
-                Hashtable<String, TextView> table = activity.getTextViews();
+                Hashtable<String, ConstrainUserService> table = activity.getTextViews();
                 Enumeration<String> e = table.keys();
 
                 int i = 0;
                 while (e.hasMoreElements()) {
                     String key = e.nextElement();
-                    TextView textView = table.get(key);
-                    //TODO Change to allow zoomLevel param
-                    //RotateCompass.constrainUser(textView, 32, 100, 32, -100);
+                    ConstrainUserService constraintView = table.get(key);
+                    TextView textView = constraintView.textView;
+                    constraintView.constrainUser(32, 100, 32, -100, 1);
                     var angle = (float) Utilities.findAngle(32, 100, 32, -100);
                     ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
                     assertEquals(layoutParams.circleAngle, angle);

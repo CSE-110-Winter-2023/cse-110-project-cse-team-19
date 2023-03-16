@@ -19,6 +19,7 @@ public class Utilities {
     public static final String USER_LATITUDE = "user latitude";
     public static final String CREATED_AT = "created at";
     public static final String UPDATED_AT = "updated at";
+    public static final String MOCK_URL = "mock url";
     public static User personalUser;
 /*
 
