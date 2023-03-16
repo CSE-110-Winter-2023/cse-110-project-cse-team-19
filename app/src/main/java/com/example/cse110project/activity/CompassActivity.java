@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,11 +77,11 @@ public class CompassActivity extends AppCompatActivity {
         else {
             api = new UserAPI();
         }
-        latLong = findViewById(R.id.userUIDTextView);
-        latLong.setText("Some new text in the box");
+//        latLong = findViewById(R.id.userUIDTextView);
+//        latLong.setText("Some new text in the box");
         public_uid = findViewById(R.id.public_uid);
         if(Utilities.personalUser != null){
-            public_uid.setText(Utilities.personalUser.public_code);
+            public_uid.setText("Personal UID: " + Utilities.personalUser.public_code);
         }
 
         locationService = LocationService.singleton(this);
@@ -122,12 +123,13 @@ public class CompassActivity extends AppCompatActivity {
         list.observe(this, listUsers ->{
             for(User user : listUsers){
                 // Might need an if check here to ensure user.updated at isn't null
-                if (user == null) {
+                if (user == null || user.public_code == null || user.updated_at == null) {
                     continue;
                 }
                 LiveData<User> updatedUser = repo.getRemote(user.public_code);
                 updatedUser.observe(this, updatedUsers -> {
-                    if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
+                    if (updatedUsers == null || updatedUsers.updated_at == null){ /* do nothing */ }
+                    else if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
                         dao.upsert(updatedUsers);
                     }
                 });
@@ -136,6 +138,8 @@ public class CompassActivity extends AppCompatActivity {
 
         list.observe(this, listUsers ->{
             for(User user : listUsers){
+
+                if (user == null) { continue; }
 
                 if(!tableTextView.containsKey(user.public_code)){
                     TextView textView = new TextView(this);
@@ -153,11 +157,13 @@ public class CompassActivity extends AppCompatActivity {
         });
 
         //rotate compass
-        TextView orientationView = (TextView) findViewById(R.id.orientation);
-        RotateCompass.rotateCompass(this, this, constraint, orientationView);
+//        TextView orientationView = (TextView) findViewById(R.id.orientation);
+//        RotateCompass.rotateCompass(this, this, constraint, orientationView);
     }
 
     public void enterFriendsBtnPressed(View view) {
+        Intent intent = new Intent(this, EnterFriendActivity.class);
+        startActivity(intent);
         finish();
     }
 
@@ -199,7 +205,7 @@ public class CompassActivity extends AppCompatActivity {
 
 
         api.putUserAsync(Utilities.personalUser);
-        this.latLong.setText("Latitude: " + newLat + ", longitude: "+ newLong);
+//        this.latLong.setText("Latitude: " + newLat + ", longitude: "+ newLong);
 
 //        var context = getApplicationContext();
 //        var db = UserDatabase.provide(context);
@@ -209,21 +215,20 @@ public class CompassActivity extends AppCompatActivity {
 
 
         // Loop through all of the friend UIDs we have and recompute the formula for getting their angles on the compass
-        Enumeration<String> e = tableTextView.keys();
+        /*Enumeration<String> e = tableTextView.keys();
 
         while (e.hasMoreElements()) {
             String key = e.nextElement();
             TextView textView = tableTextView.get(key).textView;
-        }
+        }*/
 
         LiveData<List<User>> list = repo.getAllLocal();
         list.observe(this, listUsers ->{
             for(User user : listUsers){
-                TextView textView = tableTextView.get(user.public_code).textView;
 
-                if (textView == null) {
-                    continue;
-                }
+                if (user == null || user.public_code == null || tableTextView.get(user.public_code) == null) {continue;}
+                TextView textView = tableTextView.get(user.public_code).textView;
+                if (textView == null) {continue;}
                 textView.setText(user.label);
                 tableTextView.get(user.public_code).constrainUser(Utilities.personalUser.latitude, Utilities.personalUser.longitude, user.latitude, user.longitude, zoomLevel);
             }
@@ -239,14 +244,14 @@ public class CompassActivity extends AppCompatActivity {
             zoomOutBtn.setAlpha(1f);
             zoomOutBtn.setEnabled(true);
         }
-        zoomLevel--;
-        if(zoomLevel < 0){
+
+        if(zoomLevel-1 < 0){
             System.out.println("Zoom Level : " + zoomLevel);
             zoomInBtn.setAlpha(0.5f);
             zoomInBtn.setEnabled(false);
             return;
         }
-
+        zoomLevel--;
         Utilities.updateZoom(zoomLevel, circleViews);
         Enumeration<String> e = tableTextView.keys();
 
