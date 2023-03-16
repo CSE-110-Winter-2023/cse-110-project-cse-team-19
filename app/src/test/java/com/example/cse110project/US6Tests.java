@@ -34,7 +34,7 @@ public class US6Tests {
                     String key = e.nextElement();
                     ConstrainUserService constraintView = table.get(key);
                     TextView textView = constraintView.textView;
-                    constraintView.constrainUser(32, 100, 32, -100, 1);
+                    constraintView.constrainUser(32, 100, 32, -100, 0);
                     var distance = (float) Utilities.findDistance(32, 100, 32, -100);
                     ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
                     float correctDisplay;
@@ -66,7 +66,7 @@ public class US6Tests {
                     String key = e.nextElement();
                     ConstrainUserService constraintView = table.get(key);
                     TextView textView = constraintView.textView;
-                    constraintView.constrainUser(32, 100, 32, -100, 2);
+                    constraintView.constrainUser(32, 100, 32, -100, 1);
                     var distance = (float) Utilities.findDistance(32, 100, 32, -100);
                     ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
                     float correctDisplay;
@@ -98,7 +98,7 @@ public class US6Tests {
                     String key = e.nextElement();
                     ConstrainUserService constraintView = table.get(key);
                     TextView textView = constraintView.textView;
-                    constraintView.constrainUser(32, 100, 32, -100, 3);
+                    constraintView.constrainUser(32, 100, 32, -100, 2);
                     var distance = (float) Utilities.findDistance(32, 100, 32, -100);
                     ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
                     float correctDisplay;
@@ -130,7 +130,7 @@ public class US6Tests {
                     String key = e.nextElement();
                     ConstrainUserService constraintView = table.get(key);
                     TextView textView = constraintView.textView;
-                    constraintView.constrainUser(32, 100, 32, -100, 4);
+                    constraintView.constrainUser(32, 100, 32, -100, 3);
                     var distance = (float) Utilities.findDistance(32, 100, 32, -100);
                     ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
                     float correctDisplay;
