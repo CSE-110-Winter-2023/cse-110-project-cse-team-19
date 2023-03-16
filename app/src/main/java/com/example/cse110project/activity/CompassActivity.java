@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,9 @@ import com.example.cse110project.model.UserRepository;
 import com.example.cse110project.service.ConstrainUserService;
 import com.example.cse110project.service.LocationService;
 import com.example.cse110project.service.RotateCompass;
+import com.example.cse110project.service.TimeService;
+
+import org.w3c.dom.Text;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -50,6 +54,8 @@ public class CompassActivity extends AppCompatActivity {
     UserDatabase db;
     UserDao dao;
     UserRepository repo;
+
+    Long lastLocationUpdateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +85,9 @@ public class CompassActivity extends AppCompatActivity {
         }
 
         locationService = LocationService.singleton(this);
-
+        var timeService = TimeService.singleton();
+        var timeData = timeService.getTimeData();
+        timeData.observe(this, this::onTimeChanged);
         // Commenting this out for testing purposes
 //        if (Utilities.personalUser.private_code == null) {
 //            throw new IllegalStateException("personal UID can't be empty by the time we get to the Compass");
@@ -163,6 +171,16 @@ public class CompassActivity extends AppCompatActivity {
         return tableTextView;
     }
 
+    private void onTimeChanged(Long time) {
+        TextView gpsStatus = findViewById(R.id.gpsStatus);
+        if(this.lastLocationUpdateTime == null || (time > (this.lastLocationUpdateTime + 60000))){
+            gpsStatus.setText("Inactive");
+        }
+        else {
+            gpsStatus.setText("Active");
+        }
+    }
+
     public void reobserveLocation() {
         var locationData = locationService.getLocation();
         locationData.observe(this, this::onLocationChanged);
@@ -172,6 +190,7 @@ public class CompassActivity extends AppCompatActivity {
         double newLat = latLong.first;
         double newLong = latLong.second;
         String updatedTime = Instant.now().toString();
+        this.lastLocationUpdateTime = System.currentTimeMillis();
 
         Utilities.personalUser.latitude = (float) newLat;
         Utilities.personalUser.longitude = (float) newLong;
