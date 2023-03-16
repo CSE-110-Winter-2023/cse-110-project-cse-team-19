@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -82,6 +83,7 @@ public class CompassActivity extends AppCompatActivity {
         }
 
         this.reobserveLocation();
+        this.reobserveGPS();
         circleViews.add(findViewById(R.id.circleOne));
         circleViews.add(findViewById(R.id.circleTwo));
         circleViews.add(findViewById(R.id.circleThree));
@@ -158,6 +160,21 @@ public class CompassActivity extends AppCompatActivity {
 
     public Hashtable<String, ConstrainUserService> getTextViews(){
         return tableTextView;
+    }
+
+    public void reobserveGPS() {
+        var gpsStatus = locationService.getStatus();
+        Log.d("ReobserveGPS", "reobserveGPS: " + gpsStatus);
+        gpsStatus.observe(this, this::onStatusChanged);
+    }
+
+    public void onStatusChanged(Boolean gpsStatus){
+        if(gpsStatus){
+            //TODO: Make a status light and a timer
+        }
+        else {
+            //TODO: Enable status light and timer
+        }
     }
 
     public void reobserveLocation() {

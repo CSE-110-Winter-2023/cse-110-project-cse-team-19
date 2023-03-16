@@ -35,6 +35,8 @@ public class LocationService implements LocationListener {
 
     private MutableLiveData<Pair<Double,Double>> locationValue;
 
+    private MutableLiveData<Boolean> gpsStatus;
+
     private final LocationManager locationManager;
 
     public static LocationService singleton(AppCompatActivity activity){
@@ -47,6 +49,7 @@ public class LocationService implements LocationListener {
 
     protected LocationService(AppCompatActivity activity) {
         this.locationValue = new MutableLiveData<>();
+        this.gpsStatus = new MutableLiveData<>();
         this.activity = activity;
         this.locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         // Register sensor listeners
@@ -87,9 +90,22 @@ public class LocationService implements LocationListener {
         this.locationValue.postValue(new Pair<>(location.getLatitude(), location.getLongitude()));
     }
 
+    @Override
+    public void onProviderEnabled(@NonNull String provider){
+        this.gpsStatus.postValue(true);
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider){
+        this.gpsStatus.postValue(false);
+    }
+
     private void unregisterLocationListener() { locationManager.removeUpdates(this); }
 
     public LiveData<Pair<Double, Double>> getLocation() { return this.locationValue; }
+
+    public LiveData<Boolean> getStatus() { return this.gpsStatus; }
+
 
     public void setMockLocationSource(MutableLiveData<Pair<Double, Double>> mockDataSource) {
         unregisterLocationListener();
