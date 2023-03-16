@@ -11,6 +11,7 @@ import androidx.test.core.app.ActivityScenario;
 
 import com.example.cse110project.activity.CompassActivity;
 import com.example.cse110project.model.User;
+import com.example.cse110project.service.ConstrainUserService;
 import com.example.cse110project.service.RotateCompass;
 
 import org.junit.Test;
@@ -35,25 +36,26 @@ public class US4Tests {
         try (ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
             scenario.onActivity(activity -> {
                 ConstraintLayout layout = activity.findViewById(R.id.compassLayout);
-                Hashtable<String, TextView> table = activity.getTextViews();
+                Hashtable<String, ConstrainUserService> table = activity.getTextViews();
                 Enumeration<String> e = table.keys();
 
                 int i = 0;
                 while (e.hasMoreElements()) {
                     String key = e.nextElement();
-                    TextView textView = table.get(key);
-                    RotateCompass.constrainUser(textView, 32, 100, 32, -100);
+                    ConstrainUserService constraintView = table.get(key);
+                    TextView textView = constraintView.textView;
+                    constraintView.constrainUser(32, 100, 32, -100, 1);
                     var distance = (float) Utilities.findDistance(32, 100, 32, -100);
                     ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
                     float correctDisplay;
                     if(distance < 1){
-                        correctDisplay = 100;
+                        correctDisplay = 370;
                     } else if (distance < 10) {
-                        correctDisplay = 200;
+                        correctDisplay = 470;
                     } else if (distance < 500) {
-                        correctDisplay = 250;
+                        correctDisplay = 520;
                     } else {
-                        correctDisplay = 300;
+                        correctDisplay = 520;
                     }
                     assertEquals(layoutParams.circleRadius, correctDisplay, 0);
                 }

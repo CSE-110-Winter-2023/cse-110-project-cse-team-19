@@ -32,20 +32,33 @@ public class RotateCompass {
         500 miles are farther.
      */
 
-    public static void constrainUser(TextView textView, double ourLat, double ourLong, double theirLat, double theirLong){
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
-        layoutParams.circleConstraint = R.id.compass_image;
-        double distMi = Utilities.findDistance(ourLat, ourLong, theirLat, theirLong);
-        if(distMi < 1){
-            layoutParams.circleRadius = 100;
-        } else if (distMi < 10) {
-            layoutParams.circleRadius = 200;
-        } else if (distMi < 500) {
-            layoutParams.circleRadius = 250;
-        } else {
-            layoutParams.circleRadius = 300;
-        }
-        layoutParams.circleAngle = (float) Utilities.findAngle(ourLat, ourLong, theirLat, theirLong);
-        textView.setLayoutParams(layoutParams);
-    }
+//    public static void constrainUser(TextView textView, double ourLat, double ourLong, double theirLat, double theirLong, int zoomLevel){
+//        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
+//        layoutParams.circleConstraint = R.id.compassLayout;
+//        Integer[] zoomRadius = new Integer[4];
+//        zoomRadius[0] = 470;
+//        zoomRadius[1] = 370;
+//        zoomRadius[2] = 270;
+//        zoomRadius[3] = 150;
+//
+//        int circle;
+//        double distMi = Utilities.findDistance(ourLat, ourLong, theirLat, theirLong);
+//
+//        if(distMi < 1){
+//            circle = 0;
+//        } else if (distMi < 10) {
+//            circle = 1;
+//        } else if (distMi < 500) {
+//            circle = 2;
+//        } else {
+//            circle = 3;
+//        }
+//        if(circle > zoomLevel){
+//            //Textbox should be blip
+//        }
+//        int i = zoomLevel - circle;
+//        layoutParams.circleRadius = zoomRadius[i];
+//        layoutParams.circleAngle = (float) Utilities.findAngle(ourLat, ourLong, theirLat, theirLong);
+//        textView.setLayoutParams(layoutParams);
+//    }
 }

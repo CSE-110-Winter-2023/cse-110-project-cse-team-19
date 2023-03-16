@@ -2,9 +2,12 @@ package com.example.cse110project;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.cse110project.model.User;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Utilities {
@@ -197,5 +200,32 @@ public class Utilities {
 
     static String formatLocation(double latitude, double longitude) {
         return (latitude + ", " + longitude);
+    }
+
+    public static void updateZoom(int zoomLevel, List<ImageView> circleViews){
+        if(zoomLevel == 0){
+            circleViews.get(0).setVisibility(View.INVISIBLE);
+            circleViews.get(1).setVisibility(View.INVISIBLE);
+            circleViews.get(2).setVisibility(View.INVISIBLE);
+            circleViews.get(3).setVisibility(View.VISIBLE);
+        }
+        if(zoomLevel == 1){
+            circleViews.get(0).setVisibility(View.INVISIBLE);
+            circleViews.get(1).setVisibility(View.INVISIBLE);
+            circleViews.get(2).setVisibility(View.VISIBLE);
+            circleViews.get(3).setVisibility(View.VISIBLE);
+        }
+        if(zoomLevel == 2){
+            circleViews.get(0).setVisibility(View.INVISIBLE);
+            circleViews.get(1).setVisibility(View.VISIBLE);
+            circleViews.get(2).setVisibility(View.VISIBLE);
+            circleViews.get(3).setVisibility(View.VISIBLE);
+        }
+        if(zoomLevel == 3){
+            circleViews.get(0).setVisibility(View.VISIBLE);
+            circleViews.get(1).setVisibility(View.VISIBLE);
+            circleViews.get(2).setVisibility(View.VISIBLE);
+            circleViews.get(3).setVisibility(View.VISIBLE);
+        }
     }
 }
