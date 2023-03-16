@@ -71,11 +71,11 @@ public class CompassActivity extends AppCompatActivity {
         else {
             api = new UserAPI();
         }
-        latLong = findViewById(R.id.userUIDTextView);
-        latLong.setText("Some new text in the box");
+//        latLong = findViewById(R.id.userUIDTextView);
+//        latLong.setText("Some new text in the box");
         public_uid = findViewById(R.id.public_uid);
         if(Utilities.personalUser != null){
-            public_uid.setText(Utilities.personalUser.public_code);
+            public_uid.setText("Personal UID: " + Utilities.personalUser.public_code);
         }
 
         locationService = LocationService.singleton(this);
@@ -186,7 +186,7 @@ public class CompassActivity extends AppCompatActivity {
 
 
         api.putUserAsync(Utilities.personalUser);
-        this.latLong.setText("Latitude: " + newLat + ", longitude: "+ newLong);
+//        this.latLong.setText("Latitude: " + newLat + ", longitude: "+ newLong);
 
 //        var context = getApplicationContext();
 //        var db = UserDatabase.provide(context);
