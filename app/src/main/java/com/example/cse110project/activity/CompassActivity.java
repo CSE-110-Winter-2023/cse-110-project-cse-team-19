@@ -220,14 +220,14 @@ public class CompassActivity extends AppCompatActivity {
             zoomOutBtn.setAlpha(1f);
             zoomOutBtn.setEnabled(true);
         }
-        zoomLevel--;
-        if(zoomLevel < 0){
+
+        if(zoomLevel-1 < 0){
             System.out.println("Zoom Level : " + zoomLevel);
             zoomInBtn.setAlpha(0.5f);
             zoomInBtn.setEnabled(false);
             return;
         }
-
+        zoomLevel--;
         Utilities.updateZoom(zoomLevel, circleViews);
         Enumeration<String> e = tableTextView.keys();
 
