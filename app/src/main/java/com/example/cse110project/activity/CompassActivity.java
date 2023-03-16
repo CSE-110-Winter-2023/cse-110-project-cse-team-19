@@ -149,8 +149,8 @@ public class CompassActivity extends AppCompatActivity {
         });
 
         //rotate compass
-        TextView orientationView = (TextView) findViewById(R.id.orientation);
-        RotateCompass.rotateCompass(this, this, constraint, orientationView);
+//        TextView orientationView = (TextView) findViewById(R.id.orientation);
+//        RotateCompass.rotateCompass(this, this, constraint, orientationView);
     }
 
     public void enterFriendsBtnPressed(View view) {

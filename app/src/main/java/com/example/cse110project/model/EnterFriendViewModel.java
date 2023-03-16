@@ -1,10 +1,14 @@
 package com.example.cse110project.model;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import com.example.cse110project.Utilities;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -39,9 +43,16 @@ public class EnterFriendViewModel extends AndroidViewModel {
      *
      */
 
-    public LiveData<User> getOrCreateUser(String public_id) throws ExecutionException, InterruptedException, TimeoutException {
+    public LiveData<User> getOrCreateUser(String public_id, Context context) throws ExecutionException, InterruptedException, TimeoutException {
         if (!repo.existsLocal(public_id)) {
-            UserAPI api = new UserAPI();
+            API api;
+            SharedPreferences prefs = context.getSharedPreferences(Utilities.PREFERENCES_NAME, Context.MODE_PRIVATE);
+            if (!prefs.getString(Utilities.MOCK_URL, "").equals("")){
+                api = new MockAPI(prefs.getString(Utilities.MOCK_URL, ""));
+            }
+            else {
+                api = new UserAPI();
+            }
             Future<User> future = api.getUserLocationAsync(public_id);
             User user = future.get(3, TimeUnit.SECONDS);
 
