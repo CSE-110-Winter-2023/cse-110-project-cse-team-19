@@ -190,12 +190,12 @@ public class CompassActivity extends AppCompatActivity {
 
 
         // Loop through all of the friend UIDs we have and recompute the formula for getting their angles on the compass
-        Enumeration<String> e = tableTextView.keys();
+        /*Enumeration<String> e = tableTextView.keys();
 
         while (e.hasMoreElements()) {
             String key = e.nextElement();
             TextView textView = tableTextView.get(key).textView;
-        }
+        }*/
 
         LiveData<List<User>> list = repo.getAllLocal();
         list.observe(this, listUsers ->{
