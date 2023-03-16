@@ -131,6 +131,7 @@ public class EnterFriendActivity extends AppCompatActivity {
     public void onNextPressed(View view) {
         Intent intent = new Intent(this, CompassActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void onBackPressed(View view) {
