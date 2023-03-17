@@ -57,7 +57,6 @@ public class end2endTests {
             scenario.onActivity(activity -> {
                 var context = ApplicationProvider.getApplicationContext();
                 var db = UserDatabase.provide(context);
-                var dao = db.getDao();
 
                 EditText name = activity.findViewById(R.id.enterNameEditText);
                 name.setText("Tyler");
