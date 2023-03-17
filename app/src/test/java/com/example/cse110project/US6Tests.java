@@ -2,16 +2,20 @@ package com.example.cse110project;
 
 import static org.junit.Assert.assertEquals;
 
+import android.util.Pair;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.MutableLiveData;
 import androidx.test.core.app.ActivityScenario;
 
 import com.example.cse110project.activity.CompassActivity;
 import com.example.cse110project.model.User;
 import com.example.cse110project.service.ConstrainUserService;
+import com.example.cse110project.service.TimeService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

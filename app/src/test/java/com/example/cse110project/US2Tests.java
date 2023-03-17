@@ -6,19 +6,28 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import android.content.Context;
+import android.util.Pair;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.example.cse110project.activity.CompassActivity;
 import com.example.cse110project.activity.EnterFriendActivity;
 import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserDao;
 import com.example.cse110project.model.UserDatabase;
+import com.example.cse110project.service.TimeService;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -26,6 +35,9 @@ import java.io.IOException;
 
 @RunWith(AndroidJUnit4.class)
 public class US2Tests {
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
     private UserDao dao;
     private UserDatabase db;
 
@@ -83,5 +95,35 @@ public class US2Tests {
 //        int deletedItem = dao.delete(user1);
 //        assertEquals(1, deletedItem);
 //        assertNull(dao.get("5"));
+    }
+
+    @Test
+    public void US5_test_GPS_Active() {
+        Utilities.personalUser = new User("test", "test", "test", 0, 0);
+
+        var scenario = ActivityScenario.launch(CompassActivity.class);
+        scenario.moveToState(Lifecycle.State.STARTED);
+
+        scenario.onActivity(activity -> {
+            var timeService = TimeService.singleton();
+            var mockTime = new MutableLiveData<Long>();
+            timeService.setMockTimeSource(mockTime);
+
+            Pair<Double, Double> testLocation = new Pair<Double, Double>(1.0, 1.0);
+            activity.onLocationChanged(testLocation);
+
+            Long currentTime = System.currentTimeMillis();
+            Long testTime = currentTime;
+            mockTime.setValue(testTime);
+
+            TextView gpsStatus = activity.findViewById(R.id.gpsStatus);
+            assertEquals(4, gpsStatus.getVisibility());
+
+            ImageView gpsActive = activity.findViewById(R.id.gpsActive);
+            assertEquals(0, gpsActive.getVisibility());
+
+            ImageView gpsInactive = activity.findViewById(R.id.gpsInactive);
+            assertEquals(4, gpsInactive.getVisibility());
+        });
     }
 }
