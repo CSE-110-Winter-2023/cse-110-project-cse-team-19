@@ -50,7 +50,6 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(RobolectricTestRunner.class)
 public class end2endTests {
-    API api = new UserAPI();
     @Test
     public void US1end2end() {
         try(ActivityScenario<EnterNameActivity> scenario = ActivityScenario.launch(EnterNameActivity.class)){
