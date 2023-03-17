@@ -124,25 +124,45 @@ public class end2endTests {
 
                 assertEquals(true, dao.exists("some_user"));
 
-                activity.mockLocation();
-                LocationService location = activity.getLocationService();
-                LiveData<Pair<Double, Double>> loc = location.getLocation();
-                loc.observe(activity, coords -> {
-                    assertEquals(0.0, coords.first, .000);
-                    assertEquals(0.0, coords.second, .000);
-                });
+                User mockLocation = Utilities.personalUser;
+                assertEquals(0.0, mockLocation.latitude, .000);
+                assertEquals(0.0, mockLocation.longitude, .000);
 
                 Hashtable<String, ConstrainUserService> table = activity.getTextViews();
                 assertNotNull(table.get("some_user"));
 
                 ConstrainUserService northUser = table.get("some_user");
                 assertEquals("90.0, 0.0", northUser.toString());
+
+                double angle = Utilities.findAngle(mockLocation.latitude, mockLocation.longitude, north.latitude, north.longitude);
+                assertEquals(0, angle, .1);
+
             });
         }
     }
 
-//    @Test
-//    public void US4 end2end() {
-//
-//    }
+    @Test
+    public void US4end2end() {
+        Context context = ApplicationProvider.getApplicationContext();
+        var db = UserDatabase.provide(context);
+        var dao = db.getDao();
+        User close = new User ("some_user", "some_user", "North", 50, 49);
+        dao.upsert(close);
+        Utilities.personalUser = new User("me", "me", "Tyler", 50, (float) 49.2);
+        try(ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
+            scenario.onActivity(activity -> {
+
+                assertEquals(true, dao.exists("some_user"));
+
+                Hashtable<String, ConstrainUserService> table = activity.getTextViews();
+                assertNotNull(table.get("some_user"));
+
+                ConstrainUserService closeUser = table.get("some_user");
+                assertEquals("50.0, 49.0", closeUser.toString());
+
+                var distance = Utilities.findDistance(Utilities.personalUser.latitude, Utilities.personalUser.longitude, close.latitude, close.longitude);
+                assertEquals(9, distance, 1);
+            });
+        }
+    }
 }

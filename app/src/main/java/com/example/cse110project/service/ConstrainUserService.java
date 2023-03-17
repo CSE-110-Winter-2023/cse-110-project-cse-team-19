@@ -86,11 +86,8 @@ public class ConstrainUserService {
         layoutParams.circleAngle = (float) Utilities.findAngle(ourLat, ourLong, this.latitude, this.longitude);
         textView.setLayoutParams(layoutParams);
     }
-
     @Override
     public String toString() {
         return this.latitude + ", " +this.longitude;
     }
-
-
 }
