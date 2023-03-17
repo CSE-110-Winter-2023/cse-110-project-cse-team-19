@@ -3,6 +3,7 @@ package com.example.cse110project.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import android.content.Context;
 import android.content.Intent;
@@ -296,5 +297,14 @@ public class CompassActivity extends AppCompatActivity {
         }
 
         return this.api;
+    }
+
+    public void mockLocation() {
+        MutableLiveData<Pair<Double, Double>> coords = new MutableLiveData<>();
+        locationService.setMockLocationSource(coords);
+    }
+
+    public LocationService getLocationService() {
+        return this.locationService;
     }
 }

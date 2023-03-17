@@ -3,6 +3,7 @@ package com.example.cse110project.activity;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -160,5 +161,9 @@ public class EnterFriendActivity extends AppCompatActivity {
     public void onMockUrlBtnPressed(View view) {
         Intent intent = new Intent(this, mockUrlActivity.class);
         startActivity(intent);
+    }
+
+    public void setViews(EnterFriendViewModel viewModel) {
+        setupInput(viewModel);
     }
 }
