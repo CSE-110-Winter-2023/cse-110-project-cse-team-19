@@ -190,7 +190,10 @@ public class CompassActivity extends AppCompatActivity {
                 gpsActive.setVisibility(View.INVISIBLE);
                 gpsInactive.setVisibility(View.VISIBLE);
                 gpsStatus.setVisibility(View.VISIBLE);
-                gpsStatus.setText("Inactive: " + Utilities.formatTime(time - lastLocationUpdateTime));
+                gpsStatus.setText("GPS Inactive for: " + Utilities.formatTime(time - lastLocationUpdateTime) + " Minutes");
+            }
+            else{
+                gpsStatus.setText("GPS Inactive for: " + Utilities.formatTime(time - lastLocationUpdateTime) + " Minutes");
             }
         } else {
             if(gpsActive.getVisibility() == View.INVISIBLE){
