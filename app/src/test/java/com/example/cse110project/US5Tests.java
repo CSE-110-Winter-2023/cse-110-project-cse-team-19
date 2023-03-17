@@ -61,7 +61,6 @@ public class US5Tests {
             });
         }
     }
-
     @Test
     public void test_GPS_Inactive() {
         Utilities.personalUser = new User("test","test","test",0,0);
