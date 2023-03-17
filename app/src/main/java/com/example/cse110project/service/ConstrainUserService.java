@@ -87,4 +87,10 @@ public class ConstrainUserService {
         textView.setLayoutParams(layoutParams);
     }
 
+    @Override
+    public String toString() {
+        return this.latitude + ", " +this.longitude;
+    }
+
+
 }

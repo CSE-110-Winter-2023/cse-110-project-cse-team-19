@@ -113,10 +113,14 @@ public class end2endTests {
         Context context = ApplicationProvider.getApplicationContext();
         var db = UserDatabase.provide(context);
         var dao = db.getDao();
-
+        User north = new User ("some_user", "some_user", "North", 90, 0);
+        dao.upsert(north);
+        Utilities.personalUser = new User("me", "me", "Tyler", 0,0);
 
         try(ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
             scenario.onActivity(activity -> {
+
+                assertEquals(true, dao.exists("some_user"));
 
                 activity.mockLocation();
                 LocationService location = activity.getLocationService();
@@ -126,8 +130,11 @@ public class end2endTests {
                     assertEquals(0.0, coords.second, .000);
                 });
 
-                //Hashtable<String, ConstrainUserService> table = activity.getTextViews();
-                //assertNotNull(table.get("temp_user"));
+                Hashtable<String, ConstrainUserService> table = activity.getTextViews();
+                assertNotNull(table.get("some_user"));
+
+                ConstrainUserService northUser = table.get("some_user");
+                assertEquals("90.0, 0.0", northUser.toString());
             });
         }
     }
