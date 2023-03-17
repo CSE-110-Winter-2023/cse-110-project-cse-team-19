@@ -86,9 +86,6 @@ public class CompassActivity extends AppCompatActivity {
             api = new UserAPI();
         }
 
-//        latLong = findViewById(R.id.userUIDTextView);
-//        latLong.setText("Some new text in the box");
-
 
         locationService = LocationService.singleton(this);
 
