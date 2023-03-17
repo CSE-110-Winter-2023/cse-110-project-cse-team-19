@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -40,7 +41,9 @@ import java.util.List;
 public class CompassActivity extends AppCompatActivity {
     TextView latLong;
     TextView public_uid;
-
+    TextView gpsStatus;
+    ImageView gpsActive;
+    ImageView gpsInactive;
     int zoomLevel = 1;
 
     private LocationService locationService;
@@ -65,6 +68,10 @@ public class CompassActivity extends AppCompatActivity {
         TextView myText = new TextView(this);
         myText.setText("TextView number: 1");
 
+        this.gpsStatus = findViewById(R.id.gpsStatus);
+        this.gpsActive = findViewById(R.id.gpsActive);
+        this.gpsInactive = findViewById(R.id.gpsInactive);
+
         context = getApplicationContext();
         db = UserDatabase.provide(context);
         dao = db.getDao();
@@ -79,21 +86,20 @@ public class CompassActivity extends AppCompatActivity {
         }
 //        latLong = findViewById(R.id.userUIDTextView);
 //        latLong.setText("Some new text in the box");
-        public_uid = findViewById(R.id.public_uid);
-        if(Utilities.personalUser != null){
-            public_uid.setText("Personal UID: " + Utilities.personalUser.public_code);
-        }
 
         locationService = LocationService.singleton(this);
-        var timeService = TimeService.singleton();
-        var timeData = timeService.getTimeData();
-        timeData.observe(this, this::onTimeChanged);
+
         // Commenting this out for testing purposes
 //        if (Utilities.personalUser.private_code == null) {
 //            throw new IllegalStateException("personal UID can't be empty by the time we get to the Compass");
 //        }
 
         this.reobserveLocation();
+
+        var timeService = TimeService.singleton();
+        var timeData = timeService.getTimeData();
+        timeData.observe(this, this::onTimeChanged);
+
         circleViews.add(findViewById(R.id.circleOne));
         circleViews.add(findViewById(R.id.circleTwo));
         circleViews.add(findViewById(R.id.circleThree));
@@ -172,12 +178,26 @@ public class CompassActivity extends AppCompatActivity {
     }
 
     private void onTimeChanged(Long time) {
-        TextView gpsStatus = findViewById(R.id.gpsStatus);
-        if(this.lastLocationUpdateTime == null || (time > (this.lastLocationUpdateTime + 60000))){
-            gpsStatus.setText("Inactive");
-        }
-        else {
-            gpsStatus.setText("Active");
+        if(this.lastLocationUpdateTime == null){
+            if(gpsInactive.getVisibility() == View.INVISIBLE){
+                gpsActive.setVisibility(View.INVISIBLE);
+                gpsInactive.setVisibility(View.VISIBLE);
+                gpsStatus.setVisibility(View.VISIBLE);
+                gpsStatus.setText("No GPS Signal Since Startup");
+            }
+        } else if (time > (this.lastLocationUpdateTime + 60000)) {
+            if(gpsInactive.getVisibility() == View.INVISIBLE){
+                gpsActive.setVisibility(View.INVISIBLE);
+                gpsInactive.setVisibility(View.VISIBLE);
+                gpsStatus.setVisibility(View.VISIBLE);
+                gpsStatus.setText("Inactive: " + Utilities.formatTime(time - lastLocationUpdateTime));
+            }
+        } else {
+            if(gpsActive.getVisibility() == View.INVISIBLE){
+                gpsActive.setVisibility(View.VISIBLE);
+                gpsInactive.setVisibility(View.INVISIBLE);
+                gpsStatus.setVisibility(View.INVISIBLE);
+            }
         }
     }
 

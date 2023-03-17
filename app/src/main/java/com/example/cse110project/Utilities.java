@@ -231,6 +231,7 @@ public class Utilities {
     }
 
     public static String formatTime(Long time) {
-        return String.format(Locale.US, "%tT %tZ", time, time);
+        Long minutes = (time / 1000) / 60;
+        return String.valueOf(minutes);
     }
 }
