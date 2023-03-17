@@ -58,7 +58,6 @@ public class CompassActivity extends AppCompatActivity {
     UserDatabase db;
     UserDao dao;
     UserRepository repo;
-
     Long lastLocationUpdateTime;
 
     @Override
@@ -164,6 +163,7 @@ public class CompassActivity extends AppCompatActivity {
 
         //rotate compass
         TextView orientationView = (TextView) findViewById(R.id.orientation);
+        orientationView.setVisibility(View.INVISIBLE);
         RotateCompass.rotateCompass(this, this, constraint, orientationView);
     }
 
