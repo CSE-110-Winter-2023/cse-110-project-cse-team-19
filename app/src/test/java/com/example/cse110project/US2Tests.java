@@ -8,9 +8,11 @@ import static org.junit.Assert.assertNull;
 import android.content.Context;
 
 import androidx.room.Room;
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.example.cse110project.activity.EnterFriendActivity;
 import com.example.cse110project.model.User;
 import com.example.cse110project.model.UserDao;
 import com.example.cse110project.model.UserDatabase;
@@ -51,29 +53,6 @@ public class US2Tests {
 
         assertNotEquals(id1,id2);
     }
-
-    /*
-    @Test
-    public void testUpsertChangeUser(){
-        try(ActivityScenario<EnterFriendActivity> scenario = ActivityScenario.launch(EnterFriendActivity.class)){
-            scenario.onActivity(activity -> {
-                var context = ApplicationProvider.getApplicationContext();
-                var db = UserDatabase.provide(context);
-                var dao = db.getDao();
-
-                User user = new User("53", "label", 33, 115);
-                dao.upsert(user);
-                User liveUser = dao.get("53");
-                assertEquals(user.toJSON(), liveUser.toJSON());
-
-                user = new User("53", "label5", 33, 115);
-                dao.upsert(user);
-                liveUser = dao.get("53");
-                assertEquals(user.toJSON(), liveUser.toJSON());
-            });
-        }
-    }
-     */
 
     @Test
     public void testGet(){

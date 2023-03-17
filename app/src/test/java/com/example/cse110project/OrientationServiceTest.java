@@ -26,11 +26,6 @@ import org.robolectric.shadows.ShadowApplication;
 @RunWith(RobolectricTestRunner.class)
 public class OrientationServiceTest {
     @Test
-    public void test(){
-
-    }
-
-    @Test
     public void test_orientation_service(){
         Application application = ApplicationProvider.getApplicationContext();
         ShadowApplication app = Shadows.shadowOf(application);
@@ -50,9 +45,6 @@ public class OrientationServiceTest {
             orientationService.getOrientation().observe(activity, orientation->{
                 assertEquals(orientation,expected,0);
             });
-
-            //TextView textView = activity.findViewById(R.id.orientationView);
-            //var observed = Float.parseFloat(textView.getText().toString());
         });
     }
 }

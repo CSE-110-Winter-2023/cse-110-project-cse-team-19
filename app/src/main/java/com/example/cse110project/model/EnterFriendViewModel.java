@@ -58,10 +58,10 @@ public class EnterFriendViewModel extends AndroidViewModel {
 
             // An endpoint that doesn't exist results in a user being created with just
             // latitude and longitude
-            if (user.public_code == null) {
+            if (user == null || user.public_code == null) {
                 return null;
             }
-            // var user = new User(public_id, "same label", 0, 0);
+
             repo.upsertLocal(user, false);
         }
         return repo.getLocal(public_id);
