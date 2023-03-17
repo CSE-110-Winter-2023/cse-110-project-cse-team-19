@@ -8,7 +8,9 @@ import androidx.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,9 @@ import com.example.cse110project.model.UserRepository;
 import com.example.cse110project.service.ConstrainUserService;
 import com.example.cse110project.service.LocationService;
 import com.example.cse110project.service.RotateCompass;
+import com.example.cse110project.service.TimeService;
+
+import org.w3c.dom.Text;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -37,7 +42,9 @@ import java.util.List;
 public class CompassActivity extends AppCompatActivity {
     TextView latLong;
     TextView public_uid;
-
+    TextView gpsStatus;
+    ImageView gpsActive;
+    ImageView gpsInactive;
     int zoomLevel = 1;
 
     private LocationService locationService;
@@ -52,6 +59,8 @@ public class CompassActivity extends AppCompatActivity {
     UserDao dao;
     UserRepository repo;
 
+    Long lastLocationUpdateTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +68,10 @@ public class CompassActivity extends AppCompatActivity {
         prefs = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
         TextView myText = new TextView(this);
         myText.setText("TextView number: 1");
+
+        this.gpsStatus = findViewById(R.id.gpsStatus);
+        this.gpsActive = findViewById(R.id.gpsActive);
+        this.gpsInactive = findViewById(R.id.gpsInactive);
 
         context = getApplicationContext();
         db = UserDatabase.provide(context);
@@ -74,10 +87,6 @@ public class CompassActivity extends AppCompatActivity {
         }
 //        latLong = findViewById(R.id.userUIDTextView);
 //        latLong.setText("Some new text in the box");
-        public_uid = findViewById(R.id.public_uid);
-        if(Utilities.personalUser != null){
-            public_uid.setText("Personal UID: " + Utilities.personalUser.public_code);
-        }
 
         locationService = LocationService.singleton(this);
 
@@ -87,6 +96,11 @@ public class CompassActivity extends AppCompatActivity {
 //        }
 
         this.reobserveLocation();
+
+        var timeService = TimeService.singleton();
+        var timeData = timeService.getTimeData();
+        timeData.observe(this, this::onTimeChanged);
+
         circleViews.add(findViewById(R.id.circleOne));
         circleViews.add(findViewById(R.id.circleTwo));
         circleViews.add(findViewById(R.id.circleThree));
@@ -164,6 +178,33 @@ public class CompassActivity extends AppCompatActivity {
         return tableTextView;
     }
 
+    private void onTimeChanged(Long time) {
+        if(this.lastLocationUpdateTime == null){
+            if(gpsInactive.getVisibility() == View.INVISIBLE){
+                gpsActive.setVisibility(View.INVISIBLE);
+                gpsInactive.setVisibility(View.VISIBLE);
+                gpsStatus.setVisibility(View.VISIBLE);
+                gpsStatus.setText("No GPS Signal Since Startup");
+            }
+        } else if (time > (this.lastLocationUpdateTime + 60000)) {
+            if(gpsInactive.getVisibility() == View.INVISIBLE){
+                gpsActive.setVisibility(View.INVISIBLE);
+                gpsInactive.setVisibility(View.VISIBLE);
+                gpsStatus.setVisibility(View.VISIBLE);
+                gpsStatus.setText("GPS Inactive for: " + Utilities.formatTime(time - lastLocationUpdateTime) + " Minutes");
+            }
+            else{
+                gpsStatus.setText("GPS Inactive for: " + Utilities.formatTime(time - lastLocationUpdateTime) + " Minutes");
+            }
+        } else {
+            if(gpsActive.getVisibility() == View.INVISIBLE){
+                gpsActive.setVisibility(View.VISIBLE);
+                gpsInactive.setVisibility(View.INVISIBLE);
+                gpsStatus.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
     public void reobserveLocation() {
         var locationData = locationService.getLocation();
         locationData.observe(this, this::onLocationChanged);
@@ -173,6 +214,7 @@ public class CompassActivity extends AppCompatActivity {
         double newLat = latLong.first;
         double newLong = latLong.second;
         String updatedTime = Instant.now().toString();
+        this.lastLocationUpdateTime = System.currentTimeMillis();
 
         Utilities.personalUser.latitude = (float) newLat;
         Utilities.personalUser.longitude = (float) newLong;

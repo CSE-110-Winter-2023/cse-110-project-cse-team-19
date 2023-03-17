@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.example.cse110project.model.User;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class Utilities {
@@ -227,5 +228,10 @@ public class Utilities {
             circleViews.get(2).setVisibility(View.VISIBLE);
             circleViews.get(3).setVisibility(View.VISIBLE);
         }
+    }
+
+    public static String formatTime(Long time) {
+        Long minutes = (time / 1000) / 60;
+        return String.valueOf(minutes);
     }
 }
