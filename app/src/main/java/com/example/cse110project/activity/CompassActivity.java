@@ -57,7 +57,6 @@ public class CompassActivity extends AppCompatActivity {
     UserDatabase db;
     UserDao dao;
     UserRepository repo;
-
     Long lastLocationUpdateTime;
 
     @Override
