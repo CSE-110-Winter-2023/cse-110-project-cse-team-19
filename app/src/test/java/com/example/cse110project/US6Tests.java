@@ -2,6 +2,8 @@ package com.example.cse110project;
 
 import static org.junit.Assert.assertEquals;
 
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -145,6 +147,36 @@ public class US6Tests {
                     }
                     assertEquals(layoutParams.circleRadius, correctDisplay, 0);
                 }
+            });
+        }
+    }
+
+    @Test
+    public void BDDTest(){
+        try (ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
+            scenario.onActivity(activity -> {
+                Button zoomInBtn = activity.findViewById(R.id.zoomInBtn);
+                Button zoomOutBtn = activity.findViewById(R.id.zoomOutBtn);
+                ImageView circleFour = activity.findViewById(R.id.circleFour);
+                ImageView circleThree = activity.findViewById(R.id.circleThree);
+                zoomInBtn.performClick();
+                assertEquals(0, circleFour.getVisibility());
+                assertEquals(4, circleThree.getVisibility());
+                zoomInBtn.performClick();
+                assertEquals(false, zoomInBtn.isEnabled());
+                zoomOutBtn.performClick();
+                assertEquals(0, circleFour.getVisibility());
+                assertEquals(0, circleThree.getVisibility());
+                assertEquals(true, zoomInBtn.isEnabled());
+
+                for(int i = 0 ;i < 3; i++){
+                    zoomOutBtn.performClick();
+                }
+
+                ImageView circleOne = activity.findViewById(R.id.circleOne);
+                assertEquals(0, circleOne.getVisibility());
+                assertEquals(false, zoomOutBtn.isEnabled());
+
             });
         }
     }

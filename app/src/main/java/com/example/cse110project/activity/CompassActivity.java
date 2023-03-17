@@ -3,6 +3,7 @@ package com.example.cse110project.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import android.content.Context;
 import android.content.Intent;
@@ -84,8 +85,7 @@ public class CompassActivity extends AppCompatActivity {
         else {
             api = new UserAPI();
         }
-//        latLong = findViewById(R.id.userUIDTextView);
-//        latLong.setText("Some new text in the box");
+
 
         locationService = LocationService.singleton(this);
 
@@ -228,22 +228,6 @@ public class CompassActivity extends AppCompatActivity {
 
 
         api.putUserAsync(Utilities.personalUser);
-//        this.latLong.setText("Latitude: " + newLat + ", longitude: "+ newLong);
-
-//        var context = getApplicationContext();
-//        var db = UserDatabase.provide(context);
-//        var dao = db.getDao();
-//
-//        dao.upsert(Utilities.personalUser);
-
-
-        // Loop through all of the friend UIDs we have and recompute the formula for getting their angles on the compass
-        /*Enumeration<String> e = tableTextView.keys();
-
-        while (e.hasMoreElements()) {
-            String key = e.nextElement();
-            TextView textView = tableTextView.get(key).textView;
-        }*/
 
         LiveData<List<User>> list = repo.getAllLocal();
         list.observe(this, listUsers ->{
@@ -319,5 +303,14 @@ public class CompassActivity extends AppCompatActivity {
         }
 
         return this.api;
+    }
+
+    public void mockLocation() {
+        MutableLiveData<Pair<Double, Double>> coords = new MutableLiveData<>();
+        locationService.setMockLocationSource(coords);
+    }
+
+    public LocationService getLocationService() {
+        return this.locationService;
     }
 }
