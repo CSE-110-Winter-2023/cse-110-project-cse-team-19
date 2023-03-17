@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.util.Pair;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LiveData;
@@ -50,14 +51,12 @@ import java.util.concurrent.TimeoutException;
 
 @RunWith(RobolectricTestRunner.class)
 public class end2endTests {
-    API api = new UserAPI();
     @Test
     public void US1end2end() {
         try(ActivityScenario<EnterNameActivity> scenario = ActivityScenario.launch(EnterNameActivity.class)){
             scenario.onActivity(activity -> {
                 var context = ApplicationProvider.getApplicationContext();
                 var db = UserDatabase.provide(context);
-                var dao = db.getDao();
 
                 EditText name = activity.findViewById(R.id.enterNameEditText);
                 name.setText("Tyler");
@@ -124,25 +123,75 @@ public class end2endTests {
 
                 assertEquals(true, dao.exists("some_user"));
 
-                activity.mockLocation();
-                LocationService location = activity.getLocationService();
-                LiveData<Pair<Double, Double>> loc = location.getLocation();
-                loc.observe(activity, coords -> {
-                    assertEquals(0.0, coords.first, .000);
-                    assertEquals(0.0, coords.second, .000);
-                });
+                User mockLocation = Utilities.personalUser;
+                assertEquals(0.0, mockLocation.latitude, .000);
+                assertEquals(0.0, mockLocation.longitude, .000);
 
                 Hashtable<String, ConstrainUserService> table = activity.getTextViews();
                 assertNotNull(table.get("some_user"));
 
                 ConstrainUserService northUser = table.get("some_user");
                 assertEquals("90.0, 0.0", northUser.toString());
+
+                double angle = Utilities.findAngle(mockLocation.latitude, mockLocation.longitude, north.latitude, north.longitude);
+                assertEquals(0, angle, .1);
+
             });
         }
     }
 
-//    @Test
-//    public void US4 end2end() {
-//
-//    }
+    @Test
+    public void US4end2end() {
+        Context context = ApplicationProvider.getApplicationContext();
+        var db = UserDatabase.provide(context);
+        var dao = db.getDao();
+        User close = new User ("some_user", "some_user", "North", 50, 49);
+        dao.upsert(close);
+        Utilities.personalUser = new User("me", "me", "Tyler", 50, (float) 49.2);
+        try(ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
+            scenario.onActivity(activity -> {
+
+                assertEquals(true, dao.exists("some_user"));
+
+                Hashtable<String, ConstrainUserService> table = activity.getTextViews();
+                assertNotNull(table.get("some_user"));
+
+                ConstrainUserService closeUser = table.get("some_user");
+                assertEquals("50.0, 49.0", closeUser.toString());
+
+                var distance = Utilities.findDistance(Utilities.personalUser.latitude, Utilities.personalUser.longitude, close.latitude, close.longitude);
+                assertEquals(9, distance, 1);
+            });
+        }
+    }
+
+    @Test
+    public void US6end2end(){
+        try (ActivityScenario<CompassActivity> scenario = ActivityScenario.launch(CompassActivity.class)){
+            scenario.onActivity(activity -> {
+                Button zoomInBtn = activity.findViewById(R.id.zoomInBtn);
+                Button zoomOutBtn = activity.findViewById(R.id.zoomOutBtn);
+                ImageView circleFour = activity.findViewById(R.id.circleFour);
+                ImageView circleThree = activity.findViewById(R.id.circleThree);
+                zoomInBtn.performClick();
+                assertEquals(0, circleFour.getVisibility());
+                assertEquals(4, circleThree.getVisibility());
+                zoomInBtn.performClick();
+                assertEquals(false, zoomInBtn.isEnabled());
+                zoomOutBtn.performClick();
+                assertEquals(0, circleFour.getVisibility());
+                assertEquals(0, circleThree.getVisibility());
+                assertEquals(true, zoomInBtn.isEnabled());
+
+                for(int i = 0 ;i < 3; i++){
+                    zoomOutBtn.performClick();
+                }
+
+                ImageView circleOne = activity.findViewById(R.id.circleOne);
+                assertEquals(0, circleOne.getVisibility());
+                assertEquals(false, zoomOutBtn.isEnabled());
+
+            });
+        }
+    }
 }

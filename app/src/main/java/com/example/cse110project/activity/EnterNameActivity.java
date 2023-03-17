@@ -19,12 +19,11 @@ import java.time.Instant;
 public class EnterNameActivity extends AppCompatActivity {
     public Context context;
     private SharedPreferences preferences;
-   // public Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_name);
-       // context = getApplicationContext();
         preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
     }
 
