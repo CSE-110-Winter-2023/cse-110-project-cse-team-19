@@ -78,8 +78,7 @@ public class CompassActivity extends AppCompatActivity {
         else {
             api = new UserAPI();
         }
-//        latLong = findViewById(R.id.userUIDTextView);
-//        latLong.setText("Some new text in the box");
+
         public_uid = findViewById(R.id.public_uid);
         if(Utilities.personalUser != null){
             public_uid.setText("Personal UID: " + Utilities.personalUser.public_code);

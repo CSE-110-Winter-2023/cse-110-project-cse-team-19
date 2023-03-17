@@ -115,21 +115,6 @@ public class EnterFriendActivity extends AppCompatActivity {
         return new ViewModelProvider(this).get(EnterFriendViewModel.class);
     }
 
-//    public void onAddPressed(View view) throws ExecutionException, InterruptedException, TimeoutException {
-//        EditText textBoxUid = findViewById(R.id.enterUIDEditText);
-//        String uid = textBoxUid.getText().toString();
-//        var user =
-//
-//
-//        var context = getApplicationContext();
-//        var db = UserDatabase.provide(context);
-//        var dao = db.getDao();
-//
-//
-//        dao.upsert(user);
-//
-//        textBoxUid.setText("");
-//    }
 
     public void onNextPressed(View view) {
         Intent intent = new Intent(this, CompassActivity.class);

@@ -61,7 +61,7 @@ public class EnterFriendViewModel extends AndroidViewModel {
             if (user == null || user.public_code == null) {
                 return null;
             }
-            // var user = new User(public_id, "same label", 0, 0);
+
             repo.upsertLocal(user, false);
         }
         return repo.getLocal(public_id);
