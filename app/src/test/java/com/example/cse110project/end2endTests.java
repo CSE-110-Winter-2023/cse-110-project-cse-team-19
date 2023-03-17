@@ -83,6 +83,9 @@ public class end2endTests {
                 var db = UserDatabase.provide(context);
                 var dao = db.getDao();
 
+                User user = new User("UCSD", "UCSD", "UCSD", 0, 0);
+                dao.upsert(user);
+
                 EnterFriendViewModel viewModel = new ViewModelProvider(activity).get(EnterFriendViewModel.class);
 
                 try {
@@ -107,7 +110,6 @@ public class end2endTests {
     }
 
     // Trying to test that a User upserted to the North will be displayed
-    // Might just want to do an esspresso test for this one
     @Test
     public void US3end2end() {
         Context context = ApplicationProvider.getApplicationContext();
@@ -138,4 +140,9 @@ public class end2endTests {
             });
         }
     }
+
+//    @Test
+//    public void US4 end2end() {
+//
+//    }
 }
