@@ -109,7 +109,7 @@ public class CompassActivity extends AppCompatActivity {
 //        personalUIDTextView = findViewById(R.id.userUIDTextView);
 //        SharedPreferences preferences = getSharedPreferences(Utilities.PREFERENCES_NAME, MODE_PRIVATE);
 //        String personalPublicUID = preferences.getString(Utilities.USER_PUBLIC_UID, "");
-
+//
 //        personalUIDTextView.setText(personalPublicUID);
 
         // These were used to check that UIDs that I entered on the EnterFriendsActivity were actually
@@ -131,7 +131,7 @@ public class CompassActivity extends AppCompatActivity {
                 if (user == null || user.public_code == null || user.updated_at == null) {
                     continue;
                 }
-                LiveData<User> updatedUser = repo.getRemote(user.public_code);
+                LiveData<User> updatedUser = repo.getRemote(user.public_code, prefs);
                 updatedUser.observe(this, updatedUsers -> {
                     if (updatedUsers == null || updatedUsers.updated_at == null){ /* do nothing */ }
                     else if (Instant.parse(user.updated_at).compareTo(Instant.parse(updatedUsers.updated_at)) < 0) {
